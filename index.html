@@ -1,0 +1,721 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0E5A66">
+<title>مراجعة مبادئ المحاسبة</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=Amiri:wght@700&display=swap">
+<style>
+/* Layout: ledger-style single column. Header with a double rule, a welcome note, two groups of section cards (test yourself / practise and read), then the active section. Totals use the accounting double rule. */
+:root{
+  --bg:#F1F4F3; --surface:#FFFFFF; --ink:#16262C; --muted:#52646B; --line:#D3DDDB;
+  --accent:#0E5A66; --accent-ink:#FFFFFF; --soft:#E4EEEE;
+  --debit:#2B4E9B; --credit:#9A4A1F;
+  --ok:#1B6E39; --ok-bg:#E2F2E7; --bad:#B02A2A; --bad-bg:#FBE6E4;
+  --f-display:'Amiri','Noto Naskh Arabic','Traditional Arabic','Times New Roman',serif;
+  --f-body:'IBM Plex Sans Arabic','Segoe UI',Tahoma,system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E191D; --surface:#15252B; --ink:#E4EEF0; --muted:#9DB0B6; --line:#28393F;
+    --accent:#5CC3D0; --accent-ink:#06262B; --soft:#1B3037;
+    --debit:#8FB1F5; --credit:#EBA67F;
+    --ok:#6FD08F; --ok-bg:#173A27; --bad:#F28B82; --bad-bg:#3E1D1D;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0E191D; --surface:#15252B; --ink:#E4EEF0; --muted:#9DB0B6; --line:#28393F;
+  --accent:#5CC3D0; --accent-ink:#06262B; --soft:#1B3037;
+  --debit:#8FB1F5; --credit:#EBA67F;
+  --ok:#6FD08F; --ok-bg:#173A27; --bad:#F28B82; --bad-bg:#3E1D1D;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{
+  background:var(--bg); color:var(--ink); direction:rtl;
+  font-family:var(--f-body); font-size:16px; line-height:1.7;
+  padding-block:24px 40px;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));
+  padding-right:max(16px, env(safe-area-inset-right, 0px));
+}
+.app{max-width:720px;margin-inline:auto}
+.num{font-variant-numeric:tabular-nums;unicode-bidi:isolate}
+button,select{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+section[role="tabpanel"]{scroll-margin-top:10px}
+
+/* ---------- الرأس ---------- */
+header{padding-bottom:16px;border-bottom:4px double var(--muted)}
+header .eyebrow{margin:0;display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--muted)}
+header .eyebrow svg{flex:none;color:var(--accent)}
+header h1{margin:4px 0 2px;font-family:var(--f-display);font-weight:700;font-size:clamp(30px,8vw,42px);line-height:1.35;text-wrap:balance}
+header .by{margin:0 0 8px;font-size:16px;color:var(--accent);font-weight:600}
+header p.lead{margin:0;color:var(--muted);font-size:15px;max-width:60ch}
+
+.invite{margin-top:16px;background:var(--soft);border-radius:14px;padding:14px 18px 16px}
+.invite p{margin:0 0 8px;font-size:15.5px;line-height:1.9}
+.invite p:last-child{margin-bottom:0}
+
+/* ---------- الأقسام ---------- */
+nav#tabs{margin:6px 0 16px;scroll-margin-top:8px}
+.grp{margin:14px 0 8px;display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600;color:var(--muted)}
+.grp::after{content:"";flex:1;height:1px;background:var(--line)}
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tab{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;min-height:58px;background:var(--surface);border:1.5px solid var(--line);border-radius:12px;padding:8px 4px;cursor:pointer;color:var(--ink);line-height:1.35}
+.tab:hover{border-color:var(--accent)}
+.tab .tt{font-weight:600;font-size:15px}
+.tab .ts{font-size:12px;color:var(--muted)}
+.tab[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.tab[aria-selected="true"] .ts{color:var(--accent-ink);opacity:.88}
+
+h2.vh{margin:0 0 4px;font-family:var(--f-display);font-weight:700;font-size:26px;line-height:1.4}
+.cap{margin:0 0 12px;font-size:14px;color:var(--muted)}
+
+/* ---------- الأسئلة ---------- */
+.prog{display:flex;justify-content:space-between;font-size:14px;color:var(--muted);margin-bottom:6px}
+.prog b{color:var(--ink)}
+.bar{height:6px;border-radius:3px;background:var(--line);overflow:hidden;margin-bottom:14px}
+.bar i{display:block;height:100%;background:var(--accent);border-radius:3px;transition:width .25s}
+
+.qcard,.tx,.res,.miss,.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px}
+.qcard,.tx{box-shadow:inset -4px 0 0 var(--accent)}
+.qtext{margin:0 0 14px;font-size:18px;font-weight:500;line-height:1.75;text-wrap:pretty}
+.opts{display:grid;gap:10px}
+.opts.two{grid-template-columns:1fr 1fr}
+.opt{display:flex;align-items:center;gap:12px;text-align:start;width:100%;min-height:52px;background:var(--surface);border:1.5px solid var(--line);border-radius:10px;padding:11px 14px;cursor:pointer;line-height:1.55}
+.opts.two .opt{justify-content:center;font-size:19px;font-weight:600;padding:16px 10px}
+.opt:hover:not(:disabled){background:var(--soft);border-color:var(--accent)}
+.opt .let{flex:none;width:28px;height:28px;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;font-size:14px;font-weight:600;color:var(--muted)}
+.opt .mk{margin-inline-start:auto;font-size:18px;font-weight:700;line-height:1}
+.opts.two .opt .mk{margin-inline-start:0}
+.opt:disabled{cursor:default}
+.opt.ok{background:var(--ok-bg);border-color:var(--ok);color:var(--ok)}
+.opt.bad{background:var(--bad-bg);border-color:var(--bad);color:var(--bad)}
+.opt.dim{opacity:.55}
+.opt.ok .let{border-color:var(--ok);color:var(--ok)}
+.opt.bad .let{border-color:var(--bad);color:var(--bad)}
+.kb{display:none;margin:10px 2px 0;font-size:13px;color:var(--muted)}
+.kb kbd{font:inherit;font-size:12px;background:var(--soft);border:1px solid var(--line);border-radius:5px;padding:0 6px}
+@media (hover:hover) and (pointer:fine){.kb{display:block}}
+
+.fb{margin-top:14px;padding:14px;border-radius:10px;background:var(--soft)}
+.verdict{margin:0 0 4px;font-weight:600}
+.verdict.ok{color:var(--ok)} .verdict.bad{color:var(--bad)}
+.why{margin:0 0 12px;font-size:15px;color:var(--ink)}
+.why:last-child{margin-bottom:0}
+
+.btn{display:inline-block;background:var(--accent);color:var(--accent-ink);border:1.5px solid var(--accent);border-radius:10px;padding:11px 20px;font-weight:600;cursor:pointer;text-decoration:none}
+.btn:hover{filter:brightness(1.08)}
+.btn.ghost{background:none;color:var(--accent)}
+.btn.sm{padding:8px 16px;font-size:15px}
+
+.res{text-align:center;padding:26px 18px}
+.res .lbl{margin:0;color:var(--muted);font-size:14px}
+.res .total{margin:4px auto 8px;display:inline-block;font-family:var(--f-display);font-weight:700;font-size:54px;line-height:1.3;padding:0 16px 2px;border-bottom:5px double var(--ink)}
+.res .total small{font-size:22px;font-weight:700;color:var(--muted);margin-inline:6px}
+.grade{display:inline-block;margin:0;font-size:14px;font-weight:600;border-radius:999px;padding:2px 14px}
+.grade.hi{background:var(--ok-bg);color:var(--ok)}
+.grade.mid{background:var(--soft);color:var(--accent)}
+.grade.lo{background:var(--bad-bg);color:var(--bad)}
+.res .msg{margin:10px 0 16px;color:var(--muted)}
+.actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.actions.sec{margin-top:10px}
+h3.sub{font-family:var(--f-display);font-weight:700;font-size:23px;margin:24px 0 10px}
+.miss{margin-bottom:10px}
+.miss .qtext{font-size:16px;margin-bottom:8px}
+.miss .ans{margin:0 0 4px;font-size:15px}
+.miss .ans b{color:var(--ok)}
+
+/* ---------- القيود ---------- */
+.tip{margin:0 0 18px;background:var(--soft);border-radius:10px;padding:10px 14px;font-size:14.5px}
+.tip b{color:var(--accent)}
+.jhead{margin:0 0 4px;font-family:var(--f-display);font-weight:700;font-size:24px;line-height:1.4}
+.jnote{margin:0 0 12px;color:var(--muted);font-size:14.5px}
+.tx{margin-bottom:12px}
+.ttext{margin:0 0 12px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.ttext .no{flex:none;width:26px;height:26px;border-radius:50%;background:var(--soft);display:inline-grid;place-items:center;font-size:14px;font-weight:600}
+.date{font-size:13px;color:var(--muted);background:var(--soft);border-radius:6px;padding:0 8px}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.pair label{display:block;min-width:0}
+.tag{display:block;font-size:13px;font-weight:600;margin-bottom:3px}
+.tag.d{color:var(--debit)} .tag.c{color:var(--credit)}
+select{width:100%;min-width:0;background:var(--surface);border:1.5px solid var(--line);border-radius:8px;padding:10px 8px;cursor:pointer}
+select:disabled{opacity:.7}
+.jfb{margin-top:12px}
+.jfb .verdict{margin-bottom:6px}
+.jfb .why{margin:8px 0 0}
+.jt{width:100%;border-collapse:collapse;font-size:15px}
+.jt th{font-size:13px;color:var(--muted);font-weight:500;text-align:start;padding:4px 8px;border-bottom:1px solid var(--line)}
+.jt td{padding:5px 8px;border-bottom:1px dashed var(--line)}
+.jt td.n{text-align:end;white-space:nowrap}
+.jt .cr{padding-inline-start:26px}
+.jt tfoot td{font-weight:600;border-bottom:0;border-top:1px solid var(--ink)}
+.jt tfoot tr:last-child td{border-bottom:5px double var(--ink)}
+.dr-c{color:var(--debit)} .cr-c{color:var(--credit)}
+.setres{margin-top:16px}
+.setres .score{font-family:var(--f-display);font-weight:700;font-size:26px;margin:0 0 8px}
+.tbwrap{overflow-x:auto}
+
+/* ---------- المقالي والملخص ---------- */
+.toolbar{display:flex;justify-content:flex-end;margin:0 0 10px}
+details.es{background:var(--surface);border:1px solid var(--line);border-radius:14px;margin-bottom:10px}
+details.es summary{cursor:pointer;padding:14px 18px;font-weight:600;list-style:none;display:flex;gap:10px;align-items:baseline}
+details.es summary::-webkit-details-marker{display:none}
+details.es summary::after{content:"+";margin-inline-start:auto;color:var(--accent);font-size:22px;line-height:1;font-weight:500}
+details.es[open] summary::after{content:"−"}
+details.es .body{padding:2px 18px 16px;font-size:15.5px}
+details.es .body p{margin:0 0 6px}
+details.es .body ul,details.es .body ol{margin:4px 0 8px;padding-inline-start:22px}
+details.es .body li{margin-bottom:4px}
+details.es .body p.src{margin:10px 0 0;font-size:12.5px;color:var(--muted)}
+.eqn{background:var(--soft);padding:2px 8px;border-radius:6px;font-weight:600}
+.note{font-size:13.5px;color:var(--muted);margin:12px 2px 0}
+
+.card{margin-bottom:14px}
+.card h3{margin:0 0 10px;font-family:var(--f-display);font-weight:700;font-size:23px;line-height:1.4}
+.card ol.how,.card ul.how{margin:0;padding-inline-start:22px;font-size:15.5px}
+.card .how li{margin-bottom:6px}
+.tw{overflow-x:auto}
+table.cmp{width:100%;border-collapse:collapse;font-size:14.5px}
+table.cmp th,table.cmp td{padding:8px 10px;text-align:start;vertical-align:top;border-bottom:1px solid var(--line)}
+table.cmp th{font-size:13.5px;color:var(--muted);font-weight:600}
+table.cmp td:first-child{font-weight:600;width:27%}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.rule h4{margin:0 0 6px;font-size:15px}
+.rule.d h4{color:var(--debit)} .rule.c h4{color:var(--credit)}
+.rule ul{margin:0;padding-inline-start:20px;font-size:15px}
+.act{background:var(--soft);border-radius:10px;padding:10px 12px;font-size:14.5px}
+.act b{display:block;margin-bottom:2px}
+.cycle{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px;counter-reset:c}
+.cycle li{counter-increment:c;background:var(--soft);border-radius:999px;padding:4px 12px 4px 14px;font-size:14.5px}
+.cycle li::before{content:counter(c);display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--accent);color:var(--accent-ink);font-size:12px;font-weight:600;margin-inline-end:8px}
+
+.sectnav{display:flex;justify-content:space-between;gap:10px;margin-top:18px}
+
+footer{margin-top:26px;font-size:13.5px;line-height:1.8;color:var(--muted);border-top:4px double var(--muted);padding-top:12px}
+footer p{margin:0 0 6px}
+footer .fh{font-family:var(--f-display);font-weight:700;font-size:20px;line-height:1.4;color:var(--ink);margin-bottom:2px}
+footer ul{margin:6px 0 8px;padding-inline-start:20px}
+footer li{margin-bottom:5px}
+footer b{color:var(--ink);font-weight:600}
+
+@media (min-width:640px){
+  .tab{min-height:62px}
+}
+@media (max-width:520px){
+  .pair{grid-template-columns:1fr}
+  .two-col,.three-col{grid-template-columns:1fr}
+  .qtext{font-size:17px}
+}
+@media (prefers-reduced-motion: reduce){.bar i{transition:none}}
+</style>
+
+</head>
+<body>
+<div class="app" lang="ar" dir="rtl">
+<header>
+  <p class="eyebrow">
+    <svg viewBox="0 0 40 28" width="34" height="24" aria-hidden="true"><path d="M2 4h36M20 4v22" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg>
+    <span>مبادئ المحاسبة والتقرير المالي · الفصل الأول 1448هـ</span>
+  </p>
+  <h1>مراجعة قبل الاختبار الفصلي</h1>
+  <p class="by">إعداد: رِهام فهد الداود</p>
+  <p class="lead">أسئلة على نمط أسئلة الدكتور، يتبع كل سؤال شرح مختصر، مع تدريبات إضافية وملخص سريع.</p>
+  <aside class="invite">
+    <p>الله يوفقكم جميعًا ويسهّل عليكم المذاكرة والاختبار&nbsp;🤍</p>
+    <p>جهّزتُ هذه الصفحة لتخفف عليكم المراجعة، وأرجو أن تنفعكم. وإن أفادتكم فشاركوها مع من يحتاجها.</p>
+  </aside>
+</header>
+
+<nav id="tabs" aria-label="أقسام المراجعة">
+  <p class="grp">اختبر نفسك</p>
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" id="tab-tf" data-t="tf" type="button"><span class="tt">صح وخطأ</span><span class="ts" id="ts-tf"></span></button>
+    <button class="tab" role="tab" id="tab-mcq" data-t="mcq" type="button"><span class="tt">اختيار</span><span class="ts" id="ts-mcq"></span></button>
+    <button class="tab" role="tab" id="tab-xt" data-t="xt" type="button"><span class="tt">إضافي</span><span class="ts" id="ts-xt"></span></button>
+  </div>
+  <p class="grp">تدرّب واقرأ</p>
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" id="tab-journal" data-t="journal" type="button"><span class="tt">القيود</span><span class="ts" id="ts-journal"></span></button>
+    <button class="tab" role="tab" id="tab-essay" data-t="essay" type="button"><span class="tt">المقالي</span><span class="ts" id="ts-essay"></span></button>
+    <button class="tab" role="tab" id="tab-summary" data-t="summary" type="button"><span class="tt">ملخص</span><span class="ts" id="ts-summary"></span></button>
+  </div>
+</nav>
+
+<main>
+  <section id="view-tf" role="tabpanel" aria-labelledby="tab-tf" hidden></section>
+  <section id="view-mcq" role="tabpanel" aria-labelledby="tab-mcq" hidden></section>
+  <section id="view-xt" role="tabpanel" aria-labelledby="tab-xt" hidden></section>
+  <section id="view-journal" role="tabpanel" aria-labelledby="tab-journal" hidden></section>
+  <section id="view-essay" role="tabpanel" aria-labelledby="tab-essay" hidden></section>
+  <section id="view-summary" role="tabpanel" aria-labelledby="tab-summary" hidden></section>
+</main>
+
+<footer>
+  <p class="fh">المصدر</p>
+  <p>محاضرات د. خالد عبد الصبور محمد (م1 إلى م4) وملف «أسئلة مراجعة قبل الاختبار الفصلي».</p>
+  <ul>
+    <li><b>من ملف الدكتور كما هو:</b> أسئلة «صح وخطأ» و«اختيار» مع إجاباتها، وتمرين منشأة خالد وحلّه، والتمرين الأخير، وجدولا المقارنة.</li>
+    <li><b>ملخّص من المحاضرات:</b> أجوبة المقالي وبطاقات الملخص.</li>
+    <li><b>من إعداد الصفحة:</b> الشرح بعد كل إجابة، وأسئلة تبويب «إضافي»، وحلّ التمرين الأخير، ونصائح الحل في الملخص.</li>
+  </ul>
+  <p>الصفحة للمذاكرة فقط، وعند أي اختلاف اعتمدوا ملزمة الدكتور.</p>
+</footer>
+</div>
+
+<script>
+(function(){
+  var $ = function(s, r){ return (r || document).querySelector(s); };
+  var esc = function(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
+  var fmt = function(n){ return Number(n).toLocaleString('en-US'); };
+  var LET = ['أ','ب','ج','د'];
+  var reduce = false;
+  try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e) {}
+
+  var LABEL = { tf:'صح وخطأ', mcq:'اختيار', xt:'إضافي', journal:'القيود', essay:'المقالي', summary:'ملخص' };
+  var TABS = ['tf','mcq','xt','journal','essay','summary'];
+  var NEXT = { tf:'mcq', mcq:'xt', xt:'journal' };
+
+  /* ---------- صح وخطأ (نموذج الإجابة: ملف الدكتور) ---------- */
+  var TF = [
+    ['تهدف المحاسبة إلى تسجيل العمليات المالية وتوفير معلومات تساعد المستخدمين في اتخاذ القرارات.', true, 'المحاسبة تسجّل العمليات ثم توصل معلوماتها للمستخدمين ليتخذوا قراراتهم.'],
+    ['تقتصر أهمية المعلومات المحاسبية على إدارة المنشأة فقط.', false, 'يستفيد منها أيضًا مستخدمون خارجيون مثل المستثمرين والبنوك والموردين. انتبه لكلمة «فقط».'],
+    ['تساعد قائمة الدخل في تحديد نتيجة نشاط المنشأة من ربح أو خسارة خلال فترة معينة.', true, 'قائمة الدخل: الإيرادات − المصروفات عن فترة محددة.'],
+    ['تعرض قائمة المركز المالي الأصول والالتزامات وحقوق الملكية في تاريخ محدد.', true, 'هي صورة المنشأة في لحظة معينة، والأصول فيها = الالتزامات + حقوق الملكية.'],
+    ['وفق أساس الاستحقاق، لا يتم الاعتراف بالإيراد إلا عند تحصيل النقدية.', false, 'هذا وصف الأساس النقدي. في أساس الاستحقاق يُعترف بالإيراد عند تحققه ولو لم تُحصَّل النقدية.'],
+    ['يقتضي مفهوم الوحدة المحاسبية الفصل بين العمليات الشخصية للمالك وعمليات المنشأة.', true, 'المنشأة كيان مستقل عن مالكها، فلا تختلط عملياته الشخصية بعملياتها.'],
+    ['تعد القابلية للمقارنة إحدى الخصائص النوعية للمعلومات المحاسبية.', true, 'القابلية للمقارنة من الخصائص النوعية (المعززة)، ومعها التحقق والتوقيت والفهم. أما الملاءمة والتمثيل الصادق فهما الخاصيتان الأساسيتان.'],
+    ['يؤدي الحصول على قرض نقدي إلى زيادة الأصول وحقوق الملكية بالمبلغ نفسه.', false, 'القرض يزيد الأصول (النقدية) والالتزامات (القرض)، ولا يزيد حقوق الملكية.'],
+    ['زيادة الأصول تسجل عادة في الجانب المدين.', true, 'الأصول والمصروفات والمسحوبات تزيد في المدين.'],
+    ['زيادة الإيرادات تسجل عادة في الجانب المدين.', false, 'الإيرادات تزيد في الجانب الدائن.'],
+    ['شراء المعدات نقدًا يؤدي إلى زيادة الأصول وانخفاض أصل آخر هو النقدية.', true, 'المعدات (أصل) تزيد والنقدية (أصل) تنقص، فيبقى مجموع الأصول كما هو.'],
+    ['يعد سحب المالك أموالًا لأغراض شخصية من المصروفات التشغيلية للمنشأة.', false, 'السحب الشخصي مسحوبات تخفض حقوق الملكية، وليس مصروفًا تشغيليًا.'],
+    ['يجب أن يتساوى إجمالي المبالغ المدينة مع إجمالي المبالغ الدائنة في القيد المحاسبي.', true, 'هذا هو القيد المزدوج: كل قيد مدين = دائن.'],
+    ['يعد تحصيل مبلغ من عميل سبق تسجيل الإيراد المستحق عليه إيرادًا جديدًا.', false, 'الإيراد سُجل عند تقديم الخدمة. التحصيل يحوّل المبلغ من العملاء إلى النقدية فقط.'],
+    ['يساعد ميزان المراجعة على التحقق من تساوي إجمالي الأرصدة المدينة والدائنة.', true, 'هذه وظيفته، لكنه لا يكشف كل الأخطاء.']
+  ].map(function(r){ return { q:r[0], o:['صح','خطأ'], a:r[1] ? 0 : 1, e:r[2] }; });
+
+  /* ---------- اختيار من متعدد (نموذج الإجابة: ملف الدكتور) ---------- */
+  var MCQ = [
+    ['أي مما يلي يعد من أهداف المحاسبة؟', ['تسجيل العمليات المالية فقط دون إعداد تقارير','توفير معلومات تساعد في اتخاذ القرارات','زيادة مصروفات المنشأة','إلغاء الحاجة إلى الرقابة'], 1, 'المحاسبة تسجّل العمليات ثم توصل معلوماتها في تقارير ليتخذ المستخدمون قراراتهم. بقية الخيارات عكس هدفها.'],
+    ['أي القوائم المالية التالية توضح نتيجة نشاط المنشأة من ربح أو خسارة؟', ['قائمة المركز المالي','قائمة التدفقات النقدية','قائمة الدخل','قائمة التغيرات في حقوق الملكية'], 2, 'قائمة الدخل (الإيرادات − المصروفات) تبيّن الربح أو الخسارة عن فترة. المركز المالي يعرض الأصول والالتزامات في تاريخ محدد.'],
+    ['أي مما يلي يعد من المستخدمين الخارجيين للمعلومات المحاسبية؟', ['مدير المنشأة','رئيس قسم المحاسبة','موظفو الإدارة الداخلية','البنوك والمقرضون'], 3, 'المستخدم الخارجي خارج المنشأة: المستثمرون والبنوك والمقرضون والموردون. أما المدير ورئيس المحاسبة وموظفو الإدارة فداخليون.'],
+    ['إذا بلغت الإيرادات 75,000 ريال والمصروفات 48,000 ريال، فإن صافي الربح يساوي:', ['123,000 ريال','27,000 ريال','48,000 ريال','75,000 ريال'], 1, 'صافي الربح = الإيرادات − المصروفات = 75,000 − 48,000 = 27,000 ريال.'],
+    ['إذا بلغت الأصول 160,000 ريال والالتزامات 60,000 ريال، فإن حقوق الملكية تساوي:', ['220,000 ريال','160,000 ريال','100,000 ريال','60,000 ريال'], 2, 'الأصول = الالتزامات + حقوق الملكية، إذن حقوق الملكية = 160,000 − 60,000 = 100,000 ريال.'],
+    ['أي مما يلي يعد من الأنشطة الاستثمارية في قائمة التدفقات النقدية؟', ['دفع رواتب العاملين','شراء معدات','تحصيل إيرادات الخدمات','دفع مصروف الكهرباء'], 1, 'الأنشطة الاستثمارية تخص شراء الأصول طويلة الأجل وبيعها، مثل المعدات. الرواتب والكهرباء وتحصيل الخدمات أنشطة تشغيلية.'],
+    ['أي مبدأ محاسبي يقتضي فصل العمليات الشخصية للمالك عن عمليات المنشأة؟', ['فرض الاستمرارية','مبدأ الإفصاح','مفهوم الوحدة المحاسبية','فرض الفترة المحاسبية'], 2, 'الوحدة المحاسبية تعامل المنشأة ككيان مستقل عن مالكها.'],
+    ['وفق أساس الاستحقاق، إذا قدمت المنشأة خدمة في ديسمبر وحصلت قيمتها في يناير، فإن الإيراد يعترف به في:', ['يناير فقط','ديسمبر، إذا تحققت شروط الاعتراف بالإيراد','السنة التالية دائمًا','تاريخ إعداد ميزان المراجعة'], 1, 'أساس الاستحقاق يعترف بالإيراد عند تحققه (أداء الخدمة) بغض النظر عن وقت التحصيل، فيُسجَّل في ديسمبر.'],
+    ['أي من الحسابات التالية تزداد قيمته عادة في الجانب الدائن؟', ['النقدية','مصروف الإيجار','المسحوبات','إيرادات الخدمات'], 3, 'الإيرادات والالتزامات وحقوق الملكية تزيد في الدائن. أما النقدية (أصل) ومصروف الإيجار والمسحوبات فتزيد في المدين.'],
+    ['عند شراء معدات نقدًا، يكون القيد المحاسبي الصحيح هو:', ['من حـ/النقدية، إلى حـ/المعدات','من حـ/المعدات، إلى حـ/النقدية','من حـ/مصروف الإيجار، إلى حـ/النقدية','من حـ/الموردين، إلى حـ/الإيرادات'], 1, 'المعدات أصل زاد فتكون مدينة، والنقدية أصل نقص فتكون دائنة.'],
+    ['عند تحصيل مبلغ من عميل سبق تسجيل الإيراد المستحق عليه، فإن القيد الصحيح هو:', ['من حـ/النقدية، إلى حـ/العملاء','من حـ/العملاء، إلى حـ/إيرادات الخدمات','من حـ/المصروفات، إلى حـ/النقدية','من حـ/النقدية، إلى حـ/رأس المال'], 0, 'الإيراد سُجل سابقًا عند تقديم الخدمة. التحصيل يزيد النقدية (مدين) وينقص العملاء (دائن) دون إيراد جديد.'],
+    ['أي مما يلي يعد من المستندات المحاسبية التي تثبت استلام مبلغ نقدي؟', ['أمر الشراء','سند القبض','العقد فقط','قائمة الدخل'], 1, 'سند القبض يثبت استلام النقدية. أمر الشراء لطلب البضاعة، وقائمة الدخل قائمة مالية وليست مستندًا.'],
+    ['أي الحسابات التالية يمثل التزامًا على المنشأة؟', ['المعدات','النقدية','الموردون','إيرادات الخدمات'], 2, 'الموردون التزام: مبلغ مستحق على المنشأة لغيرها. المعدات والنقدية أصول، والإيرادات حساب دخل.'],
+    ['إذا سحب المالك مبلغًا من أموال المنشأة لاستخدامه الشخصي، فإن الحساب الذي يسجل مدينًا هو:', ['إيرادات الخدمات','رأس المال','المسحوبات','الموردون'], 2, 'السحب الشخصي يخفض حقوق الملكية ويُسجَّل في حساب المسحوبات (مدين) مقابل نقص النقدية (دائن).'],
+    ['أي العبارات التالية تصف ميزان المراجعة وصفًا صحيحًا؟', ['يضمن عدم وجود أي خطأ محاسبي','يعرض الإيرادات والمصروفات فقط','يوضح أرصدة الحسابات ويساعد على التحقق من تساوي الطرفين','يحل محل جميع القوائم المالية'], 2, 'ميزان المراجعة يتحقق من تساوي مجموع الأرصدة المدينة والدائنة، لكنه لا يكشف كل الأخطاء ولا يغني عن القوائم المالية.']
+  ].map(function(r){ return { q:r[0], o:r[1], a:r[2], e:r[3] }; });
+
+  /* ---------- تدريب إضافي (من إعداد الصفحة) ----------
+     كل سؤال: [النص، الإجابة الصحيحة، البدائل الخاطئة، موضع الصحيحة (0-3)، الشرح]
+     مواضع الإجابة موزعة بالتساوي حتى لا يظهر نمط. */
+  var XT = [
+    ['المعادلة المحاسبية الأساسية هي:', 'الأصول = الالتزامات + حقوق الملكية', ['الأصول = الالتزامات − حقوق الملكية','الأصول + الالتزامات = حقوق الملكية','الأصول = الإيرادات − المصروفات'], 1, 'ما تملكه المنشأة (الأصول) يُموَّل إما من الغير (الالتزامات) أو من الملاك (حقوق الملكية).'],
+    ['اشترت منشأة أثاثًا بمبلغ 10,000 ريال بالأجل (على الحساب). أثر العملية هو:', 'زيادة الأصول والالتزامات بمبلغ 10,000 ريال', ['زيادة أصل ونقص أصل آخر بالمبلغ نفسه','زيادة الأصول وحقوق الملكية بمبلغ 10,000 ريال','لا يوجد أثر على الأصول'], 3, 'الأثاث (أصل) زاد، والمبلغ المستحق للمورد (التزام) زاد بالقدر نفسه، فبقيت المعادلة متوازنة.'],
+    ['حصلت المنشأة على قرض من البنك بمبلغ 50,000 ريال نقدًا. أثر العملية هو زيادة:', 'الأصول والالتزامات', ['الأصول وحقوق الملكية','الالتزامات وحقوق الملكية فقط','الإيرادات والأصول'], 0, 'النقدية (أصل) زادت، والقرض (التزام) زاد. القرض لا يزيد حقوق الملكية ولا يُعد إيرادًا.'],
+    ['أي مما يلي يعد من الأنشطة التمويلية في قائمة التدفقات النقدية؟', 'الحصول على قرض من بنك', ['شراء معدات','دفع رواتب العاملين','تحصيل مبالغ من العملاء'], 2, 'الأنشطة التمويلية تخص مصادر التمويل مثل القروض ورأس المال. شراء المعدات استثماري، والرواتب والتحصيل من العملاء تشغيلية.'],
+    ['يفترض فرض الاستمرارية أن:', 'المنشأة ستواصل نشاطها في المستقبل المنظور', ['المنشأة ستُصفّى في نهاية السنة','المنشأة والمالك كيان واحد','الأصول تُقاس دائمًا بسعر التصفية'], 3, 'الاستمرارية: افتراض أن المنشأة لن تُصفّى قريبًا. أما الفصل بين المنشأة والمالك فهو مفهوم الوحدة المحاسبية.'],
+    ['تقسيم عمر المنشأة إلى فترات زمنية متساوية لقياس الأداء وإعداد القوائم يعبّر عن:', 'فرض الفترة المحاسبية', ['مفهوم الوحدة المحاسبية','مبدأ الإفصاح','الأساس النقدي'], 1, 'فرض الفترة المحاسبية يقسم الحياة المستمرة للمنشأة إلى فترات (غالبًا سنة) لقياس الربح وإعداد القوائم.'],
+    ['استلمت المنشأة 6,000 ريال دفعة مقدمة من عميل عن خدمة ستؤديها الشهر القادم. وفق أساس الاستحقاق، هذا المبلغ:', 'لا يُعترف به إيرادًا قبل أداء الخدمة', ['إيراد هذا الشهر','مصروف هذا الشهر','زيادة في رأس المال'], 2, 'يُعترف بالإيراد عند تحققه، أي عند أداء الخدمة، وليس عند استلام النقدية. يُسجَّل المبلغ التزامًا (إيرادًا مقدمًا) إلى أن تُؤدّى الخدمة.'],
+    ['إذا لم يتساوَ مجموع الأرصدة المدينة مع مجموع الأرصدة الدائنة في ميزان المراجعة، فهذا يدل على:', 'وجود خطأ في التسجيل أو الترحيل أو الحساب', ['أن المنشأة حققت أرباحًا','عدم وجود التزامات على المنشأة','أن القوائم المالية جاهزة للنشر'], 0, 'عدم التساوي مؤشر على خطأ يجب البحث عنه قبل إعداد القوائم المالية.'],
+    ['أي مما يلي لا يعد من القوائم المالية الأساسية؟', 'ميزان المراجعة', ['قائمة الدخل','قائمة المركز المالي','قائمة التدفقات النقدية'], 3, 'ميزان المراجعة أداة للتحقق من توازن الحسابات قبل إعداد القوائم، وليس قائمة منشورة للمستخدمين.'],
+    ['أي مما يلي يعد من الخصائص النوعية للمعلومات المحاسبية؟', 'القابلية للفهم', ['حجم المنشأة','عدد فروع المنشأة','مكان المنشأة'], 1, 'من الخصائص النوعية: الملاءمة والتمثيل الصادق (الأساسيتان)، والقابلية للمقارنة والتحقق والتوقيت المناسب والقابلية للفهم (المعززة). أما الحجم والفروع والمكان فليست من خصائص المعلومات.'],
+    ['قدمت المنشأة خدمات بمبلغ 9,000 ريال وحصلت المبلغ نقدًا. القيد الصحيح هو:', 'من حـ/النقدية، إلى حـ/إيرادات الخدمات', ['من حـ/إيرادات الخدمات، إلى حـ/النقدية','من حـ/العملاء، إلى حـ/إيرادات الخدمات','من حـ/النقدية، إلى حـ/رأس المال'], 0, 'النقدية (أصل) زادت فتكون مدينة، والإيراد زاد فيكون دائنًا. الخيار الذي يبدأ بالعملاء يصلح لو كانت الخدمة على الحساب.'],
+    ['إذا زادت الأصول بمقدار 30,000 ريال وزادت الالتزامات بمقدار 12,000 ريال، فإن حقوق الملكية:', 'تزيد 18,000 ريال', ['تنقص 18,000 ريال','تزيد 42,000 ريال','لا تتغير'], 2, 'الأصول = الالتزامات + حقوق الملكية، فالتغير في حقوق الملكية = 30,000 − 12,000 = 18,000 زيادة.'],
+    ['وفق أساس الاستحقاق، يُعترف بالمصروف:', 'عند تحمله', ['عند دفع النقدية','في نهاية السنة المالية دائمًا','عند إعداد ميزان المراجعة'], 1, 'في أساس الاستحقاق يُعترف بالمصروف عند تحمله ولو لم تُدفع النقدية. أما الاعتراف عند دفع النقدية فهو الأساس النقدي.'],
+    ['أي العبارات الآتية تصف المستخدم الخارجي للمعلومات المحاسبية وصفًا صحيحًا؟', 'يعتمد بدرجة كبيرة على التقارير المالية المنشورة', ['يكون موقعه داخل المنشأة','يحتاج غالبًا إلى معلومات أكثر تفصيلًا من المستخدم الداخلي','هدفه الأساسي التخطيط والرقابة التشغيلية'], 3, 'المستخدم الخارجي (المستثمرون والبنوك والموردون) خارج المنشأة، وهدفه الاستثمار والتمويل والتقييم، وتفصيل معلوماته غالبًا أقل من الداخلي.'],
+    ['بدأت منشأة الفترة بحقوق ملكية 100,000 ريال، وحققت صافي ربح 30,000 ريال، وسحب المالك 10,000 ريال. حقوق الملكية في نهاية الفترة:', '120,000 ريال', ['130,000 ريال','140,000 ريال','90,000 ريال'], 2, 'الربح يزيد حقوق الملكية والمسحوبات تنقصها: 100,000 + 30,000 − 10,000 = 120,000 ريال.']
+  ].map(function(r){
+    var o = r[2].slice(); o.splice(r[3], 0, r[1]);
+    return { q:r[0], o:o, a:r[3], e:r[4] };
+  });
+
+  var QZ = {
+    tf:  { items:TF,  cap:'عبارات الدكتور كما وردت في الملف، والصحيح حسب نموذج إجابته.' },
+    mcq: { items:MCQ, cap:'أسئلة الدكتور كما وردت في الملف، والصحيح حسب نموذج إجابته.' },
+    xt:  { items:XT,  cap:'أسئلة إضافية على نمط أسئلة الدكتور، من إعداد الصفحة وليست من الملف.' }
+  };
+  var S = {};
+  var current = 'tf';
+
+  /* ---------- أفضل نتيجة (راحة للمستخدم فقط) ---------- */
+  var memBest = {};
+  function loadBest(){
+    var o = {};
+    try { o = JSON.parse(localStorage.getItem('acc-best') || '{}') || {}; } catch(e) {}
+    Object.keys(memBest).forEach(function(k){ if(!(k in o) || memBest[k] > o[k]) o[k] = memBest[k]; });
+    return o;
+  }
+  function saveBest(k, v){
+    if(!(k in memBest) || v > memBest[k]) memBest[k] = v;
+    var o = loadBest();
+    try { localStorage.setItem('acc-best', JSON.stringify(o)); } catch(e) {}
+    paintSubs();
+  }
+  function paintSubs(){
+    var b = loadBest();
+    Object.keys(QZ).forEach(function(k){
+      var n = QZ[k].items.length, el = $('#ts-' + k);
+      el.innerHTML = (k in b) ? ('أفضل نتيجة <span class="num">' + b[k] + '/' + n + '</span>') : ('<span class="num">' + n + '</span> سؤالًا');
+    });
+    var jt = JSETS.reduce(function(s, x){ return s + x.tx.length; }, 0);
+    $('#ts-journal').innerHTML = '<span class="num">' + jt + '</span> قيدًا';
+    $('#ts-essay').innerHTML = '<span class="num">' + ESSAY.length + '</span> أسئلة';
+    $('#ts-summary').textContent = 'مراجعة سريعة';
+  }
+
+  function shuffled(n){
+    var a = [], i, j, t;
+    for(i = 0; i < n; i++) a.push(i);
+    for(i = n - 1; i > 0; i--){ j = Math.floor(Math.random() * (i + 1)); t = a[i]; a[i] = a[j]; a[j] = t; }
+    return a;
+  }
+  function topIfHidden(el){
+    if(el && el.getBoundingClientRect().top < 0 && el.scrollIntoView) el.scrollIntoView({ block:'start' });
+  }
+
+  /* ---------- محرك الاختبار ---------- */
+  function startQuiz(key, indices, mode){
+    var items = QZ[key].items;
+    var order = indices || items.map(function(_, i){ return i; });
+    S[key] = { order:order, i:0, picked:null, right:0, wrong:[], full:(mode === 'shuffle') || !indices };
+    renderQuiz(key);
+  }
+  function renderQuiz(key){
+    var st = S[key], box = $('#view-' + key);
+    if(st.i >= st.order.length){ renderResult(key); return; }
+    var it = QZ[key].items[st.order[st.i]];
+    var pct = Math.round(st.i / st.order.length * 100);
+    var h = '<h2 class="vh">' + esc(LABEL[key]) + '</h2><p class="cap">' + esc(QZ[key].cap) + '</p>'
+          + '<div class="prog"><span>السؤال <b class="num">' + (st.i + 1) + '</b> من <b class="num">' + st.order.length + '</b></span><span>الصحيح حتى الآن: <b class="num">' + st.right + '</b></span></div>'
+          + '<div class="bar"><i style="width:' + pct + '%"></i></div>'
+          + '<div class="qcard"><p class="qtext">' + esc(it.q) + '</p><div class="opts' + (it.o.length === 2 ? ' two' : '') + '">'
+          + it.o.map(function(t, j){
+              return '<button type="button" class="opt" data-j="' + j + '">' + (it.o.length > 2 ? '<span class="let">' + LET[j] + '</span>' : '') + '<span>' + esc(t) + '</span><span class="mk" aria-hidden="true"></span></button>';
+            }).join('')
+          + '</div><div class="fb" aria-live="polite" hidden></div></div>'
+          + '<p class="kb">اختصارات لوحة المفاتيح: <kbd class="num" dir="ltr">1–' + it.o.length + '</kbd> للإجابة، و<kbd dir="ltr">Enter</kbd> للسؤال التالي.</p>';
+    box.innerHTML = h;
+    Array.prototype.forEach.call(box.querySelectorAll('.opt'), function(b){
+      b.addEventListener('click', function(){ pick(key, +b.getAttribute('data-j')); });
+    });
+  }
+  function pick(key, j){
+    var st = S[key]; if(st.picked !== null) return;
+    var it = QZ[key].items[st.order[st.i]];
+    st.picked = j;
+    var ok = (j === it.a);
+    if(ok) st.right++; else st.wrong.push(st.order[st.i]);
+    var box = $('#view-' + key);
+    Array.prototype.forEach.call(box.querySelectorAll('.opt'), function(b, k){
+      b.disabled = true;
+      var mk = $('.mk', b);
+      if(k === it.a){ b.classList.add('ok'); mk.textContent = '✓'; }
+      else if(k === j){ b.classList.add('bad'); mk.textContent = '✗'; }
+      else b.classList.add('dim');
+    });
+    var fb = $('.fb', box); fb.hidden = false;
+    var last = (st.i === st.order.length - 1);
+    var right = (it.o.length > 2 ? LET[it.a] + ') ' : '') + it.o[it.a];
+    fb.innerHTML = '<p class="verdict ' + (ok ? 'ok' : 'bad') + '">' + (ok ? 'إجابة صحيحة' : 'إجابة غير صحيحة. الصحيح: ' + esc(right)) + '</p>'
+                 + '<p class="why">' + esc(it.e) + '</p>'
+                 + '<button type="button" class="btn next">' + (last ? 'عرض النتيجة' : 'السؤال التالي') + '</button>';
+    $('.next', fb).addEventListener('click', function(){ advance(key); });
+    $('.next', fb).focus({ preventScroll:true });
+    if(fb.scrollIntoView) fb.scrollIntoView({ block:'nearest', behavior: reduce ? 'auto' : 'smooth' });
+  }
+  function advance(key){
+    var st = S[key]; if(!st || st.picked === null) return;
+    st.i++; st.picked = null; renderQuiz(key);
+    topIfHidden($('#view-' + key));
+  }
+  function renderResult(key){
+    var st = S[key], n = st.order.length, box = $('#view-' + key);
+    if(st.full) saveBest(key, st.right);
+    var r = st.right / n, grade, cls, msg;
+    if(r >= 0.9){ grade = 'ممتاز'; cls = 'hi'; msg = 'أداء ممتاز في هذا القسم.'; }
+    else if(r >= 0.75){ grade = 'جيد جدًا'; cls = 'mid'; msg = 'أداء جيد جدًا. الأفضل مراجعة الأسئلة الخاطئة أدناه.'; }
+    else if(r >= 0.6){ grade = 'جيد'; cls = 'mid'; msg = 'أداء جيد. الأفضل مراجعة الأسئلة الخاطئة أدناه ثم المحاولة مرة أخرى.'; }
+    else { grade = 'يحتاج إلى مراجعة'; cls = 'lo'; msg = 'الأفضل قراءة الملخص ثم إعادة المحاولة.'; }
+    var nx = NEXT[key];
+    var h = '<h2 class="vh">' + esc(LABEL[key]) + '</h2>'
+          + '<div class="res"><p class="lbl">' + (st.full ? 'النتيجة' : 'نتيجة إعادة الأسئلة الخاطئة') + '</p><p class="total"><span class="num">' + st.right + '</span><small>من</small><span class="num">' + n + '</span></p>'
+          + '<p><span class="grade ' + cls + '">' + grade + '</span></p><p class="msg">' + msg + '</p><div class="actions">'
+          + (st.wrong.length ? '<button type="button" class="btn" data-act="redo">إعادة الأسئلة الخاطئة (<span class="num">' + st.wrong.length + '</span>)</button>' : '')
+          + (nx ? '<button type="button" class="btn' + (st.wrong.length ? ' ghost' : '') + '" data-go="' + nx + '">القسم التالي: ' + esc(LABEL[nx]) + '</button>' : '')
+          + '</div><div class="actions sec">'
+          + '<button type="button" class="btn ghost sm" data-act="again">إعادة من البداية</button>'
+          + '<button type="button" class="btn ghost sm" data-act="mix">ترتيب عشوائي</button>'
+          + '<button type="button" class="btn ghost sm" data-go="summary">الملخص</button></div></div>';
+    if(st.wrong.length){
+      h += '<h3 class="sub">أسئلة تحتاج مراجعة</h3>' + st.wrong.map(function(idx){
+        var it = QZ[key].items[idx];
+        return '<div class="miss"><p class="qtext">' + esc(it.q) + '</p><p class="ans">الإجابة الصحيحة: <b>' + (it.o.length > 2 ? LET[it.a] + ') ' : '') + esc(it.o[it.a]) + '</b></p><p class="why">' + esc(it.e) + '</p></div>';
+      }).join('');
+    }
+    box.innerHTML = h;
+    Array.prototype.forEach.call(box.querySelectorAll('[data-act]'), function(b){
+      b.addEventListener('click', function(){
+        var a = b.getAttribute('data-act');
+        if(a === 'redo') startQuiz(key, st.wrong.slice());
+        else if(a === 'mix') startQuiz(key, shuffled(QZ[key].items.length), 'shuffle');
+        else startQuiz(key);
+        topIfHidden(box);
+      });
+    });
+  }
+
+  /* ---------- قيود اليومية ---------- */
+  var ACC = { cash:'النقدية', ar:'المدينون (العملاء)', equip:'المعدات', ap:'الدائنون (الموردون)', cap:'رأس المال', draw:'المسحوبات', rev:'إيرادات الخدمات', rent:'مصروف الإيجار' };
+  var ACCSHORT = { ar:'المدينون', ap:'الدائنون' };
+  var NORMAL = { cash:'d', ar:'d', equip:'d', rent:'d', draw:'d', ap:'c', cap:'c', rev:'c' };
+  /* كل عملية: [التاريخ، النص، المبلغ، المدين، الدائن، التحليل] */
+  var JSETS = [
+    { id:'a', title:'تمرين الدكتور بحلّه: منشأة خالد للخدمات', note:'القيود الصحيحة هي حلّ الدكتور، والتحليل بعد كل قيد من إعداد الصفحة. اختر الحسابين لكل عملية ثم اضغط «تحقق».', tx:[
+      ['2026/1/1','استثمر المالك 80,000 ريال نقدًا.',80000,'cash','cap','النقدية (أصل) زادت فتكون مدينة، ورأس المال (حقوق ملكية) زاد فيكون دائنًا.'],
+      ['2026/1/2','اشترت المنشأة معدات نقدًا بمبلغ 25,000 ريال.',25000,'equip','cash','المعدات (أصل) زادت فتكون مدينة، والنقدية (أصل) نقصت فتكون دائنة.'],
+      ['2026/1/3','دفعت المنشأة إيجارًا بمبلغ 4,000 ريال.',4000,'rent','cash','مصروف الإيجار (مصروف) زاد فيكون مدينًا، والنقدية نقصت فتكون دائنة.'],
+      ['2026/1/4','قدمت المنشأة خدمات نقدية بمبلغ 12,000 ريال.',12000,'cash','rev','النقدية زادت فتكون مدينة، وإيرادات الخدمات (إيراد) زادت فتكون دائنة.'],
+      ['2026/1/5','قدمت المنشأة خدمات على الحساب بمبلغ 8,000 ريال.',8000,'ar','rev','العملاء (أصل) زادوا فيكونون مدينين. الإيراد يُعترف به الآن وفق أساس الاستحقاق فتكون إيرادات الخدمات دائنة.'],
+      ['2026/1/6','حصلت المنشأة من العملاء 5,000 ريال.',5000,'cash','ar','النقدية زادت فتكون مدينة، والعملاء (أصل) نقصوا فيكونون دائنين. لا إيراد جديد لأنه سُجل في 1/5.'],
+      ['2026/1/7','سددت المنشأة للموردين 3,000 ريال.',3000,'ap','cash','الموردون (التزام) نقصوا فيكونون مدينين، والنقدية نقصت فتكون دائنة.']
+    ]},
+    { id:'b', title:'تمرين الدكتور الأخير (بلا حل في الملف)', note:'التمرين من الملف، أما الحل هنا فمن إعداد الصفحة. جرّب بنفسك ثم قارن مع ما تحلّه عند الدكتور.', tx:[
+      ['','بدأ المالك النشاط باستثمار نقدي قدره 100,000 ريال.',100000,'cash','cap','النقدية (أصل) زادت فتكون مدينة، ورأس المال (حقوق ملكية) زاد فيكون دائنًا.'],
+      ['','اشترت المنشأة معدات نقدًا بمبلغ 20,000 ريال.',20000,'equip','cash','المعدات (أصل) زادت فتكون مدينة، والنقدية (أصل) نقصت فتكون دائنة.'],
+      ['','قدمت المنشأة خدمات للعملاء على الحساب بمبلغ 12,000 ريال.',12000,'ar','rev','العملاء (أصل) زادوا فيكونون مدينين، والإيراد يُعترف به الآن فتكون إيرادات الخدمات دائنة.'],
+      ['','حصلت المنشأة من العملاء مبلغ 7,000 ريال.',7000,'cash','ar','النقدية زادت فتكون مدينة، والعملاء نقصوا فيكونون دائنين. لا إيراد جديد.'],
+      ['','دفعت المنشأة إيجارًا قدره 6,000 ريال.',6000,'rent','cash','مصروف الإيجار زاد فيكون مدينًا، والنقدية نقصت فتكون دائنة.'],
+      ['','سحب المالك مبلغ 4,000 ريال لاستخدامه الشخصي.',4000,'draw','cash','المسحوبات تزيد في المدين وتخفض حقوق الملكية، والنقدية نقصت فتكون دائنة.']
+    ]}
+  ];
+  var JS = {};
+  function accOptions(){
+    return '<option value="">اختر الحساب</option>' + Object.keys(ACC).map(function(k){ return '<option value="' + k + '">' + esc(ACC[k]) + '</option>'; }).join('');
+  }
+  function renderJournal(){
+    var box = $('#view-journal');
+    box.innerHTML = '<p class="tip"><b>تذكير:</b> تزيد الأصول والمصروفات والمسحوبات في الجانب المدين، وتزيد الالتزامات وحقوق الملكية والإيرادات في الجانب الدائن. والنقص عكس ذلك.</p>'
+      + JSETS.map(function(set, si){ return '<div class="jset" id="jset-' + set.id + '"' + (si ? ' style="margin-top:28px"' : '') + '></div>'; }).join('')
+      + sectNav('journal');
+    JSETS.forEach(renderSet);
+  }
+  function updJ(set){
+    var st = JS[set.id], n = Object.keys(st.done).length;
+    var p = $('#jp-' + set.id); if(p) p.textContent = n;
+    var r = $('#jr-' + set.id); if(r) r.textContent = st.right;
+    var b = $('#jb-' + set.id); if(b) b.style.width = Math.round(n / set.tx.length * 100) + '%';
+  }
+  function renderSet(set){
+    JS[set.id] = { done:{}, right:0 };
+    var el = $('#jset-' + set.id);
+    var h = '<h2 class="jhead">' + esc(set.title) + '</h2><p class="jnote">' + esc(set.note) + '</p>'
+          + '<div class="prog"><span>تم حل <b class="num" id="jp-' + set.id + '">0</b> من <b class="num">' + set.tx.length + '</b></span><span>الصحيح: <b class="num" id="jr-' + set.id + '">0</b></span></div>'
+          + '<div class="bar"><i id="jb-' + set.id + '" style="width:0%"></i></div>';
+    set.tx.forEach(function(t, i){
+      h += '<div class="tx" id="tx-' + set.id + '-' + i + '" role="group" aria-label="العملية ' + (i + 1) + '"><p class="ttext"><span class="no num">' + (i + 1) + '</span>'
+        + (t[0] ? '<span class="date num" dir="ltr">' + t[0] + '</span>' : '') + '<span>' + esc(t[1]) + '</span></p>'
+        + '<div class="pair"><label><span class="tag d">من حـ/ (المدين)</span><select data-r="dr">' + accOptions() + '</select></label>'
+        + '<label><span class="tag c">إلى حـ/ (الدائن)</span><select data-r="cr">' + accOptions() + '</select></label></div>'
+        + '<button type="button" class="btn sm" data-chk="' + i + '">تحقق</button><div class="jfb" aria-live="polite" hidden></div></div>';
+    });
+    h += '<div class="setres" id="res-' + set.id + '" hidden></div>';
+    el.innerHTML = h;
+    Array.prototype.forEach.call(el.querySelectorAll('[data-chk]'), function(b){
+      b.addEventListener('click', function(){ checkTx(set, +b.getAttribute('data-chk')); });
+    });
+  }
+  function entryTable(t){
+    return '<div class="tbwrap"><table class="jt"><thead><tr><th>البيان</th><th>مدين</th><th>دائن</th></tr></thead><tbody>'
+      + '<tr><td class="dr-c">من حـ/ ' + esc(ACC[t[3]]) + '</td><td class="n num">' + fmt(t[2]) + '</td><td></td></tr>'
+      + '<tr><td class="cr cr-c">إلى حـ/ ' + esc(ACC[t[4]]) + '</td><td></td><td class="n num">' + fmt(t[2]) + '</td></tr></tbody></table></div>';
+  }
+  function checkTx(set, i){
+    var t = set.tx[i], st = JS[set.id];
+    var card = $('#tx-' + set.id + '-' + i), sels = card.querySelectorAll('select'), fb = $('.jfb', card);
+    var dr = sels[0].value, cr = sels[1].value;
+    fb.hidden = false;
+    if(!dr || !cr){ fb.innerHTML = '<p class="verdict bad">اختر الحسابين أولًا.</p>'; return; }
+    var ok = (dr === t[3] && cr === t[4]);
+    st.done[i] = true; if(ok) st.right++;
+    sels[0].disabled = true; sels[1].disabled = true; $('[data-chk]', card).hidden = true;
+    fb.innerHTML = '<p class="verdict ' + (ok ? 'ok' : 'bad') + '">' + (ok ? 'قيد صحيح' : 'القيد غير صحيح، الحل:') + '</p>' + entryTable(t) + '<p class="why">' + esc(t[5]) + '</p>';
+    updJ(set);
+    if(Object.keys(st.done).length === set.tx.length) showSetResult(set);
+  }
+  function showSetResult(set){
+    var st = JS[set.id], bal = {};
+    Object.keys(ACC).forEach(function(k){ bal[k] = 0; });
+    set.tx.forEach(function(t){ bal[t[3]] += t[2]; bal[t[4]] -= t[2]; });
+    var rows = '', td = 0, tc = 0, odd = [];
+    Object.keys(ACC).forEach(function(k){
+      var v = bal[k]; if(!v) return;
+      var d = v > 0 ? v : 0, c = v < 0 ? -v : 0; td += d; tc += c;
+      if((v > 0 && NORMAL[k] === 'c') || (v < 0 && NORMAL[k] === 'd')) odd.push({ k:k, v:Math.abs(v), side:(v > 0 ? 'مدينًا' : 'دائنًا') });
+      rows += '<tr><td>' + esc(ACCSHORT[k] || ACC[k]) + '</td><td class="n num">' + (d ? fmt(d) : '') + '</td><td class="n num">' + (c ? fmt(c) : '') + '</td></tr>';
+    });
+    var oddNote = odd.map(function(o){
+      return '<p class="note">ملاحظة: ظهر رصيد «' + esc(ACCSHORT[o.k] || ACC[o.k]) + '» ' + o.side + ' (' + fmt(o.v) + ') لأن المثال يسدد للموردين دون عملية شراء بالأجل سابقة. الميزان يبقى متوازنًا، وفي الواقع يسبق السداد شراء بالأجل ينشئ الالتزام.</p>';
+    }).join('');
+    var el = $('#res-' + set.id); el.hidden = false;
+    el.innerHTML = '<div class="card"><p class="score">النتيجة: <span class="num">' + st.right + '</span> من <span class="num">' + set.tx.length + '</span></p>'
+      + '<p class="jnote" style="margin-bottom:8px">ميزان المراجعة بعد هذه القيود. مجموع المدين = مجموع الدائن، وهذا ما يتحقق منه الميزان.</p>'
+      + '<div class="tbwrap"><table class="jt"><thead><tr><th>الحساب</th><th>مدين</th><th>دائن</th></tr></thead><tbody>' + rows + '</tbody>'
+      + '<tfoot><tr><td>المجموع</td><td class="n num">' + fmt(td) + '</td><td class="n num">' + fmt(tc) + '</td></tr></tfoot></table></div>' + oddNote
+      + '<p style="margin:14px 0 0"><button type="button" class="btn ghost sm" data-reset="1">إعادة التمرين</button></p></div>';
+    $('[data-reset]', el).addEventListener('click', function(){
+      renderSet(set);
+      var j = $('#jset-' + set.id); if(j && j.scrollIntoView) j.scrollIntoView({ block:'start' });
+    });
+    if(el.scrollIntoView) el.scrollIntoView({ block:'nearest', behavior: reduce ? 'auto' : 'smooth' });
+  }
+
+  /* ---------- المقالي ---------- */
+  var ESSAY = [
+    ['عرّف المحاسبة واشرح أهم أهدافها.',
+     '<p><b>التعريف:</b> نظام معلومات يقوم بتحديد العمليات والأحداث الاقتصادية التي تؤثر في المنشأة، وقياسها وتسجيلها وتصنيفها وتلخيصها، ثم إعداد وعرض المعلومات المالية التي تساعد مستخدميها في اتخاذ القرارات.</p><p><b>أهم الأهداف:</b></p><ul><li><b>قياس نتيجة أعمال المنشأة:</b> ربح أو خسارة أو نتيجة متعادلة، بتحديد إيرادات الفترة ومصروفاتها.</li><li><b>تحديد المركز المالي:</b> ما تملكه المنشأة من أصول، وما عليها من التزامات، وحقوق مالكها.</li><li><b>توفير المعلومات لاتخاذ القرارات:</b> مثل قرار الاستثمار والاقتراض والتوسع وشراء أصل وتوزيع الأرباح.</li><li><b>توفير المعلومات للرقابة:</b> مقارنة النتائج الفعلية بالمخطط وتحديد مواطن القوة والضعف.</li><li><b>المحافظة على الموارد:</b> متابعة أصول المنشأة وحقوقها والتزاماتها، فتتعزز الرقابة على الموارد.</li></ul><p class="src">المصدر: محاضرة 1 (مفهوم المحاسبة وأهدافها)</p>'],
+    ['وضح الفرق بين المستخدمين الداخليين والخارجيين للمعلومات المحاسبية، مع ذكر ثلاثة أمثلة لكل مجموعة.',
+     '<p><b>الداخليون:</b> الأطراف الموجودة داخل المنشأة. ثلاثة أمثلة:</p><ul><li>الإدارة: تستخدم المعلومات في التخطيط والرقابة وتقييم الأداء واتخاذ القرارات.</li><li>المديرون: يحتاجون معلومات مالية وغير مالية عن الأنشطة التي يشرفون عليها لاتخاذ القرارات التشغيلية.</li><li>الموظفون: يهتمون باستقرار المنشأة وقدرتها على الاستمرار والوفاء بالتزاماتها تجاههم.</li></ul><p><b>الخارجيون:</b> الأطراف الموجودة خارج المنشأة. ثلاثة أمثلة:</p><ul><li>المستثمرون: يهتمون بالربحية والتدفقات النقدية والمخاطر والوضع المالي وفرص النمو، لاتخاذ قرار الاستثمار أو الاحتفاظ به أو التخارج منه.</li><li>المقرضون والبنوك: يهتمون بقدرة المنشأة على سداد أصل القرض وفوائده في مواعيدها.</li><li>الموردون: يهتمون بقدرتها على سداد قيمة المشتريات.</li></ul><p><b>الفرق:</b> المعلومات للمستخدم الداخلي مالية وغير مالية، وهدفه التخطيط والرقابة واتخاذ القرارات التشغيلية، وتفصيلها غالبًا أكثر. أما الخارجي فيعتمد بدرجة كبيرة على التقارير المالية المنشورة، وهدفه الاستثمار والتمويل والتقييم، وتفصيلها غالبًا أقل.</p><p class="note">ومن الخارجيين أيضًا: الجهات الحكومية والرقابية، والعملاء.</p><p class="src">المصدر: محاضرة 1 (مستخدمو المعلومات المحاسبية)</p>'],
+    ['اذكر القوائم المالية الأساسية واشرح الغرض من كل قائمة.',
+     '<ul><li><b>قائمة المركز المالي:</b> توضح الوضع المالي للمنشأة في تاريخ معين: الأصول = الالتزامات + حقوق الملكية.</li><li><b>قائمة الدخل:</b> تبيّن نتيجة أعمال المنشأة خلال فترة زمنية معينة: صافي الربح = الإيرادات − المصروفات.</li><li><b>قائمة التدفقات النقدية:</b> توضح التدفقات النقدية الداخلة والخارجة، وتساعد في فهم كيفية توليد النقد واستخدامه، وتصنف إلى أنشطة تشغيلية واستثمارية وتمويلية.</li><li><b>قائمة التغيرات في حقوق الملكية:</b> توضح ما حدث في حقوق الملكية خلال الفترة، مثل الاستثمارات الجديدة وصافي الربح أو الخسارة وتوزيعات الأرباح والمسحوبات في المنشآت الفردية.</li></ul><p class="src">المصدر: محاضرة 1 (القوائم المالية كأداة للتقرير المالي)</p>'],
+    ['اشرح مفهوم الوحدة المحاسبية وفرض الاستمرارية وفرض الفترة المحاسبية.',
+     '<ul><li><b>الوحدة المحاسبية:</b> المنشأة وحدة مستقلة عن مالكيها وعن المنشآت الأخرى، فتُفصل عملياتها عن العمليات الشخصية للمالك. مثال: ما يدفعه المالك من حساب المنشأة لمصروفات شخصية يُسجَّل مسحوبات وليس مصروفًا تشغيليًا. ومن أهميتها تحديد نتيجة الأعمال والمركز المالي بدقة.</li><li><b>الاستمرارية:</b> افتراض أن المنشأة ستواصل نشاطها في المستقبل المنظور ولا تنوي التصفية أو تضطر إليها. مثال: آلة بمبلغ 100,000 ريال تُستخدم خمس سنوات تُوزَّع تكلفتها بالإهلاك (20,000 ريال سنويًا بالقسط الثابت) ولا تُحمَّل كلها على سنة الشراء. ومن أهميتها تطبيق الإهلاك، وتصنيف الأصول والالتزامات إلى متداولة وغير متداولة.</li><li><b>الفترة المحاسبية:</b> تقسيم عمر المنشأة إلى فترات (شهر، أو ثلاثة أشهر، أو ستة أشهر، أو سنة مالية وهي الأكثر استخدامًا)، لأن المستخدمين يحتاجون إلى معرفة النتائج والمركز المالي بصورة دورية. وتسمح بقياس الإيرادات والمصروفات وصافي الربح أو الخسارة والمركز المالي في نهاية الفترة.</li></ul><p class="src">المصدر: محاضرة 2 (الوحدة المحاسبية، الاستمرارية، الفترة المحاسبية)</p>'],
+    ['اشرح أربع خصائص نوعية للمعلومات المحاسبية.',
+     '<ul><li><b>الملاءمة:</b> أن تكون المعلومات قادرة على التأثير في قرارات المستخدمين، بمساعدتهم على تقييم الأحداث السابقة والوضع الحالي والتنبؤ بالمستقبل، أو تأكيد تقييماتهم السابقة أو تعديلها. مثال: أرباح الشركة وتدفقاتها النقدية لمن يفكر في شراء أسهمها.</li><li><b>التمثيل الصادق:</b> أن تمثل المعلومات الظاهرة الاقتصادية بصدق، فتكون كاملة بقدر مناسب ومحايدة وخالية من الأخطاء قدر الإمكان. مثال: تجاهل التزام مالي مهم يجعل صورة المركز المالي غير مكتملة.</li><li><b>القابلية للمقارنة:</b> تمكّن المستخدم من مقارنة المعلومات بين منشأتين، أو بين فترتين للمنشأة نفسها. مثال: اتساق السياسات المحاسبية عبر السنوات.</li><li><b>القابلية للفهم:</b> عرض المعلومات بطريقة واضحة ومنظمة، ليفهمها مستخدم لديه معرفة معقولة بالمحاسبة والأنشطة الاقتصادية، دون حذف المعلومات المهمة لمجرد تعقيدها.</li></ul><p class="note">الملاءمة والتمثيل الصادق هما الخاصيتان الأساسيتان، والبقية معززة، ومنها أيضًا القابلية للتحقق والتوقيت المناسب. يكفي اختيار أي أربع منها.</p><p class="src">المصدر: محاضرة 1 ومحاضرة 2 (الخصائص النوعية والمعززة)</p>'],
+    ['اذكر مراحل الدورة المحاسبية بالترتيب، بدءًا من حدوث العملية المالية وانتهاءً بإعداد القوائم المالية.',
+     '<p><b>التعريف:</b> مجموعة من الخطوات والإجراءات المحاسبية المتتابعة، تبدأ بتحديد العمليات المالية وتحليلها، وتنتهي بإعداد القوائم المالية والتقارير المحاسبية، وتتكرر في كل فترة مالية.</p><p><b>المراحل بالترتيب:</b></p><ol><li>العملية المالية.</li><li>المستندات: دليل يثبت حدوث العملية (فاتورة، إيصال قبض...).</li><li>تحليل العملية: تحديد الحسابات المتأثرة وطبيعة التغير في كل حساب.</li><li>تسجيل العملية: قيد اليومية في دفتر اليومية.</li><li>ترحيلها إلى الحسابات (دفتر الأستاذ).</li><li>تحديد الأرصدة.</li><li>إعداد ميزان المراجعة.</li><li>التسويات اللازمة.</li><li>إعداد القوائم المالية.</li></ol><p class="note">تختلف التفاصيل الإجرائية باختلاف النظام المحاسبي، لكن الفكرة واحدة: تحويل العمليات المالية إلى معلومات محاسبية مفيدة.</p><p class="src">المصدر: محاضرة 3 (المراحل الأساسية للدورة المحاسبية)</p>']
+  ];
+  function renderEssay(){
+    $('#view-essay').innerHTML = '<h2 class="vh">أسئلة المقالي</h2><p class="cap">أجوبة مختصرة ملخّصة من محاضرات الدكتور، وتحت كل جواب رقم المحاضرة. جرّب أن تكتب إجابتك بكلماتك أولًا ثم افتح الجواب للمقارنة.</p>'
+      + '<div class="toolbar"><button type="button" class="btn ghost sm" id="toggle-all">فتح الكل</button></div>'
+      + ESSAY.map(function(r, i){
+          return '<details class="es"><summary><span class="num">' + (i + 1) + '.</span><span>' + esc(r[0]) + '</span></summary><div class="body">' + r[1] + '</div></details>';
+        }).join('')
+      + sectNav('essay');
+    var tg = $('#toggle-all');
+    tg.addEventListener('click', function(){
+      var all = $('#view-essay').querySelectorAll('details.es');
+      var anyClosed = Array.prototype.some.call(all, function(d){ return !d.open; });
+      Array.prototype.forEach.call(all, function(d){ d.open = anyClosed; });
+      tg.textContent = anyClosed ? 'إغلاق الكل' : 'فتح الكل';
+    });
+  }
+
+  /* ---------- الملخص ---------- */
+  function renderSummary(){
+    $('#view-summary').innerHTML =
+      '<h2 class="vh">الملخص</h2><p class="cap">ورقة مراجعة سريعة قبل الاختبار.</p>'
+      + '<div class="card"><h3>كيف أحلل أي عملية مالية؟</h3><ol class="how">'
+      + '<li>اقرأ العملية جيدًا وحدّد ماذا حدث فعليًا.</li>'
+      + '<li>حدّد الحسابات المتأثرة: ما الذي زاد أو نقص؟</li>'
+      + '<li>حدّد نوع كل حساب: أصل، أو التزام، أو حقوق ملكية، أو إيراد، أو مصروف.</li>'
+      + '<li>حدّد المدين والدائن بقواعد الزيادة والنقص: زيادة الأصل والمصروف والمسحوبات مدينة، وزيادة الالتزام وحقوق الملكية والإيراد دائنة، والنقص عكس ذلك.</li>'
+      + '<li>تحقق من تساوي الطرفين: المدين = الدائن.</li></ol><p class="note" style="margin-top:10px">الخطوات من محاضرة الدكتور رقم 3.</p></div>'
+      + '<div class="card"><h3>متى يكون الحساب مدينًا ومتى دائنًا؟</h3><div class="two-col">'
+      + '<div class="rule d"><h4>الزيادة في الجانب المدين</h4><ul><li>الأصول: النقدية، المعدات، العملاء</li><li>المصروفات: مصروف الإيجار</li><li>المسحوبات</li></ul></div>'
+      + '<div class="rule c"><h4>الزيادة في الجانب الدائن</h4><ul><li>الالتزامات: الموردون</li><li>حقوق الملكية: رأس المال</li><li>الإيرادات: إيرادات الخدمات</li></ul></div></div>'
+      + '<p style="margin:14px 0 4px">معادلة المركز المالي: <span class="eqn">الأصول = الالتزامات + حقوق الملكية</span></p>'
+      + '<p style="margin:0 0 4px">صافي الربح: <span class="eqn">الإيرادات − المصروفات</span></p>'
+      + '<p style="margin:0">حقوق الملكية آخر الفترة: <span class="eqn">أولها + الربح − المسحوبات</span></p></div>'
+      + '<div class="card"><h3>القوائم المالية الأساسية</h3><div class="tw"><table class="cmp"><thead><tr><th>القائمة</th><th>ماذا تبيّن</th><th>الفترة</th></tr></thead><tbody>'
+      + '<tr><td>الدخل</td><td>الربح أو الخسارة</td><td>عن فترة</td></tr>'
+      + '<tr><td>المركز المالي</td><td>الأصول والالتزامات وحقوق الملكية</td><td>في تاريخ محدد</td></tr>'
+      + '<tr><td>التدفقات النقدية</td><td>مصادر النقدية واستخداماتها</td><td>عن فترة</td></tr>'
+      + '<tr><td>التغيرات في حقوق الملكية</td><td>ما طرأ على حقوق الملكية</td><td>عن فترة</td></tr></tbody></table></div>'
+      + '<h4 style="margin:16px 0 8px;font-size:15px">الأنشطة في قائمة التدفقات النقدية</h4><div class="three-col">'
+      + '<div class="act"><b>تشغيلية</b>الرواتب والكهرباء وتحصيل إيرادات الخدمات</div>'
+      + '<div class="act"><b>استثمارية</b>شراء الأصول طويلة الأجل وبيعها، مثل المعدات</div>'
+      + '<div class="act"><b>تمويلية</b>القروض ورأس المال</div></div></div>'
+      + '<div class="card"><h3>المفاهيم والمبادئ المحاسبية</h3><div class="tw"><table class="cmp"><thead><tr><th>المفهوم</th><th>الفكرة</th></tr></thead><tbody>'
+      + '<tr><td>الوحدة المحاسبية</td><td>المنشأة مستقلة عن مالكها، وعملياتها منفصلة عن عملياته الشخصية</td></tr>'
+      + '<tr><td>الاستمرارية</td><td>افتراض أن المنشأة ستواصل نشاطها في المستقبل المنظور</td></tr>'
+      + '<tr><td>الفترة المحاسبية</td><td>تقسيم عمر المنشأة إلى فترات لإعداد التقارير بصورة دورية</td></tr>'
+      + '<tr><td>أساس الاستحقاق</td><td>الإيراد يُعترف به عند تحققه، والمصروف عند تحمله</td></tr>'
+      + '<tr><td>القياس النقدي</td><td>تُسجَّل الأحداث التي يمكن التعبير عنها بوحدة نقدية بصورة موثوقة</td></tr>'
+      + '<tr><td>المقابلة</td><td>تحميل الفترة بالمصروفات التي ساهمت في تحقيق إيراداتها</td></tr>'
+      + '<tr><td>الإفصاح</td><td>توفير المعلومات المهمة لفهم القوائم المالية</td></tr></tbody></table></div></div>'
+      + '<div class="card"><h3>الخصائص النوعية للمعلومات</h3><div class="two-col">'
+      + '<div class="act"><b>الأساسية</b>الملاءمة، والتمثيل الصادق</div>'
+      + '<div class="act"><b>المعززة</b>القابلية للمقارنة، والقابلية للتحقق، والتوقيت المناسب، والقابلية للفهم</div></div></div>'
+      + '<div class="card"><h3>الدورة المحاسبية</h3><ol class="cycle"><li>العملية المالية</li><li>المستندات</li><li>تحليل العملية</li><li>تسجيل العملية</li><li>الترحيل إلى الحسابات</li><li>تحديد الأرصدة</li><li>ميزان المراجعة</li><li>التسويات اللازمة</li><li>القوائم المالية</li></ol><p class="note" style="margin-top:10px">الترتيب من محاضرة الدكتور رقم 3. تختلف التفاصيل الإجرائية باختلاف النظام المحاسبي.</p></div>'
+      + '<div class="card"><h3>المستخدم الداخلي والمستخدم الخارجي</h3><div class="tw"><table class="cmp"><thead><tr><th>وجه المقارنة</th><th>الداخلي</th><th>الخارجي</th></tr></thead><tbody>'
+      + '<tr><td>الموقع</td><td>داخل المنشأة</td><td>خارج المنشأة</td></tr>'
+      + '<tr><td>أمثلة</td><td>الإدارة والمديرون</td><td>المستثمرون والبنوك والموردون</td></tr>'
+      + '<tr><td>طبيعة المعلومات</td><td>مالية وغير مالية</td><td>تعتمد بدرجة كبيرة على التقارير المالية المنشورة</td></tr>'
+      + '<tr><td>الهدف</td><td>التخطيط والرقابة واتخاذ القرارات التشغيلية</td><td>الاستثمار والتمويل والتقييم</td></tr>'
+      + '<tr><td>درجة التفصيل</td><td>غالبًا أكثر تفصيلًا</td><td>غالبًا أقل تفصيلًا</td></tr></tbody></table></div></div>'
+      + '<div class="card"><h3>أساس الاستحقاق والأساس النقدي</h3><div class="tw"><table class="cmp"><thead><tr><th>وجه المقارنة</th><th>أساس الاستحقاق</th><th>الأساس النقدي</th></tr></thead><tbody>'
+      + '<tr><td>الاعتراف بالإيراد</td><td>عند تحققه</td><td>عند تحصيل النقدية</td></tr>'
+      + '<tr><td>الاعتراف بالمصروف</td><td>عند تحمله</td><td>عند دفع النقدية</td></tr>'
+      + '<tr><td>قياس الأداء</td><td>أكثر ارتباطًا بالنشاط الاقتصادي للفترة</td><td>يرتبط بالتدفقات النقدية</td></tr>'
+      + '<tr><td>الاستخدام في التقارير المالية</td><td>أساس رئيسي للمحاسبة المالية</td><td>أبسط وأقل قدرة على إظهار بعض الالتزامات والمستحقات</td></tr></tbody></table></div></div>'
+      + '<div class="card"><h3>نصائح سريعة أثناء الحل</h3><ul class="how">'
+      + '<li>في الصح والخطأ: انتبه لكلمات مثل «فقط» و«دائمًا» و«إلا».</li>'
+      + '<li>في القيود: حدّد الحسابين ونوع كل منهما، ثم الزيادة أو النقص.</li>'
+      + '<li>في المسائل الحسابية: اكتب المعادلة أولًا ثم عوّض.</li>'
+      + '<li>راجع الأرقام في النهاية: المدين = الدائن.</li></ul></div>'
+      + sectNav('summary');
+  }
+
+  /* ---------- التنقل بين الأقسام ---------- */
+  function sectNav(name){
+    var i = TABS.indexOf(name), p = TABS[i - 1], n = TABS[i + 1];
+    return '<div class="sectnav">'
+      + (p ? '<button type="button" class="btn ghost sm" data-go="' + p + '">السابق: ' + esc(LABEL[p]) + '</button>' : '<span></span>')
+      + (n ? '<button type="button" class="btn ghost sm" data-go="' + n + '">التالي: ' + esc(LABEL[n]) + '</button>' : '<button type="button" class="btn ghost sm" data-go="tf">العودة إلى الأسئلة</button>')
+      + '</div>';
+  }
+  function show(name){
+    if(TABS.indexOf(name) < 0) name = 'tf';
+    current = name;
+    TABS.forEach(function(t){
+      $('#view-' + t).hidden = (t !== name);
+      $('#tab-' + t).setAttribute('aria-selected', t === name ? 'true' : 'false');
+    });
+    if(QZ[name] && !S[name]) startQuiz(name);
+  }
+  function go(t){
+    if(location.hash.slice(1) === t) show(t); else location.hash = t;
+    var nav = $('#tabs'); if(nav && nav.scrollIntoView) nav.scrollIntoView({ block:'start' });
+  }
+  document.addEventListener('click', function(e){
+    var b = e.target.closest ? e.target.closest('[data-go],[data-t]') : null;
+    if(!b) return;
+    go(b.getAttribute('data-go') || b.getAttribute('data-t'));
+  });
+  window.addEventListener('hashchange', function(){ show(location.hash.slice(1)); });
+
+  /* اختصارات لوحة المفاتيح: 1-4 للإجابة، Enter للتالي */
+  var AR_DIGITS = { '١':0, '٢':1, '٣':2, '٤':3 };
+  document.addEventListener('keydown', function(e){
+    if(e.ctrlKey || e.metaKey || e.altKey) return;
+    var st = S[current]; if(!QZ[current] || !st || st.i >= st.order.length) return;
+    var tg = e.target; if(tg && /^(SELECT|INPUT|TEXTAREA)$/.test(tg.tagName)) return;
+    var it = QZ[current].items[st.order[st.i]];
+    var n = /^[1-4]$/.test(e.key) ? (+e.key - 1) : (e.key in AR_DIGITS ? AR_DIGITS[e.key] : -1);
+    if(n >= 0 && n < it.o.length && st.picked === null){ e.preventDefault(); pick(current, n); }
+    else if(e.key === 'Enter' && st.picked !== null){
+      var ae = document.activeElement, box = $('#view-' + current);
+      if(ae === document.body || (box && box.contains(ae))){ e.preventDefault(); advance(current); }
+    }
+  });
+
+  renderJournal(); renderEssay(); renderSummary(); paintSubs();
+  show(location.hash.slice(1));
+})();
+</script>
+
+</body>
+</html>
