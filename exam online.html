@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta property="og:title" content="اختبار المحاسبة الرقمي">
+<meta property="og:description" content="اختبار تجريبي تفاعلي: صح وخطأ، اختياري، مقالي، وقيود اليومية مع تصحيح فوري.">
+<title>اختبار المحاسبة الرقمي</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Amiri:wght@700&display=swap">
+<style>
+/* Layout: one exam-paper column. A start sheet, then four sections behind a sticky tab bar (answers save as you go), then a score page with a per-section breakdown and a filterable review that shows the reason behind every answer. */
+:root{
+  --bg:#F1F4F3; --surface:#FFFFFF; --ink:#16262C; --muted:#4F6168; --line:#D3DDDB;
+  --accent:#0E5A66; --accent-ink:#FFFFFF; --soft:#E4EEEE;
+  --ok:#1B6E39; --ok-bg:#E2F2E7; --bad:#B02A2A; --bad-bg:#FBE6E4; --mid:#8A5A00; --mid-bg:#FBF0D5;
+  --scrim:rgba(10,20,24,.5);
+  --f-display:'Amiri','Noto Naskh Arabic','Traditional Arabic','Times New Roman',serif;
+  --f-body:'IBM Plex Sans Arabic','Segoe UI',Tahoma,system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E191D; --surface:#15252B; --ink:#E9F1F3; --muted:#A5B7BD; --line:#28393F;
+    --accent:#5CC3D0; --accent-ink:#06262B; --soft:#1B3037;
+    --ok:#6FD08F; --ok-bg:#173A27; --bad:#F28B82; --bad-bg:#3E1D1D; --mid:#F0C26A; --mid-bg:#3A2F14;
+    --scrim:rgba(0,0,0,.6);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0E191D; --surface:#15252B; --ink:#E9F1F3; --muted:#A5B7BD; --line:#28393F;
+  --accent:#5CC3D0; --accent-ink:#06262B; --soft:#1B3037;
+  --ok:#6FD08F; --ok-bg:#173A27; --bad:#F28B82; --bad-bg:#3E1D1D; --mid:#F0C26A; --mid-bg:#3A2F14;
+  --scrim:rgba(0,0,0,.6);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{
+  background:var(--bg); color:var(--ink); direction:rtl;
+  font-family:var(--f-body); font-size:15px; line-height:1.7;
+  padding-block:14px 48px;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));
+  padding-right:max(16px, env(safe-area-inset-right, 0px));
+}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:40}
+.wrap{max-width:760px;margin-inline:auto}
+.num{font-variant-numeric:tabular-nums;unicode-bidi:isolate;white-space:nowrap}
+button,select,input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+p{margin:0 0 8px}
+
+/* ---------- الرأس ---------- */
+header{padding-bottom:12px;border-bottom:3px double var(--muted)}
+.eyebrow{margin:0;font-size:12.5px;color:var(--muted)}
+h1{margin:4px 0 2px;font-family:var(--f-display);font-weight:700;font-size:clamp(28px,8vw,40px);line-height:1.3;text-wrap:balance}
+.lead{margin:0;color:var(--muted);font-size:13.5px}
+h2{margin:18px 0 2px;font-family:var(--f-display);font-weight:700;font-size:clamp(22px,6vw,27px);line-height:1.4;text-wrap:balance}
+.cap{margin:0 0 10px;color:var(--muted);font-size:13.5px}
+h3{margin:0 0 6px;font-size:15.5px;font-weight:700;line-height:1.6}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:13px}
+.card + .card{margin-top:10px}
+.btn{background:var(--accent);color:var(--accent-ink);border:1.5px solid var(--accent);border-radius:10px;padding:9px 18px;min-height:44px;font-size:15px;font-weight:600;cursor:pointer}
+.btn.ghost{background:none;color:var(--accent)}
+.btn.sm{min-height:36px;padding:4px 12px;font-size:13.5px}
+.btn:hover{filter:brightness(1.08)}
+.btn:disabled{opacity:.5;cursor:default}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.row.end{justify-content:space-between}
+.link{background:none;border:0;padding:6px 2px;color:var(--muted);text-decoration:underline;cursor:pointer;font-size:13.5px}
+
+/* ---------- شاشة البداية ---------- */
+.plan{width:100%;border-collapse:collapse;font-size:14.5px}
+.plan th,.plan td{padding:8px 6px;text-align:start;border-bottom:1px solid var(--line)}
+.plan th{font-size:12.5px;color:var(--muted);font-weight:600}
+.plan td:last-child,.plan th:last-child{text-align:center}
+.plan tfoot td{border-bottom:0;border-top:3px double var(--muted);font-weight:700}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:6px 0 12px}
+.seg button{min-height:48px;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);font-weight:600;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.tips{margin:10px 0 0;padding-inline-start:20px;color:var(--muted);font-size:13.5px}
+
+/* ---------- شريط الاختبار ---------- */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;display:flex;gap:8px;align-items:center;padding:8px 0;background:var(--bg);border-bottom:1px solid var(--line)}
+.pills{display:flex;gap:6px;flex:1;min-width:0;overflow-x:auto;scrollbar-width:none}
+.pills::-webkit-scrollbar{display:none}
+.pill{flex:none;display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:3px 12px;background:var(--surface);border:1.5px solid var(--line);border-radius:999px;font-size:13.5px;font-weight:600;cursor:pointer;white-space:nowrap}
+.pill small{font-size:12px;color:var(--muted);font-weight:500}
+.pill[aria-current="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.pill[aria-current="true"] small{color:var(--accent-ink);opacity:.85}
+.pill.full:not([aria-current="true"]){border-color:var(--ok)}
+.tm{flex:none;min-width:62px;padding:6px 8px;border-radius:10px;background:var(--soft);text-align:center;font-weight:700;font-size:14px}
+.tm.warn{background:var(--bad-bg);color:var(--bad)}
+
+/* ---------- الأسئلة ---------- */
+.qs{display:grid;gap:10px}
+.qc{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px}
+.qh{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px}
+.no{flex:none;display:grid;place-items:center;min-width:28px;height:28px;padding:0 4px;border:1.5px solid var(--ink);border-radius:50%;font-size:13px;font-weight:700;line-height:1}
+.qt{margin:0;flex:1;min-width:0;font-weight:500;font-size:15.5px;line-height:1.75}
+.tfb{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ch{min-height:46px;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);font-size:16px;font-weight:700;cursor:pointer}
+.ch:hover{border-color:var(--accent);background:var(--soft)}
+.ch[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.mo{display:grid;gap:7px}
+.mo button{display:flex;gap:10px;align-items:center;min-height:46px;padding:7px 10px;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);text-align:start;font-size:15px;cursor:pointer}
+.mo button:hover{border-color:var(--accent);background:var(--soft)}
+.mo b{flex:none;display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--soft);font-size:13px}
+.mo span{min-width:0}
+.mo button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.mo button[aria-pressed="true"] b{background:var(--accent-ink);color:var(--accent)}
+textarea{display:block;width:100%;min-height:128px;resize:vertical;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);font-size:15.5px;line-height:1.8}
+textarea:focus{border-color:var(--accent)}
+.hint{margin:6px 0 0;font-size:12.5px;color:var(--muted)}
+
+.je{display:grid;gap:8px}
+.je .date{font-size:13px;color:var(--muted);font-weight:600}
+.flds{display:grid;grid-template-columns:1fr 1fr 130px;gap:8px}
+.fld label{display:block;margin-bottom:3px;font-size:13px;font-weight:700;color:var(--muted)}
+select,input.amt{width:100%;min-height:46px;padding:8px 10px;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);font-size:15.5px}
+input.amt{text-align:center}
+@media (max-width:560px){.flds{grid-template-columns:1fr 1fr}.flds .fld:last-child{grid-column:1 / -1}}
+
+.pnav{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+
+/* ---------- نافذة التأكيد ---------- */
+.modal{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:16px;background:var(--scrim)}
+.modal .box{width:100%;max-width:420px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px}
+.modal h3{font-size:17px}
+.modal p{color:var(--muted);font-size:14.5px}
+.modal .row{margin-top:12px;justify-content:flex-end}
+
+/* ---------- النتيجة ---------- */
+.score{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.score .big{font-family:var(--f-display);font-weight:700;font-size:clamp(52px,16vw,76px);line-height:1}
+.score .of{font-size:20px;color:var(--muted);font-weight:600}
+.score .pc{margin-inline-start:auto;font-size:20px;font-weight:700;color:var(--accent)}
+.verdict{margin:6px 0 0;font-weight:600}
+.brk{display:grid;gap:10px;margin-top:14px}
+.br{display:grid;grid-template-columns:96px 1fr 54px;gap:10px;align-items:center;font-size:14px}
+.br .t{font-weight:600}
+.meter{height:10px;border-radius:999px;background:var(--soft);overflow:hidden}
+.meter i{display:block;height:100%;background:var(--accent)}
+.br .v{text-align:end;font-weight:700}
+.pend{margin:10px 0 0;padding:8px 12px;border-radius:10px;background:var(--mid-bg);color:var(--mid);font-size:14px;font-weight:600}
+.focus{margin:10px 0 0;padding:8px 12px;border-radius:10px;background:var(--soft);font-size:14px}
+
+.filters{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 10px}
+.fchip{min-height:38px;padding:3px 12px;border:1.5px solid var(--line);border-radius:999px;background:var(--surface);font-size:13.5px;font-weight:600;cursor:pointer}
+.fchip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.fchip.wrongonly[aria-pressed="true"]{background:var(--bad);border-color:var(--bad);color:var(--surface)}
+
+.rv{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px;border-inline-start:5px solid var(--line)}
+.rv.ok{border-inline-start-color:var(--ok)}
+.rv.bad{border-inline-start-color:var(--bad)}
+.rv.mid,.rv.pend{border-inline-start-color:var(--mid)}
+.rv + .rv{margin-top:10px}
+.st{display:inline-flex;align-items:center;gap:5px;margin-bottom:6px;padding:1px 10px;border-radius:999px;font-size:13px;font-weight:700;background:var(--soft)}
+.st.ok{background:var(--ok-bg);color:var(--ok)}
+.st.bad{background:var(--bad-bg);color:var(--bad)}
+.st.mid,.st.pend{background:var(--mid-bg);color:var(--mid)}
+.rv .qt{font-weight:600;margin-bottom:8px}
+.ansl{display:grid;gap:6px;margin:0 0 8px;font-size:14.5px}
+.ansl div{display:flex;gap:8px}
+.ansl dt,.ansl .k{flex:none;min-width:70px;color:var(--muted);font-weight:600}
+.mrow{display:flex;gap:8px;align-items:center;padding:5px 8px;border-radius:8px;border:1.5px solid transparent;font-size:14.5px}
+.mrow b{flex:none;width:22px}
+.mrow.right{background:var(--ok-bg);border-color:var(--ok);font-weight:700}
+.mrow.wrong{background:var(--bad-bg);border-color:var(--bad)}
+.mrow .tag{margin-inline-start:auto;font-size:12.5px;font-weight:700;white-space:nowrap}
+.mrow.right .tag{color:var(--ok)} .mrow.wrong .tag{color:var(--bad)}
+.why{margin:8px 0 0;padding:8px 12px;border-radius:10px;background:var(--soft);font-size:14px;line-height:1.75}
+.why b{color:var(--ok)}
+.mine{margin:0 0 8px;padding:8px 12px;border:1px dashed var(--line);border-radius:10px;white-space:pre-wrap;font-size:14.5px}
+.mine.empty{color:var(--muted);white-space:normal}
+.model{margin:0 0 8px;padding:9px 12px;border-radius:10px;background:var(--soft);font-size:14px;line-height:1.75;overflow-x:auto}
+.model p{margin:0 0 4px}
+.model ul,.model ol{margin:0 0 4px;padding-inline-start:20px}
+.model table{width:100%;border-collapse:collapse;margin:4px 0;font-size:13.5px}
+.model th,.model td{padding:4px 7px;border:1px solid var(--line);text-align:start;vertical-align:top}
+.model th{background:var(--surface);font-weight:700}
+.model .mnm{margin-top:4px;padding:5px 10px;border-radius:8px;background:var(--surface);font-weight:600}
+.grade{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.grade button{min-height:44px;padding:4px 6px;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);font-size:13.5px;font-weight:600;cursor:pointer;line-height:1.4}
+.grade button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.glab{margin:0 0 5px;font-size:13px;font-weight:700;color:var(--muted)}
+.jline{display:grid;gap:2px;margin:0 0 8px;padding:7px 10px;border-radius:10px;background:var(--soft);font-weight:600;font-size:14.5px}
+.jline .cr{padding-inline-start:22px}
+.jline.mine2{background:var(--bad-bg)}
+.jline.mine2.good{background:var(--ok-bg)}
+.empty-state{padding:20px 12px;text-align:center;color:var(--muted)}
+@media (max-width:480px){.br{grid-template-columns:78px 1fr 48px}}
+@media (prefers-reduced-motion:no-preference){.meter i{transition:width .5s ease}}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+<header>
+  <p class="eyebrow">مبادئ المحاسبة والتقرير المالي</p>
+  <h1>اختبار تجريبي</h1>
+  <p class="lead">43 درجة في أربعة أسئلة، بنفس شكل الاختبار الحقيقي. أجيبي أولًا، ثم تظهر النتيجة وشرح كل إجابة.</p>
+</header>
+
+<main id="app">
+  <section id="start" hidden></section>
+  <section id="exam" hidden></section>
+  <section id="result" hidden></section>
+</main>
+</div>
+<div id="modal" hidden></div>
+
+<script>
+(function(){
+'use strict';
+var TF=[{"q": "تهدف المحاسبة إلى تسجيل العمليات المالية وتوفير معلومات تساعد المستخدمين في اتخاذ القرارات.", "a": 0, "why": "المحاسبة نظام معلومات: تسجّل العمليات ثم تُعدّ تقارير تساعد المستخدمين في قراراتهم."}, {"q": "تقتصر أهمية المعلومات المحاسبية على إدارة المنشأة فقط.", "a": 1, "why": "لها مستخدمون داخليون (الإدارة) وخارجيون (المستثمرون والبنوك والموردون والجهات الحكومية)."}, {"q": "تساعد قائمة الدخل في تحديد نتيجة نشاط المنشأة من ربح أو خسارة خلال فترة معينة.", "a": 0, "why": "قائمة الدخل عن فترة، وصافي الربح = الإيرادات − المصروفات."}, {"q": "تعرض قائمة المركز المالي الأصول والالتزامات وحقوق الملكية في تاريخ محدد.", "a": 0, "why": "المركز المالي يُعرض في تاريخ محدد، والمعادلة: الأصول = الالتزامات + حقوق الملكية."}, {"q": "وفق أساس الاستحقاق، لا يتم الاعتراف بالإيراد إلا عند تحصيل النقدية.", "a": 1, "why": "هذه صفة الأساس النقدي. أساس الاستحقاق يعترف بالإيراد عند تحققه ولو لم تُحصَّل النقدية بعد."}, {"q": "يقتضي مفهوم الوحدة المحاسبية الفصل بين العمليات الشخصية للمالك وعمليات المنشأة.", "a": 0, "why": "المنشأة وحدة مستقلة عن مالكها، فسحب المالك لنفسه يُسجَّل مسحوبات لا مصروفًا."}, {"q": "تعد القابلية للمقارنة إحدى الخصائص النوعية للمعلومات المحاسبية.", "a": 0, "why": "الملاءمة والتمثيل الصادق خاصيتان أساسيتان، والقابلية للمقارنة والتحقق والتوقيت والفهم خصائص معزّزة."}, {"q": "يؤدي الحصول على قرض نقدي إلى زيادة الأصول وحقوق الملكية بالمبلغ نفسه.", "a": 1, "why": "القرض يزيد الأصول (النقدية) والالتزامات (قرض واجب السداد)، ولا يغيّر حقوق الملكية."}, {"q": "زيادة الأصول تسجل عادة في الجانب المدين.", "a": 0, "why": "الأصول تزيد بالمدين وتنقص بالدائن."}, {"q": "زيادة الإيرادات تسجل عادة في الجانب المدين.", "a": 1, "why": "الإيرادات تزيد بالدائن وتنقص بالمدين."}, {"q": "شراء المعدات نقدًا يؤدي إلى زيادة الأصول وانخفاض أصل آخر هو النقدية.", "a": 0, "why": "المعدات تزيد (مدين) والنقدية تنقص (دائن)، فلا يتغيّر مجموع الأصول."}, {"q": "يعد سحب المالك أموالًا لأغراض شخصية من المصروفات التشغيلية للمنشأة.", "a": 1, "why": "سحب المالك مسحوبات تخفض حقوق الملكية، وليس مصروفًا تشغيليًا."}, {"q": "يجب أن يتساوى إجمالي المبالغ المدينة مع إجمالي المبالغ الدائنة في القيد المحاسبي.", "a": 0, "why": "لكل قيد طرفان متساويان: مجموع المدين = مجموع الدائن."}, {"q": "يعد تحصيل مبلغ من عميل سبق تسجيل الإيراد المستحق عليه إيرادًا جديدًا.", "a": 1, "why": "الإيراد سُجّل عند تقديم الخدمة، والتحصيل يحوّل المدينين إلى نقدية: من حـ/ النقدية إلى حـ/ المدينون."}, {"q": "يساعد ميزان المراجعة على التحقق من تساوي إجمالي الأرصدة المدينة والدائنة.", "a": 0, "why": "هذه وظيفته، لكنه لا يضمن خلو الحسابات من كل خطأ."}],
+MC=[{"q": "أي مما يلي يعد من أهداف المحاسبة؟", "o": ["تسجيل العمليات المالية فقط دون إعداد تقارير.", "توفير معلومات تساعد في اتخاذ القرارات.", "زيادة مصروفات المنشأة.", "إلغاء الحاجة إلى الرقابة."], "a": 1, "why": "المحاسبة تسجّل ثم تُعدّ تقارير تفيد في القرارات، وهي تدعم الرقابة ولا تلغيها."}, {"q": "أي القوائم المالية التالية توضح نتيجة نشاط المنشأة من ربح أو خسارة؟", "o": ["قائمة المركز المالي.", "قائمة التدفقات النقدية.", "قائمة الدخل.", "قائمة التغيرات في حقوق الملكية."], "a": 2, "why": "قائمة الدخل تبيّن الربح أو الخسارة. أما المركز المالي فيبيّن الأصول والالتزامات وحقوق الملكية."}, {"q": "أي مما يلي يعد من المستخدمين الخارجيين للمعلومات المحاسبية؟", "o": ["مدير المنشأة.", "رئيس قسم المحاسبة.", "موظفو الإدارة الداخلية.", "البنوك والمقرضون."], "a": 3, "why": "الخارجيون: البنوك والمقرضون والمستثمرون والموردون. والبقية مستخدمون داخليون."}, {"q": "إذا بلغت الإيرادات <span class=\"num\">75,000<\/span> ريال والمصروفات <span class=\"num\">48,000<\/span> ريال، فإن صافي الربح يساوي:", "o": ["<span class=\"num\">123,000<\/span> ريال.", "<span class=\"num\">27,000<\/span> ريال.", "<span class=\"num\">48,000<\/span> ريال.", "<span class=\"num\">75,000<\/span> ريال."], "a": 1, "why": "صافي الربح = الإيرادات − المصروفات = 75,000 − 48,000 = 27,000."}, {"q": "إذا بلغت الأصول <span class=\"num\">160,000<\/span> ريال والالتزامات <span class=\"num\">60,000<\/span> ريال، فإن حقوق الملكية تساوي:", "o": ["<span class=\"num\">220,000<\/span> ريال.", "<span class=\"num\">160,000<\/span> ريال.", "<span class=\"num\">100,000<\/span> ريال.", "<span class=\"num\">60,000<\/span> ريال."], "a": 2, "why": "حقوق الملكية = الأصول − الالتزامات = 160,000 − 60,000 = 100,000."}, {"q": "أي مما يلي يعد من الأنشطة الاستثمارية في قائمة التدفقات النقدية؟", "o": ["دفع رواتب العاملين.", "شراء معدات.", "تحصيل إيرادات الخدمات.", "دفع مصروف الكهرباء."], "a": 1, "why": "شراء المعدات نشاط استثماري. الرواتب وتحصيل الإيرادات والكهرباء أنشطة تشغيلية."}, {"q": "أي مبدأ محاسبي يقتضي فصل العمليات الشخصية للمالك عن عمليات المنشأة؟", "o": ["فرض الاستمرارية.", "مبدأ الإفصاح.", "مفهوم الوحدة المحاسبية.", "فرض الفترة المحاسبية."], "a": 2, "why": "الوحدة المحاسبية: المنشأة كيان مستقل عن مالكها."}, {"q": "وفق أساس الاستحقاق، إذا قدمت المنشأة خدمة في ديسمبر وحصلت قيمتها في يناير، فإن الإيراد يعترف به في:", "o": ["يناير فقط.", "ديسمبر، إذا تحققت شروط الاعتراف بالإيراد.", "السنة التالية دائمًا.", "تاريخ إعداد ميزان المراجعة."], "a": 1, "why": "الاستحقاق يربط الإيراد بوقت تحققه (تقديم الخدمة في ديسمبر) لا بوقت التحصيل."}, {"q": "أي من الحسابات التالية تزداد قيمته عادة في الجانب الدائن؟", "o": ["النقدية.", "مصروف الإيجار.", "المسحوبات.", "إيرادات الخدمات."], "a": 3, "why": "الإيرادات تزيد بالدائن. أما النقدية ومصروف الإيجار والمسحوبات فتزيد بالمدين."}, {"q": "عند شراء معدات نقدًا، يكون القيد المحاسبي الصحيح هو:", "o": ["من حـ/ النقدية، إلى حـ/ المعدات.", "من حـ/ المعدات، إلى حـ/ النقدية.", "من حـ/ مصروف الإيجار، إلى حـ/ النقدية.", "من حـ/ الموردين، إلى حـ/ الإيرادات."], "a": 1, "why": "المعدات تزيد فتُسجَّل مدينة، والنقدية تنقص فتُسجَّل دائنة."}, {"q": "عند تحصيل مبلغ من عميل سبق تسجيل الإيراد المستحق عليه، فإن القيد الصحيح هو:", "o": ["من حـ/ النقدية، إلى حـ/ العملاء.", "من حـ/ العملاء، إلى حـ/ إيرادات الخدمات.", "من حـ/ المصروفات، إلى حـ/ النقدية.", "من حـ/ النقدية، إلى حـ/ رأس المال."], "a": 0, "why": "النقدية تزيد (مدين) والعملاء ينقصون (دائن). ولا إيراد جديد لأنه سُجّل سابقًا."}, {"q": "أي مما يلي يعد من المستندات المحاسبية التي تثبت استلام مبلغ نقدي؟", "o": ["أمر الشراء.", "سند القبض.", "العقد فقط.", "قائمة الدخل."], "a": 1, "why": "سند القبض هو المستند الذي يثبت استلام النقدية. أمر الشراء طلب شراء، وقائمة الدخل قائمة مالية."}, {"q": "أي الحسابات التالية يمثل التزامًا على المنشأة؟", "o": ["المعدات.", "النقدية.", "الموردون.", "إيرادات الخدمات."], "a": 2, "why": "الموردون هم ما على المنشأة. المعدات والنقدية أصول، وإيرادات الخدمات حساب إيراد."}, {"q": "إذا سحب المالك مبلغًا من أموال المنشأة لاستخدامه الشخصي، فإن الحساب الذي يسجل مدينًا هو:", "o": ["إيرادات الخدمات.", "رأس المال.", "المسحوبات.", "الموردون."], "a": 2, "why": "المسحوبات تزيد بالمدين وتخفض حقوق الملكية."}, {"q": "أي العبارات التالية تصف ميزان المراجعة وصفًا صحيحًا؟", "o": ["يضمن عدم وجود أي خطأ محاسبي.", "يعرض الإيرادات والمصروفات فقط.", "يوضح أرصدة الحسابات ويساعد على التحقق من تساوي الطرفين.", "يحل محل جميع القوائم المالية."], "a": 2, "why": "يعرض الأرصدة ويتحقق من تساوي المدين والدائن، لكنه لا يضمن خلو الأخطاء ولا يغني عن القوائم."}],
+ES=[{"q": "عرّف المحاسبة، واشرح أهم أهدافها.", "a": "<p><b>التعريف:<\/b> نظام معلومات يحدّد العمليات والأحداث الاقتصادية المؤثرة في المنشأة، ويقيسها ويسجلها ويصنفها ويلخصها، ثم يعد المعلومات المالية ويعرضها لمستخدميها لمساعدتهم في اتخاذ القرارات.<\/p>\n<p><b>أهم الأهداف:<\/b><\/p>\n<ul>\n<li>قياس نتيجة أعمال المنشأة (ربح أو خسارة) بتحديد إيرادات الفترة ومصروفاتها.<\/li>\n<li>تحديد المركز المالي: الأصول والالتزامات وحقوق الملكية.<\/li>\n<li>توفير المعلومات لاتخاذ القرارات: الاستثمار والاقتراض والتوسع وتوزيع الأرباح.<\/li>\n<li>توفير المعلومات للرقابة: مقارنة النتائج الفعلية بالمخطط.<\/li>\n<li>المحافظة على موارد المنشأة بمتابعة أصولها وحقوقها والتزاماتها.<\/li>\n<\/ul>"}, {"q": "وضّح الفرق بين المستخدمين الداخليين والخارجيين للمعلومات المحاسبية، مع ذكر ثلاثة أمثلة لكل مجموعة.", "a": "<table>\n<thead><tr><th>وجه المقارنة<\/th><th>الداخلي<\/th><th>الخارجي<\/th><\/tr><\/thead>\n<tbody>\n<tr><td>الموقع<\/td><td>داخل المنشأة<\/td><td>خارج المنشأة<\/td><\/tr>\n<tr><td>ثلاثة أمثلة<\/td><td>الإدارة، المديرون، الموظفون<\/td><td>المستثمرون، البنوك والمقرضون، الموردون<\/td><\/tr>\n<tr><td>طبيعة المعلومات<\/td><td>مالية وغير مالية<\/td><td>تعتمد بدرجة كبيرة على التقارير المالية المنشورة<\/td><\/tr>\n<tr><td>الهدف<\/td><td>التخطيط والرقابة واتخاذ القرارات التشغيلية<\/td><td>الاستثمار والتمويل والتقييم<\/td><\/tr>\n<tr><td>درجة التفصيل<\/td><td>غالبًا أكثر تفصيلًا<\/td><td>غالبًا أقل تفصيلًا<\/td><\/tr>\n<\/tbody><\/table>\n<p>من الخارجيين أيضًا: الجهات الحكومية والرقابية، والعملاء.<\/p>"}, {"q": "اذكر القوائم المالية الأساسية، واشرح الغرض من كل قائمة.", "a": "<table>\n<thead><tr><th>القائمة<\/th><th>الغرض منها<\/th><th>الفترة<\/th><\/tr><\/thead>\n<tbody>\n<tr><td>المركز المالي<\/td><td>توضح الوضع المالي للمنشأة: الأصول = الالتزامات + حقوق الملكية<\/td><td>في تاريخ محدد<\/td><\/tr>\n<tr><td>الدخل<\/td><td>تبيّن نتيجة الأعمال: صافي الربح = الإيرادات − المصروفات<\/td><td>عن فترة<\/td><\/tr>\n<tr><td>التدفقات النقدية<\/td><td>توضح النقد الداخل والخارج، وتصنّف إلى أنشطة تشغيلية واستثمارية وتمويلية<\/td><td>عن فترة<\/td><\/tr>\n<tr><td>التغيرات في حقوق الملكية<\/td><td>توضح ما طرأ على حقوق الملكية: استثمارات جديدة، صافي الربح أو الخسارة، توزيعات أو مسحوبات<\/td><td>عن فترة<\/td><\/tr>\n<\/tbody><\/table>"}, {"q": "اشرح مفهوم الوحدة المحاسبية وفرض الاستمرارية وفرض الفترة المحاسبية.", "a": "<ul>\n<li><b>الوحدة المحاسبية:<\/b> المنشأة وحدة مستقلة عن مالكيها وعن المنشآت الأخرى، فتُفصل عملياتها عن العمليات الشخصية للمالك. مثال: ما يسحبه المالك لاستخدامه الشخصي يُسجَّل مسحوبات لا مصروفًا. أهميتها: تحديد نتيجة الأعمال والمركز المالي بدقة.<\/li>\n<li><b>فرض الاستمرارية:<\/b> افتراض أن المنشأة ستواصل نشاطها في المستقبل المنظور ولا تنوي التصفية. مثال: الآلة التي تُستخدم عدة سنوات تُوزَّع تكلفتها على سنوات استخدامها (الإهلاك) ولا تُحمَّل كلها على سنة الشراء.<\/li>\n<li><b>فرض الفترة المحاسبية:<\/b> تقسيم عمر المنشأة إلى فترات (شهر، ثلاثة أشهر، ستة أشهر، أو سنة مالية وهي الأكثر استخدامًا)، لأن المستخدمين يحتاجون إلى النتائج والمركز المالي بصورة دورية.<\/li>\n<\/ul>"}, {"q": "اشرح أربع خصائص نوعية للمعلومات المحاسبية.", "a": "<ul>\n<li><b>الملاءمة:<\/b> قدرة المعلومات على التأثير في قرارات المستخدمين، بمساعدتهم على تقييم الأحداث السابقة والحالية والتنبؤ بالمستقبل. مثال: أرباح الشركة وتدفقاتها لمن يفكر في شراء أسهمها.<\/li>\n<li><b>التمثيل الصادق:<\/b> أن تعبّر المعلومات عن الظاهرة الاقتصادية بصدق: كاملة بقدر مناسب، محايدة، خالية من الأخطاء قدر الإمكان. مثال: تجاهل التزام مهم يجعل المركز المالي غير مكتمل.<\/li>\n<li><b>القابلية للمقارنة:<\/b> تمكّن من مقارنة المعلومات بين منشأتين أو بين فترتين للمنشأة نفسها. مثال: ثبات السياسات المحاسبية عبر السنوات.<\/li>\n<li><b>القابلية للفهم:<\/b> عرض المعلومات بوضوح وتنظيم ليفهمها مستخدم لديه معرفة معقولة بالمحاسبة والأنشطة الاقتصادية.<\/li>\n<\/ul>\n<p>الملاءمة والتمثيل الصادق خاصيتان أساسيتان، والبقية معزّزة (ومنها أيضًا القابلية للتحقق والتوقيت المناسب)، ويكفي اختيار أي أربع.<\/p>"}, {"q": "اذكر مراحل الدورة المحاسبية بالترتيب، بدءًا من حدوث العملية المالية وانتهاءً بإعداد القوائم المالية.", "a": "<p><b>التعريف:<\/b> مجموعة من الخطوات المحاسبية المتتابعة، تبدأ بتحديد العمليات المالية وتحليلها وتنتهي بإعداد القوائم المالية، وتتكرر في كل فترة مالية.<\/p>\n<ol>\n<li>العملية المالية.<\/li>\n<li>المستندات: دليل يثبت حدوث العملية (فاتورة، إيصال قبض).<\/li>\n<li>تحليل العملية: تحديد الحسابات المتأثرة وطبيعة التغير في كل حساب.<\/li>\n<li>تسجيل العملية: قيد اليومية في دفتر اليومية.<\/li>\n<li>ترحيلها إلى الحسابات (دفتر الأستاذ).<\/li>\n<li>تحديد الأرصدة.<\/li>\n<li>إعداد ميزان المراجعة.<\/li>\n<li>التسويات اللازمة.<\/li>\n<li>إعداد القوائم المالية.<\/li>\n<\/ol>\n<p class=\"mnm\">للحفظ: عملية ← مستند ← تحليل ← قيد ← ترحيل ← أرصدة ← ميزان ← تسويات ← قوائم<\/p>"}],
+OPS=[{"date": "2026/1/1", "txt": "استثمر المالك <span class=\"num\">80,000<\/span> ريال نقدًا.", "d": "النقدية", "c": "رأس المال", "amt": 80000, "why": "النقدية أصل زاد فتكون مدينة، ورأس المال حق ملكية زاد فيكون دائنًا."}, {"date": "2026/1/2", "txt": "اشترت المنشأة معدات نقدًا بمبلغ <span class=\"num\">25,000<\/span> ريال.", "d": "المعدات", "c": "النقدية", "amt": 25000, "why": "المعدات أصل زاد فتكون مدينة، والنقدية أصل نقص فتكون دائنة."}, {"date": "2026/1/3", "txt": "دفعت إيجارًا بمبلغ <span class=\"num\">4,000<\/span> ريال.", "d": "مصروف الإيجار", "c": "النقدية", "amt": 4000, "why": "المصروف يزيد بالمدين، والنقدية نقصت فتكون دائنة."}, {"date": "2026/1/4", "txt": "قدمت خدمات نقدية بمبلغ <span class=\"num\">12,000<\/span> ريال.", "d": "النقدية", "c": "إيرادات الخدمات", "amt": 12000, "why": "النقدية زادت فتكون مدينة، وإيرادات الخدمات زادت فتكون دائنة."}, {"date": "2026/1/5", "txt": "قدمت خدمات على الحساب بمبلغ <span class=\"num\">8,000<\/span> ريال.", "d": "المدينون (العملاء)", "c": "إيرادات الخدمات", "amt": 8000, "why": "الخدمة قُدمت ولم تُحصَّل، فالمدينون (أصل) يزيدون بالمدين، والإيراد يزيد بالدائن."}, {"date": "2026/1/6", "txt": "حصلت من العملاء <span class=\"num\">5,000<\/span> ريال.", "d": "النقدية", "c": "المدينون (العملاء)", "amt": 5000, "why": "النقدية زادت فتكون مدينة، والمدينون نقصوا فيكونون دائنين."}, {"date": "2026/1/7", "txt": "سددت للموردين <span class=\"num\">3,000<\/span> ريال.", "d": "الدائنون (الموردون)", "c": "النقدية", "amt": 3000, "why": "الدائنون نقصوا فيُسجَّلون مدينًا، والنقدية نقصت فتكون دائنة. ولم يسبق شراء آجل في التمرين، فيظهر رصيد الدائنين مدينًا."}],
+ACC=["النقدية", "المدينون (العملاء)", "المعدات", "الدائنون (الموردون)", "رأس المال", "المسحوبات", "إيرادات الخدمات", "مصروف الإيجار", "مصروف الرواتب"];
+var $=function(s,r){return (r||document).querySelector(s)};
+var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+var LET=['أ','ب','ج','د'];
+var SECS=[
+  {n:'الأول',t:'صح وخطأ',max:15,sh:'صح وخطأ'},
+  {n:'الثاني',t:'اختيار من متعدد',max:15,sh:'الاختياري'},
+  {n:'الثالث',t:'أسئلة مقالية',max:6,sh:'المقالي'},
+  {n:'الرابع',t:'قيود اليومية',max:7,sh:'القيود'}
+];
+var TOTAL=43, LIMIT=3600;
+var KEY='acc-exam-digital-v1';
+
+function fresh(){
+  return {v:1,phase:'start',timer:'none',used:0,sec:0,
+    tf:TF.map(function(){return null}), mc:MC.map(function(){return null}),
+    es:ES.map(function(){return ''}), je:OPS.map(function(){return {d:'',c:'',a:''}}),
+    self:ES.map(function(){return null}), rsec:'all', wrong:false};
+}
+function load(){
+  try{var s=JSON.parse(localStorage.getItem(KEY)); if(s&&s.v===1&&s.tf&&s.tf.length===TF.length) return s;}catch(e){}
+  return null;
+}
+var S=load()||fresh();
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+
+/* ---------- أدوات ---------- */
+function esc(t){return String(t).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function digits(t){return String(t).replace(/[٠-٩]/g,function(d){return '٠١٢٣٤٥٦٧٨٩'.indexOf(d)}).replace(/[^0-9.]/g,'')}
+function fmt(n){return (Math.round(n*2)/2).toString().replace('.5','.5')}
+function mmss(s){s=Math.max(0,s|0);var m=Math.floor(s/60),r=s%60;return (m<10?'0':'')+m+':'+(r<10?'0':'')+r}
+function show(id){['start','exam','result'].forEach(function(k){$('#'+k).hidden=(k!==id)}); window.scrollTo(0,0)}
+
+/* ---------- التصحيح ---------- */
+function jeOk(i){var a=S.je[i],o=OPS[i];return a.d===o.d&&a.c===o.c&&digits(a.a)===String(o.amt)}
+function scores(){
+  var tf=0,mc=0,es=0,je=0,esDone=0;
+  TF.forEach(function(q,i){if(S.tf[i]===q.a)tf++});
+  MC.forEach(function(q,i){if(S.mc[i]===q.a)mc++});
+  S.self.forEach(function(g){if(g!==null){es+=g;esDone++}});
+  OPS.forEach(function(o,i){if(jeOk(i))je++});
+  return {s:[tf,mc,es,je],esDone:esDone,total:tf+mc+es+je};
+}
+function answered(){
+  return [
+    S.tf.filter(function(v){return v!==null}).length,
+    S.mc.filter(function(v){return v!==null}).length,
+    S.es.filter(function(v){return v.trim().length>0}).length,
+    S.je.filter(function(v){return v.d&&v.c}).length
+  ];
+}
+
+/* ---------- نافذة تأكيد داخل الصفحة ---------- */
+function ask(title,msg,okLabel,cancelLabel,onOk){
+  var m=$('#modal');
+  m.innerHTML='<div class="modal" role="dialog" aria-modal="true" aria-labelledby="mt"><div class="box"><h3 id="mt">'+title+'</h3><p>'+msg+'</p><div class="row"><button class="btn ghost" id="mno">'+cancelLabel+'</button><button class="btn" id="myes">'+okLabel+'</button></div></div></div>';
+  m.hidden=false;
+  $('#myes').focus();
+  $('#mno').onclick=function(){m.hidden=true;m.innerHTML=''};
+  $('#myes').onclick=function(){m.hidden=true;m.innerHTML='';onOk()};
+}
+
+/* ---------- شاشة البداية ---------- */
+function buildStart(){
+  var rows=SECS.map(function(s,i){return '<tr><td>السؤال '+s.n+'</td><td>'+s.t+'</td><td class="num">'+s.max+'</td></tr>'}).join('');
+  $('#start').innerHTML=
+    '<h2>قبل ما تبدئي</h2><p class="cap">يمكنك التنقل بين الأسئلة بحرية، وإجاباتك تُحفظ تلقائيًا في هذا المتصفح.</p>'+
+    '<div class="card"><table class="plan"><thead><tr><th>القسم</th><th>النوع</th><th>الدرجة</th></tr></thead><tbody>'+rows+'</tbody><tfoot><tr><td colspan="2">المجموع</td><td class="num">'+TOTAL+'</td></tr></tfoot></table></div>'+
+    '<div class="card"><h3>المؤقّت</h3><div class="seg" id="seg"><button type="button" data-t="none" aria-pressed="'+(S.timer==='none')+'">بدون مؤقت</button><button type="button" data-t="down" aria-pressed="'+(S.timer==='down')+'">مؤقت 60 دقيقة</button></div>'+
+    '<button class="btn" id="go" type="button" style="width:100%">ابدئي الاختبار</button>'+
+    '<ul class="tips"><li>الأسئلة المقالية تُقيَّم ذاتيًا بعد التسليم، بمقارنة إجابتك بالنموذج.</li><li>في القيود اختاري الحساب المدين والدائن واكتبي المبلغ.</li></ul></div>';
+  $('#seg').onclick=function(e){var b=e.target.closest('button');if(!b)return;S.timer=b.getAttribute('data-t');$$('#seg button').forEach(function(x){x.setAttribute('aria-pressed',x===b)});save()};
+  $('#go').onclick=function(){var t=S.timer;S=fresh();S.timer=t;S.phase='exam';save();enter()};
+}
+
+/* ---------- الاختبار ---------- */
+function opts(q){return q.o.map(function(t,k){return '<button type="button" data-k="'+k+'" aria-pressed="false"><b>'+LET[k]+'</b><span>'+t+'</span></button>'}).join('')}
+function buildExam(){
+  var el=$('#exam');
+  var pills=SECS.map(function(s,i){return '<button type="button" class="pill" data-s="'+i+'"><span>'+s.n+'</span><small class="num" id="pc'+i+'"></small></button>'}).join('');
+  var p0='<div class="qs">'+TF.map(function(q,i){return '<div class="qc" data-i="'+i+'"><div class="qh"><span class="no num">'+(i+1)+'</span><p class="qt">'+q.q+'</p></div><div class="tfb"><button type="button" class="ch" data-v="0" aria-pressed="false">صح ✓</button><button type="button" class="ch" data-v="1" aria-pressed="false">خطأ ✗</button></div></div>'}).join('')+'</div>';
+  var p1='<div class="qs">'+MC.map(function(q,i){return '<div class="qc" data-i="'+i+'"><div class="qh"><span class="no num">'+(i+1)+'</span><p class="qt">'+q.q+'</p></div><div class="mo">'+opts(q)+'</div></div>'}).join('')+'</div>';
+  var p2='<div class="qs">'+ES.map(function(q,i){return '<div class="qc" data-i="'+i+'"><div class="qh"><span class="no num">'+(i+1)+'</span><p class="qt">'+q.q+'</p></div><textarea id="es'+i+'" data-i="'+i+'" placeholder="اكتبي إجابتك هنا..." aria-label="إجابة السؤال '+(i+1)+'"></textarea></div>'}).join('')+'</div>';
+  var accOpts='<option value="">اختاري الحساب</option>'+ACC.map(function(a){return '<option value="'+esc(a)+'">'+a+'</option>'}).join('');
+  var p3='<div class="card" style="margin-bottom:10px"><h3>حدثت العمليات الآتية في منشأة خالد للخدمات</h3><p class="hint" style="margin:0">لكل عملية حددي الحساب المدين والحساب الدائن واكتبي المبلغ.</p></div><div class="qs">'+OPS.map(function(o,i){return '<div class="qc je" data-i="'+i+'"><div class="qh" style="margin-bottom:0"><span class="no num">'+(i+1)+'</span><div><div class="date num">'+o.date+'</div><p class="qt">'+o.txt+'</p></div></div><div class="flds"><div class="fld"><label for="jd'+i+'">من حـ/ (مدين)</label><select id="jd'+i+'" data-f="d">'+accOpts+'</select></div><div class="fld"><label for="jc'+i+'">إلى حـ/ (دائن)</label><select id="jc'+i+'" data-f="c">'+accOpts+'</select></div><div class="fld"><label for="ja'+i+'">المبلغ (ريال)</label><input class="amt num" id="ja'+i+'" data-f="a" inputmode="numeric" autocomplete="off" placeholder="0"></div></div></div>'}).join('')+'</div>';
+  var panels=[
+    {h:'السؤال الأول',c:'ضعي علامة (✓) أمام العبارة الصحيحة وعلامة (✗) أمام العبارة الخاطئة. 15 درجة.',b:p0},
+    {h:'السؤال الثاني',c:'اختاري الإجابة الصحيحة من بين البدائل. 15 درجة.',b:p1},
+    {h:'السؤال الثالث',c:'أجيبي عن الأسئلة التالية إجابة واضحة ومنظمة. 6 درجات، وتُقيَّم ذاتيًا بعد التسليم.',b:p2},
+    {h:'السؤال الرابع',c:'تحليل العمليات وإعداد قيود اليومية. 7 درجات.',b:p3}
+  ];
+  var ps=panels.map(function(p,i){
+    var nav='<div class="pnav">'+(i>0?'<button type="button" class="btn ghost" data-go="'+(i-1)+'">السابق</button>':'<span></span>')+(i<3?'<button type="button" class="btn" data-go="'+(i+1)+'">التالي</button>':'<button type="button" class="btn" id="submit">تسليم الاختبار</button>')+'</div>';
+    return '<section class="panel" data-p="'+i+'" hidden><h2>'+p.h+'</h2><p class="cap">'+p.c+'</p>'+p.b+nav+'</section>';
+  }).join('');
+  el.innerHTML='<div class="bar"><div class="pills" id="pills">'+pills+'</div><div class="tm num" id="tm">00:00</div></div>'+ps+'<div style="margin-top:22px;text-align:center"><button type="button" class="link" id="restart">إلغاء هذه المحاولة والعودة للبداية</button></div>';
+
+  /* استعادة الإجابات المحفوظة */
+  S.tf.forEach(function(v,i){if(v!==null)mark($('#exam .panel[data-p="0"] .qc[data-i="'+i+'"]'),'.ch','data-v',v)});
+  S.mc.forEach(function(v,i){if(v!==null)mark($('#exam .panel[data-p="1"] .qc[data-i="'+i+'"]'),'.mo button','data-k',v)});
+  S.es.forEach(function(v,i){$('#es'+i).value=v});
+  S.je.forEach(function(v,i){$('#jd'+i).value=v.d;$('#jc'+i).value=v.c;$('#ja'+i).value=v.a});
+  updCounts();goSec(S.sec||0);
+}
+function mark(card,sel,attr,val){
+  $$(sel,card).forEach(function(b){b.setAttribute('aria-pressed',String(b.getAttribute(attr))===String(val))});
+}
+function updCounts(){
+  var a=answered();
+  SECS.forEach(function(s,i){
+    var el=$('#pc'+i);if(!el)return;
+    el.textContent=a[i]+'/'+s.max;
+    el.parentNode.classList.toggle('full',a[i]===s.max);
+  });
+}
+function goSec(i){
+  S.sec=i;save();
+  $$('#exam .panel').forEach(function(p){p.hidden=(+p.getAttribute('data-p')!==i)});
+  $$('#pills .pill').forEach(function(b){b.setAttribute('aria-current',(+b.getAttribute('data-s')===i)?'true':'false')});
+  var cur=$('#pills .pill[aria-current="true"]');if(cur&&cur.scrollIntoView){try{cur.scrollIntoView({inline:'center',block:'nearest'})}catch(e){}}
+  window.scrollTo(0,0);
+}
+function onExamClick(e){
+  var t=e.target;
+  var go=t.closest('[data-go]');if(go){goSec(+go.getAttribute('data-go'));return}
+  var pill=t.closest('.pill');if(pill){goSec(+pill.getAttribute('data-s'));return}
+  var ch=t.closest('.ch');
+  if(ch){var c=ch.closest('.qc'),i=+c.getAttribute('data-i'),v=+ch.getAttribute('data-v');S.tf[i]=(S.tf[i]===v?null:v);mark(c,'.ch','data-v',S.tf[i]);save();updCounts();return}
+  var mo=t.closest('.mo button');
+  if(mo){var c2=mo.closest('.qc'),i2=+c2.getAttribute('data-i'),k=+mo.getAttribute('data-k');S.mc[i2]=(S.mc[i2]===k?null:k);mark(c2,'.mo button','data-k',S.mc[i2]);save();updCounts();return}
+  if(t.id==='submit'){confirmSubmit();return}
+  if(t.id==='restart'){ask('العودة للبداية','ستُحذف إجاباتك في هذه المحاولة.','احذفي وابدئي من جديد','أكملي الاختبار',function(){var tm=S.timer;S=fresh();S.timer=tm;save();enter()})}
+}
+function onExamInput(e){
+  var t=e.target;
+  if(t.tagName==='TEXTAREA'){S.es[+t.getAttribute('data-i')]=t.value;save();updCounts();return}
+  var f=t.getAttribute('data-f');
+  if(f){var i=+t.closest('.qc').getAttribute('data-i');S.je[i][f]=(f==='a'?digits(t.value):t.value);if(f==='a'&&t.value!==S.je[i][f])t.value=S.je[i][f];save();updCounts()}
+}
+function confirmSubmit(){
+  var a=answered(),left=[];
+  SECS.forEach(function(s,i){var n=s.max-a[i];if(n>0)left.push('السؤال '+s.n+': '+n)});
+  var msg=left.length?'لم تجيبي بعد عن: '+left.join('، ')+'.':'أجبتِ عن جميع الأسئلة.';
+  ask('تسليم الاختبار',msg+' بعد التسليم لا يمكن تعديل الإجابات.','سلّمي الاختبار','ارجعي للاختبار',submit);
+}
+function submit(){
+  S.phase='result';S.rsec='all';S.wrong=false;save();enter();
+}
+
+/* ---------- المؤقّت ---------- */
+var tick=null;
+function startTick(){
+  stopTick();
+  tick=setInterval(function(){
+    if(document.hidden||S.phase!=='exam')return;
+    S.used++;
+    paintTimer();
+    if(S.timer==='down'&&S.used>=LIMIT){submit();return}
+    if(S.used%10===0)save();
+  },1000);
+  paintTimer();
+}
+function stopTick(){if(tick){clearInterval(tick);tick=null}}
+function paintTimer(){
+  var el=$('#tm');if(!el)return;
+  if(S.timer==='down'){var r=LIMIT-S.used;el.textContent=mmss(r);el.classList.toggle('warn',r<=300);el.setAttribute('aria-label','الوقت المتبقي')}
+  else{el.textContent=mmss(S.used);el.classList.remove('warn');el.setAttribute('aria-label','الوقت المنقضي')}
+}
+
+/* ---------- النتيجة ---------- */
+function verdict(p){
+  if(p>=90)return 'ممتاز. أنتِ جاهزة للاختبار الحقيقي.';
+  if(p>=75)return 'جيد جدًا. راجعي الأخطاء وستصلين للدرجة الكاملة.';
+  if(p>=60)return 'جيد. ركّزي على الأقسام الأضعف ثم أعيدي الاختبار.';
+  return 'تحتاجين مراجعة أكثر. ارجعي للمراجعة التفاعلية ثم جرّبي الاختبار مرة ثانية.';
+}
+function items(){
+  var out=[];
+  TF.forEach(function(q,i){
+    var m=S.tf[i],ok=m===q.a;
+    var mineT=m===null?'لم تجيبي':(m===0?'صح ✓':'خطأ ✗'), rightT=q.a===0?'صح ✓':'خطأ ✗';
+    out.push({sec:0,st:m===null?'none':(ok?'ok':'bad'),html:
+      '<p class="qt"><span class="no num" style="display:inline-grid;margin-inline-end:8px">'+(i+1)+'</span>'+q.q+'</p>'+
+      '<div class="ansl"><div><span class="k">إجابتك</span><span>'+mineT+'</span></div>'+(ok?'':'<div><span class="k">الصحيح</span><span><b>'+rightT+'</b></span></div>')+'</div>'+
+      '<p class="why"><b>السبب:</b> '+q.why+'</p>'});
+  });
+  MC.forEach(function(q,i){
+    var m=S.mc[i],ok=m===q.a;
+    var rows=q.o.map(function(t,k){
+      var cls='mrow',tag='';
+      if(k===q.a){cls+=' right';tag='<span class="tag">الصحيحة ✓</span>'}
+      else if(k===m){cls+=' wrong';tag='<span class="tag">إجابتك ✗</span>'}
+      if(k===q.a&&k===m)tag='<span class="tag">إجابتك ✓</span>';
+      return '<div class="'+cls+'"><b>'+LET[k]+'</b><span>'+t+'</span>'+tag+'</div>';
+    }).join('');
+    out.push({sec:1,st:m===null?'none':(ok?'ok':'bad'),html:
+      '<p class="qt"><span class="no num" style="display:inline-grid;margin-inline-end:8px">'+(i+1)+'</span>'+q.q+'</p>'+
+      '<div style="display:grid;gap:5px">'+rows+'</div>'+(m===null?'<p class="hint">لم تجيبي عن هذا السؤال.</p>':'')+
+      '<p class="why"><b>السبب:</b> '+q.why+'</p>'});
+  });
+  ES.forEach(function(q,i){
+    var g=S.self[i],txt=S.es[i].trim();
+    var st=g===null?'pend':(g===1?'ok':(g===0.5?'mid':'bad'));
+    var b=function(v,l){return '<button type="button" data-es="'+i+'" data-g="'+v+'" aria-pressed="'+(g===v)+'">'+l+'</button>'};
+    out.push({sec:2,st:st,es:i,html:
+      '<p class="qt"><span class="no num" style="display:inline-grid;margin-inline-end:8px">'+(i+1)+'</span>'+q.q+'</p>'+
+      '<p class="glab">إجابتك</p><div class="mine'+(txt?'':' empty')+'">'+(txt?esc(txt):'لم تكتبي إجابة.')+'</div>'+
+      '<p class="glab">الإجابة النموذجية</p><div class="model">'+q.a+'</div>'+
+      '<p class="glab">قيّمي إجابتك</p><div class="grade">'+b(1,'كاملة (1)')+b(0.5,'جزئية (0.5)')+b(0,'ناقصة (0)')+'</div>'});
+  });
+  OPS.forEach(function(o,i){
+    var a=S.je[i],ok=jeOk(i),has=a.d||a.c||a.a;
+    var mine=has?'<div class="jline mine2'+(ok?' good':'')+'"><div>من حـ/ '+(a.d||'—')+(a.a?' <span class="num">'+esc(Number(a.a).toLocaleString('en-US'))+'</span>':'')+'</div><div class="cr">إلى حـ/ '+(a.c||'—')+(a.a?' <span class="num">'+esc(Number(a.a).toLocaleString('en-US'))+'</span>':'')+'</div></div>':'<p class="hint">لم تجيبي عن هذه العملية.</p>';
+    var amt=Number(o.amt).toLocaleString('en-US');
+    out.push({sec:3,st:has?(ok?'ok':'bad'):'none',html:
+      '<p class="qt"><span class="no num" style="display:inline-grid;margin-inline-end:8px">'+(i+1)+'</span><span class="num" style="color:var(--muted);font-weight:600">'+o.date+'</span> '+o.txt+'</p>'+
+      '<p class="glab">إجابتك</p>'+mine+
+      (ok?'':'<p class="glab">القيد الصحيح</p><div class="jline"><div>من حـ/ '+o.d+' <span class="num">'+amt+'</span></div><div class="cr">إلى حـ/ '+o.c+' <span class="num">'+amt+'</span></div></div>')+
+      '<p class="why"><b>السبب:</b> '+o.why+'</p>'});
+  });
+  return out;
+}
+var LBL={ok:'✓ صحيحة',bad:'✗ خاطئة',none:'— بدون إجابة',mid:'◐ جزئية',pend:'بانتظار تقييمك'};
+function buildResult(){
+  var sc=scores(),total=sc.total,pct=Math.round(total/TOTAL*100);
+  var pend=ES.length-sc.esDone;
+  var bars=SECS.map(function(s,i){var v=sc.s[i];return '<div class="br"><span class="t">'+s.sh+'</span><div class="meter" role="img" aria-label="'+fmt(v)+' من '+s.max+'"><i style="width:'+Math.round(v/s.max*100)+'%"></i></div><span class="v num">'+fmt(v)+' / '+s.max+'</span></div>'}).join('');
+  /* أضعف قسم */
+  var worst=-1,wp=2;
+  SECS.forEach(function(s,i){if(i===2&&pend>0)return;var p=sc.s[i]/s.max;if(p<wp){wp=p;worst=i}});
+  var focus=(worst>=0&&wp<1)?'<p class="focus">ابدئي مراجعتك من السؤال '+SECS[worst].n+' ('+SECS[worst].sh+').</p>':'';
+  var all=items();
+  var wrongN=all.filter(function(x){return x.st!=='ok'}).length;
+  var fl='<button type="button" class="fchip" data-rs="all" aria-pressed="'+(S.rsec==='all')+'">كل الأسئلة</button>'+SECS.map(function(s,i){return '<button type="button" class="fchip" data-rs="'+i+'" aria-pressed="'+(S.rsec===i)+'">'+s.n+'</button>'}).join('')+'<button type="button" class="fchip wrongonly" data-wrong="1" aria-pressed="'+S.wrong+'">غير الصحيحة فقط ('+wrongN+')</button>';
+  var list=all.filter(function(x){return (S.rsec==='all'||x.sec===S.rsec)&&(!S.wrong||x.st!=='ok')});
+  var secNo=[0,0,0,0];
+  var html=list.map(function(x){return '<div class="rv '+x.st+'"><span class="st '+x.st+'">'+LBL[x.st]+'</span>'+x.html+'</div>'}).join('')||'<div class="empty-state">لا توجد أسئلة في هذا الفلتر. أحسنتِ.</div>';
+  $('#result').innerHTML=
+    '<h2>نتيجتك</h2>'+
+    '<div class="card"><div class="score"><span class="big num">'+fmt(total)+'</span><span class="of num">من '+TOTAL+'</span><span class="pc num">'+pct+'%</span></div>'+
+    '<p class="verdict">'+verdict(pct)+'</p>'+
+    (pend>0?'<p class="pend">لم تُقيَّم '+pend+' من الأسئلة المقالية بعد، لذلك الدرجة غير نهائية. قيّمي إجاباتك في قسم «الثالث» بالأسفل.</p>':'')+
+    '<div class="brk">'+bars+'</div>'+focus+
+    '<p class="hint" style="margin-top:10px">الزمن المستغرق: <span class="num">'+mmss(S.used)+'</span></p></div>'+
+    '<h2 style="margin-top:22px">مراجعة الإجابات</h2><div class="filters" id="filters">'+fl+'</div><div id="rvlist">'+html+'</div>'+
+    '<div class="row" style="margin-top:20px"><button type="button" class="btn" id="again">أعيدي الاختبار</button></div>';
+}
+function onResultClick(e){
+  var t=e.target;
+  var g=t.closest('[data-es]');
+  if(g){var i=+g.getAttribute('data-es'),v=+g.getAttribute('data-g');S.self[i]=(S.self[i]===v?null:v);save();var y=window.scrollY;buildResult();window.scrollTo(0,y);return}
+  var rs=t.closest('[data-rs]');
+  if(rs){var v2=rs.getAttribute('data-rs');S.rsec=(v2==='all'?'all':+v2);save();var y2=window.scrollY;buildResult();window.scrollTo(0,y2);return}
+  var w=t.closest('[data-wrong]');
+  if(w){S.wrong=!S.wrong;save();var y3=window.scrollY;buildResult();window.scrollTo(0,y3);return}
+  if(t.id==='again'){ask('إعادة الاختبار','ستبدئين محاولة جديدة وتُحذف نتيجة هذه المحاولة.','ابدئي من جديد','ابقي هنا',function(){var tm=S.timer;S=fresh();S.timer=tm;save();enter()})}
+}
+
+/* ---------- التنقل بين الشاشات ---------- */
+function enter(){
+  stopTick();
+  if(S.phase==='exam'){buildExam();show('exam');startTick();goSec(S.sec||0)}
+  else if(S.phase==='result'){buildResult();show('result')}
+  else{buildStart();show('start')}
+}
+$('#exam').addEventListener('click',onExamClick);
+$('#exam').addEventListener('input',onExamInput);
+$('#exam').addEventListener('change',onExamInput);
+$('#result').addEventListener('click',onResultClick);
+document.addEventListener('visibilitychange',function(){if(document.hidden)save()});
+window.addEventListener('pagehide',save);
+enter();
+})();
+</script>
+
+</body>
+</html>
