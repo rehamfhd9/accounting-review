@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta property="og:title" content="ملخص الإنجليزي للحوكمة والتدقيق الداخلي">
+<meta property="og:description" content="مراجعة الوحدتين الأولى والثانية (ص5–ص22) على أسئلة الاختبار الثلاثة. إعداد: رهام فهد الداود">
+<title>ملخص الإنجليزي للحوكمة</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Readex+Pro:wght@500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap">
+<style>
+:root{
+  --bg:#FAF7F2; --surface:#FFFFFF; --ink:#2A2733; --muted:#6C6778; --line:#ECE5DA; --soft:#F5F0E8;
+  --accent:#5565BE; --accent-ink:#FFFFFF; --accent-t:#EDEFFB; --accent-m:#CDD3F3;
+  --c1:#2C74B3; --c1-t:#EAF3FC; --c1-m:#C6DEF3;
+  --c2:#1D7D66; --c2-t:#E7F5EF; --c2-m:#BFE4D6;
+  --c3:#7350BE; --c3-t:#F2EDFB; --c3-m:#DCD0F4;
+  --pe:#B0582A; --pe-t:#FDEEE3;
+  --ok:#2C7A4D; --ok-bg:#E5F4EA; --bad:#BE3F37; --bad-bg:#FCEAE7;
+  --on-c:#FFFFFF; --knob:#FFFFFF; --trk-off:#D3CBBE; --shadow:rgba(70,50,30,.08);
+  --f-display:'Readex Pro','IBM Plex Sans Arabic','Segoe UI',Tahoma,system-ui,sans-serif;
+  --f-body:'IBM Plex Sans Arabic','Segoe UI',Tahoma,system-ui,sans-serif;
+  --f-en:'Source Serif 4','Times New Roman',Georgia,serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#17151C; --surface:#211E28; --ink:#EEEAF3; --muted:#ABA5B8; --line:#35303F; --soft:#2A2632;
+    --accent:#A3AEF2; --accent-ink:#161829; --accent-t:#262A42; --accent-m:#3D4470;
+    --c1:#8EC5F1; --c1-t:#1B2836; --c1-m:#2D4864;
+    --c2:#80D7BD; --c2-t:#182C27; --c2-m:#2B5247;
+    --c3:#C3ABF4; --c3-t:#272139; --c3-m:#463B68;
+    --pe:#F2B58C; --pe-t:#36271F;
+    --ok:#7DD69E; --ok-bg:#1B3226; --bad:#F59C93; --bad-bg:#3C2222;
+    --on-c:#17151C; --knob:#F4F1F8; --trk-off:#4A4456; --shadow:rgba(0,0,0,.45);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#17151C; --surface:#211E28; --ink:#EEEAF3; --muted:#ABA5B8; --line:#35303F; --soft:#2A2632;
+  --accent:#A3AEF2; --accent-ink:#161829; --accent-t:#262A42; --accent-m:#3D4470;
+  --c1:#8EC5F1; --c1-t:#1B2836; --c1-m:#2D4864;
+  --c2:#80D7BD; --c2-t:#182C27; --c2-m:#2B5247;
+  --c3:#C3ABF4; --c3-t:#272139; --c3-m:#463B68;
+  --pe:#F2B58C; --pe-t:#36271F;
+  --ok:#7DD69E; --ok-bg:#1B3226; --bad:#F59C93; --bad-bg:#3C2222;
+  --on-c:#17151C; --knob:#F4F1F8; --trk-off:#4A4456; --shadow:rgba(0,0,0,.45);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  --c:var(--accent); --ct:var(--accent-t); --cm:var(--accent-m);
+  background:var(--bg); color:var(--ink); direction:rtl;
+  font-family:var(--f-body); font-size:15px; line-height:1.75;
+  padding-block:16px calc(100px + env(safe-area-inset-bottom, 0px));
+  padding-left:max(16px, env(safe-area-inset-left, 0px));
+  padding-right:max(16px, env(safe-area-inset-right, 0px));
+}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:40}
+.s0{--c:var(--accent);--ct:var(--accent-t);--cm:var(--accent-m)}
+.s1{--c:var(--c1);--ct:var(--c1-t);--cm:var(--c1-m)}
+.s2{--c:var(--c2);--ct:var(--c2-t);--cm:var(--c2-m)}
+.s3{--c:var(--c3);--ct:var(--c3-t);--cm:var(--c3-m)}
+.wrap{max-width:820px;margin-inline:auto}
+.num{font-variant-numeric:tabular-nums;unicode-bidi:isolate;white-space:nowrap}
+.en{font-family:var(--f-en);direction:ltr;text-align:left;unicode-bidi:isolate}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--c);outline-offset:2px}
+p{margin:0}
+h1,h2,h3{text-wrap:balance}
+
+/* الرأس */
+.hero{position:relative;overflow:hidden;padding:22px 18px 18px;border:1px solid var(--line);border-radius:22px;
+  background:linear-gradient(140deg,var(--pe-t) 0%,var(--surface) 46%,var(--c3-t) 100%);box-shadow:0 10px 30px -18px var(--shadow)}
+.tri{display:flex;gap:6px;margin-bottom:12px}
+.tri i{display:block;width:34px;height:6px;border-radius:999px}
+.tri i:nth-child(1){background:var(--c1)}
+.tri i:nth-child(2){background:var(--c2)}
+.tri i:nth-child(3){background:var(--c3)}
+.eyebrow{margin:0;font-size:12.5px;color:var(--muted);letter-spacing:.01em}
+h1{margin:4px 0 6px;font-family:var(--f-display);font-weight:700;font-size:clamp(26px,7.4vw,38px);line-height:1.3}
+.lead{color:var(--muted);font-size:14px;max-width:60ch}
+.by{display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:4px 14px;border-radius:999px;background:var(--surface);border:1px solid var(--line);color:var(--pe);font-weight:700;font-size:14px}
+.by::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--pe)}
+
+/* شريط التنقل */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;display:flex;gap:4px;margin-top:10px;padding:10px 0;background:var(--bg);overflow-x:auto;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav a{flex:1 0 auto;display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:2px 9px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap;transition:background .15s,color .15s,border-color .15s}
+.nav a:hover{border-color:var(--cm)}
+.nav a[aria-current="true"]{background:var(--c);border-color:var(--c);color:var(--on-c)}
+
+/* الأقسام */
+section{scroll-margin-top:calc(64px + env(safe-area-inset-top,0px))}
+h2{display:flex;align-items:center;gap:10px;margin:34px 0 4px;font-family:var(--f-display);font-weight:700;font-size:clamp(21px,5.6vw,26px);line-height:1.4}
+h2 .qn{flex:none;display:inline-grid;place-items:center;min-width:44px;height:34px;padding:0 10px;border-radius:11px;background:var(--ct);color:var(--c);border:1px solid var(--cm);font-size:15px}
+.cap{margin:0 0 12px;color:var(--muted);font-size:13.5px;max-width:68ch}
+h3{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;margin:22px 0 8px;font-size:15.5px;font-weight:700}
+h3::before{content:"";flex:none;width:9px;height:9px;border-radius:50%;background:var(--c)}
+h3 small{font-weight:500;color:var(--muted);font-size:13px}
+
+/* شكل الاختبار */
+#test h2{margin-top:26px}
+.tiles{display:grid;gap:10px}
+.tile{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:2px 12px;padding:12px 14px;border-radius:16px;background:var(--ct);border:1px solid var(--cm);color:var(--ink);text-decoration:none;transition:transform .15s}
+.tile:hover{transform:translateY(-1px)}
+.tqn{grid-row:span 2;display:grid;place-items:center;width:44px;height:44px;border-radius:13px;background:var(--surface);border:1px solid var(--cm);color:var(--c);font-family:var(--f-display);font-weight:700;font-size:15px}
+.tt{font-weight:700;font-size:15.5px;line-height:1.4}
+.td{grid-column:2;font-size:12.5px;color:var(--muted);line-height:1.45}
+.tc{grid-row:1 / span 2;grid-column:3;text-align:center;color:var(--c);font-size:12px;font-weight:600;line-height:1.25}
+.tc b{display:block;font-family:var(--f-display);font-size:23px}
+@media (min-width:700px){.tiles{grid-template-columns:repeat(3,minmax(0,1fr))}.nav a{flex:none;padding-inline:14px}}
+.go{display:flex;gap:10px;align-items:center;justify-content:space-between;margin-top:14px;padding:13px 18px;border-radius:15px;background:var(--accent);color:var(--accent-ink);font-weight:700;text-decoration:none;box-shadow:0 10px 22px -14px var(--accent)}
+.go:hover{filter:brightness(1.05)}
+
+/* المصطلحات */
+.tlist{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 1px 2px var(--shadow)}
+.trow{display:grid;grid-template-columns:28px minmax(0,1fr) minmax(0,1fr);gap:10px;align-items:center;padding:10px 14px;border-top:1px solid var(--line)}
+.trow:first-child{border-top:0}
+.trow:nth-child(even){background:color-mix(in srgb,var(--ct) 55%,var(--surface))}
+.n{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--ct);color:var(--c);font-size:12.5px;font-weight:700}
+.tnw{display:flex;flex-direction:column;align-items:flex-end;gap:3px;min-width:0}
+.tn{font-weight:600;font-size:16.5px;line-height:1.4}
+.tx{display:inline-flex;padding:0 8px;border-radius:999px;background:var(--pe-t);color:var(--pe);font-size:11.5px;font-weight:700;line-height:1.7}
+.arc{font-size:16.5px;line-height:1.5}
+.arc b{color:var(--c);font-weight:700}
+.sl{color:var(--muted);font-style:normal;padding:0 2px}
+
+/* مساعدات الحفظ */
+.helps{margin:4px 0 14px;padding:12px;border-radius:16px;background:var(--ct);border:1px solid var(--cm)}
+.hl-t{margin:0 0 8px;font-size:13px;font-weight:700;color:var(--c)}
+.sws{display:flex;flex-wrap:wrap;gap:8px}
+.sws .sw{flex:1 1 220px;background:var(--surface);border-color:var(--cm)}
+.sw{display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:6px 12px;border:1px solid var(--line);border-radius:13px;background:var(--surface);cursor:pointer;text-align:start;line-height:1.35}
+.trk{flex:none;position:relative;width:42px;height:24px;border-radius:999px;background:var(--trk-off);transition:background .18s}
+.kn{position:absolute;top:3px;inset-inline-start:3px;width:18px;height:18px;border-radius:50%;background:var(--knob);box-shadow:0 1px 3px var(--shadow);transition:inset-inline-start .18s}
+.sw[aria-checked="true"] .trk{background:var(--c)}
+.sw[aria-checked="true"] .kn{inset-inline-start:21px;background:var(--on-c)}
+.swl{display:flex;flex-direction:column;font-size:14px;font-weight:700;min-width:0}
+.swl small{font-size:12px;font-weight:500;color:var(--muted)}
+
+/* جدول كلمات الخطأ */
+.gbox{margin:0 0 18px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:12px 14px;box-shadow:0 1px 2px var(--shadow)}
+.gh{margin:0 0 6px;font-weight:700;color:var(--c);font-size:14.5px}
+.gg{padding:8px 0;border-top:1px dashed var(--line)}
+.gg:first-of-type{border-top:0}
+.gg h4{margin:0 0 4px;font-size:13.5px;color:var(--muted);font-weight:700}
+.gg ul{list-style:none;margin:0;padding:0;display:grid;gap:5px}
+.gi{display:flex;flex-wrap:wrap;gap:2px 10px;align-items:baseline}
+.gwd{font-size:16px;min-width:0}
+.gref{font-size:13px;color:var(--muted);min-width:0}
+mark.x{background:var(--bad-bg);color:var(--bad);font-weight:700;padding:0 4px;border-radius:5px;box-shadow:inset 0 -2px 0 var(--bad)}
+
+/* القطع وصح/خطأ */
+.pass{margin:0 0 12px;padding:14px 16px;background:var(--ct);border:1px solid var(--cm);border-radius:16px}
+.pass h4{margin:0 0 6px;font-family:var(--f-en);direction:ltr;text-align:left;color:var(--c);font-size:14px;font-weight:600}
+.pass p{font-family:var(--f-en);direction:ltr;text-align:left;font-size:16.5px;line-height:1.9}
+.tfs{display:grid;gap:8px}
+.tf{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.th{display:flex;gap:10px;align-items:flex-start;direction:ltr}
+.th .n{flex:none;margin-top:1px}
+.tq{flex:1;min-width:0;font-size:16.5px;font-weight:600;line-height:1.65}
+.tb{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;margin-top:8px;padding-inline-start:36px}
+.bd{display:inline-block;padding:1px 12px;border-radius:999px;font-size:12.5px;font-weight:700;letter-spacing:.02em}
+.bd.t{background:var(--ok-bg);color:var(--ok)}
+.bd.f{background:var(--bad-bg);color:var(--bad)}
+.src,.pg{font-size:12px;color:var(--muted);font-weight:500;white-space:nowrap}
+#passages.off-w .tfs mark.x{background:none;color:inherit;font-weight:inherit;box-shadow:none;padding:0}
+#passages.off-g .gbox{display:none}
+
+/* الاختيار من متعدد */
+.kg{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:10px 12px}
+.kg + .kg{margin-top:8px}
+.kl{margin:0 0 6px;font-size:12.5px;color:var(--muted);font-weight:600}
+.keys{display:flex;flex-wrap:wrap;gap:6px}
+.kc{display:inline-flex;gap:7px;align-items:center;padding:3px 11px;border-radius:10px;background:var(--ct);font-size:14px}
+.kc .num{color:var(--muted);font-size:12.5px}
+.kc b{color:var(--c);font-family:var(--f-en)}
+.mqs{display:grid;gap:10px}
+.mq{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.mq .th .pg{margin-inline-start:auto;padding-top:3px}
+.opts{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:6px}
+.opt{display:flex;gap:10px;align-items:baseline;padding:7px 10px;border:1px solid var(--line);border-radius:11px;font-size:16px;line-height:1.55}
+.opt b{flex:none;display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--soft);font-family:var(--f-body);font-size:12px;color:var(--muted)}
+.opt.right{background:var(--ok-bg);border-color:color-mix(in srgb,var(--ok) 40%,transparent);font-weight:600}
+.opt.right b{background:var(--ok);color:var(--surface)}
+
+/* وضع الحفظ */
+.qa[tabindex]:focus-visible{outline:3px solid var(--c);outline-offset:2px}
+.hid{transition:filter .15s}
+body.memo .qa{cursor:pointer}
+body.memo .qa:not(.on) .hid{filter:blur(7px);user-select:none}
+body.memo .qa:not(.on) .opt.right{background:transparent;border-color:var(--line);font-weight:400}
+body.memo .qa:not(.on) .opt.right b{background:var(--soft);color:var(--muted)}
+body.memo .qa:not(.on) mark.x{background:none;color:inherit;font-weight:inherit;box-shadow:none;padding:0}
+body.memo .qa.tf:not(.on) .tb.hid{filter:none;position:relative}
+body.memo .qa.tf:not(.on) .tb > *{visibility:hidden}
+body.memo .qa.tf:not(.on) .tb::after{content:"اضغطي لإظهار الإجابة";position:absolute;inset-inline-start:36px;top:50%;transform:translateY(-50%);padding:0 12px;border:1px dashed var(--cm);border-radius:999px;background:var(--ct);color:var(--c);font-size:12px;font-weight:600;white-space:nowrap}
+body.memo .gbox:not(.on) .gh::after{content:" — اضغطي لإظهاره";font-weight:500;color:var(--muted)}
+
+/* شريط المذاكرة */
+.dock{position:fixed;inset:auto 0 0 0;z-index:35;background:var(--surface);border-top:1px solid var(--line);box-shadow:0 -10px 24px -16px var(--shadow);padding-bottom:env(safe-area-inset-bottom,0px)}
+@supports ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){.dock{background:color-mix(in srgb,var(--surface) 88%,transparent);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}}
+.dock-in{max-width:820px;margin-inline:auto;display:flex;align-items:center;gap:10px;padding-block:7px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.dock .sw{border:0;background:none;padding-inline:0}
+.dh{flex:1;min-width:0;font-size:12.5px;line-height:1.4;color:var(--muted)}
+.rh{flex:none;min-height:40px;padding:4px 14px;border:1px solid var(--accent-m);border-radius:999px;background:var(--accent-t);color:var(--accent);font-weight:700;font-size:13px;cursor:pointer}
+.rh:disabled{opacity:.45;cursor:default}
+body:not(.memo) .rh{display:none}
+body.memo .dock{box-shadow:0 -2px 0 var(--accent),0 -10px 24px -16px var(--shadow)}
+
+footer{margin-top:36px;padding:16px 0 0;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+footer .by{margin:0 0 8px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.hid,.trk,.kn,.tile,.nav a{transition:none}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+<header class="hero">
+  <div class="tri" aria-hidden="true"><i></i><i></i><i></i></div>
+  <p class="eyebrow"><bdi dir="ltr">English for Governance and Internal Audit</bdi></p>
+  <h1>ملخص الوحدتين الأولى والثانية</h1>
+  <p class="lead">مراجعة لما سيأتي في الاختبار فقط، بالأسئلة الثلاثة (من الصفحة <span class="num">5</span> إلى <span class="num">22</span>). المحتوى من الكتاب وبنصّه.</p>
+  <span class="by">إعداد: رهام فهد الداود</span>
+</header>
+
+<nav class="nav" aria-label="أقسام الملخص">
+  <a class="s0" href="#test">الاختبار</a><a class="s1" href="#terms">س1 الترجمة</a><a class="s2" href="#passages">س2 القطعتان</a><a class="s3" href="#mcq">س3 الاختيار</a>
+</nav>
+
+<main>
+<section id="test" class="s0">
+  <h2>شكل الاختبار</h2>
+  <p class="cap">اختبار منتصف الفصل الدراسي — الوحدتان الأولى والثانية (ص5 إلى ص22)، وكل الأسئلة منهما.</p>
+  <div class="tiles">
+    <a class="tile s1" href="#terms"><span class="tqn">س1</span><span class="tt">ترجمة مصطلحات</span><span class="td">من الإنجليزية إلى العربية</span><span class="tc"><b class="num">36</b>مصطلحًا</span></a>
+    <a class="tile s2" href="#passages"><span class="tqn">س2</span><span class="tt">قطعة قراءة</span><span class="td">وعليها أسئلة (صواب أم خطأ)</span><span class="tc"><b class="num">24</b>عبارة</span></a>
+    <a class="tile s3" href="#mcq"><span class="tqn">س3</span><span class="tt">اختيار من متعدد</span><span class="td">أسئلة الكتاب مع إجاباتها</span><span class="tc"><b class="num">16</b>سؤالًا</span></a>
+  </div>
+  <a class="go" href="english-exam.html"><span>جرّبي نفسك في الاختبار التفاعلي</span><span aria-hidden="true">←</span></a>
+</section>
+
+<section id="terms" class="s1">
+  <h2><span class="qn">س1</span>المصطلحات: إنجليزي ← عربي</h2>
+  <p class="cap">36 مصطلحًا كما في جدول Key Terminology. حين يذكر الكتاب صيغتين تجدينهما مفصولتين بـ «/». العلامة ★ مع رقم الصفحة تعني أن المصطلح جاء في تمرين الترجمة (إنجليزي ← عربي) في تلك الصفحة من الكتاب (16 مصطلحًا).</p>
+  <h3>الوحدة 1 <small>— ص5 وص6 (20 مصطلحًا)</small></h3>
+  <div class="tlist"><div class="qa trow"><span class="n num">1</span><span class="tnw"><span class="en tn" dir="ltr">Governance</span><small class="tx">★ ص12</small></span><span class="arc"><span class="hid"><b>الحوكمة</b></span></span></div>
+<div class="qa trow"><span class="n num">2</span><span class="tnw"><span class="en tn" dir="ltr">Organization</span><small class="tx">★ ص12</small></span><span class="arc"><span class="hid"><b>المؤسسة</b> <i class="sl">/</i> المنظمة</span></span></div>
+<div class="qa trow"><span class="n num">3</span><span class="tnw"><span class="en tn" dir="ltr">Internal audit</span><small class="tx">★ ص12</small></span><span class="arc"><span class="hid"><b>التدقيق الداخلي</b></span></span></div>
+<div class="qa trow"><span class="n num">4</span><span class="tnw"><span class="en tn" dir="ltr">Internal auditor</span><small class="tx">★ ص12</small></span><span class="arc"><span class="hid"><b>المدقق الداخلي</b></span></span></div>
+<div class="qa trow"><span class="n num">5</span><span class="tnw"><span class="en tn" dir="ltr">Management</span><small class="tx">★ ص12</small></span><span class="arc"><span class="hid"><b>الإدارة</b></span></span></div>
+<div class="qa trow"><span class="n num">6</span><span class="tnw"><span class="en tn" dir="ltr">Board of directors</span><small class="tx">★ ص12</small></span><span class="arc"><span class="hid"><b>مجلس الإدارة</b></span></span></div>
+<div class="qa trow"><span class="n num">7</span><span class="tnw"><span class="en tn" dir="ltr">Responsibility</span><small class="tx">★ ص12</small></span><span class="arc"><span class="hid"><b>المسؤولية</b></span></span></div>
+<div class="qa trow"><span class="n num">8</span><span class="tnw"><span class="en tn" dir="ltr">Accountability</span><small class="tx">★ ص12</small></span><span class="arc"><span class="hid"><b>المساءلة</b></span></span></div>
+<div class="qa trow"><span class="n num">9</span><span class="tnw"><span class="en tn" dir="ltr">Transparency</span></span><span class="arc"><span class="hid"><b>الشفافية</b></span></span></div>
+<div class="qa trow"><span class="n num">10</span><span class="tnw"><span class="en tn" dir="ltr">Policy</span></span><span class="arc"><span class="hid"><b>السياسة</b></span></span></div>
+<div class="qa trow"><span class="n num">11</span><span class="tnw"><span class="en tn" dir="ltr">Procedure</span></span><span class="arc"><span class="hid"><b>الإجراء</b></span></span></div>
+<div class="qa trow"><span class="n num">12</span><span class="tnw"><span class="en tn" dir="ltr">Control</span></span><span class="arc"><span class="hid"><b>الضابط الرقابي</b> <i class="sl">/</i> الرقابة</span></span></div>
+<div class="qa trow"><span class="n num">13</span><span class="tnw"><span class="en tn" dir="ltr">Risk</span></span><span class="arc"><span class="hid"><b>المخاطرة</b> <i class="sl">/</i> الخطر</span></span></div>
+<div class="qa trow"><span class="n num">14</span><span class="tnw"><span class="en tn" dir="ltr">Compliance</span></span><span class="arc"><span class="hid"><b>الامتثال</b></span></span></div>
+<div class="qa trow"><span class="n num">15</span><span class="tnw"><span class="en tn" dir="ltr">Objective</span></span><span class="arc"><span class="hid"><b>الهدف</b></span></span></div>
+<div class="qa trow"><span class="n num">16</span><span class="tnw"><span class="en tn" dir="ltr">Resource</span></span><span class="arc"><span class="hid"><b>الموارد</b> <i class="sl">/</i> المورد</span></span></div>
+<div class="qa trow"><span class="n num">17</span><span class="tnw"><span class="en tn" dir="ltr">Report</span></span><span class="arc"><span class="hid"><b>التقرير</b></span></span></div>
+<div class="qa trow"><span class="n num">18</span><span class="tnw"><span class="en tn" dir="ltr">Evidence</span></span><span class="arc"><span class="hid"><b>الإثبات</b> <i class="sl">/</i> الدليل</span></span></div>
+<div class="qa trow"><span class="n num">19</span><span class="tnw"><span class="en tn" dir="ltr">Stakeholder</span></span><span class="arc"><span class="hid"><b>أصحاب المصلحة</b> <i class="sl">/</i> صاحب مصلحة</span></span></div>
+<div class="qa trow"><span class="n num">20</span><span class="tnw"><span class="en tn" dir="ltr">Improvement</span></span><span class="arc"><span class="hid"><b>التطوير</b> <i class="sl">/</i> التحسين</span></span></div></div>
+  <h3>الوحدة 2 <small>— ص14 وص15 (16 مصطلحًا)</small></h3>
+  <div class="tlist"><div class="qa trow"><span class="n num">1</span><span class="tnw"><span class="en tn" dir="ltr">Organizational structure</span><small class="tx">★ ص20</small></span><span class="arc"><span class="hid"><b>الهيكل التنظيمي</b></span></span></div>
+<div class="qa trow"><span class="n num">2</span><span class="tnw"><span class="en tn" dir="ltr">Department</span><small class="tx">★ ص20</small></span><span class="arc"><span class="hid"><b>الإدارة</b> <i class="sl">/</i> القسم</span></span></div>
+<div class="qa trow"><span class="n num">3</span><span class="tnw"><span class="en tn" dir="ltr">Role</span><small class="tx">★ ص20</small></span><span class="arc"><span class="hid"><b>الدور</b></span></span></div>
+<div class="qa trow"><span class="n num">4</span><span class="tnw"><span class="en tn" dir="ltr">Position</span><small class="tx">★ ص20</small></span><span class="arc"><span class="hid"><b>الوظيفة</b> <i class="sl">/</i> المنصب</span></span></div>
+<div class="qa trow"><span class="n num">5</span><span class="tnw"><span class="en tn" dir="ltr">Authority</span><small class="tx">★ ص20</small></span><span class="arc"><span class="hid"><b>الصلاحية</b> <i class="sl">/</i> السلطة</span></span></div>
+<div class="qa trow"><span class="n num">6</span><span class="tnw"><span class="en tn" dir="ltr">Decision</span><small class="tx">★ ص20</small></span><span class="arc"><span class="hid"><b>القرار</b></span></span></div>
+<div class="qa trow"><span class="n num">7</span><span class="tnw"><span class="en tn" dir="ltr">Leadership</span><small class="tx">★ ص20</small></span><span class="arc"><span class="hid"><b>القيادة</b></span></span></div>
+<div class="qa trow"><span class="n num">8</span><span class="tnw"><span class="en tn" dir="ltr">Supervisor</span><small class="tx">★ ص20</small></span><span class="arc"><span class="hid"><b>المشرف</b></span></span></div>
+<div class="qa trow"><span class="n num">9</span><span class="tnw"><span class="en tn" dir="ltr">Manager</span></span><span class="arc"><span class="hid"><b>المدير</b></span></span></div>
+<div class="qa trow"><span class="n num">10</span><span class="tnw"><span class="en tn" dir="ltr">Employee</span></span><span class="arc"><span class="hid"><b>الموظف</b></span></span></div>
+<div class="qa trow"><span class="n num">11</span><span class="tnw"><span class="en tn" dir="ltr">Committee</span></span><span class="arc"><span class="hid"><b>اللجنة</b></span></span></div>
+<div class="qa trow"><span class="n num">12</span><span class="tnw"><span class="en tn" dir="ltr">Reporting line</span></span><span class="arc"><span class="hid"><b>خط تقديم التقارير</b> <i class="sl">/</i> خط الإبلاغ</span></span></div>
+<div class="qa trow"><span class="n num">13</span><span class="tnw"><span class="en tn" dir="ltr">Delegation</span></span><span class="arc"><span class="hid"><b>التفويض</b></span></span></div>
+<div class="qa trow"><span class="n num">14</span><span class="tnw"><span class="en tn" dir="ltr">Coordination</span></span><span class="arc"><span class="hid"><b>التنسيق</b></span></span></div>
+<div class="qa trow"><span class="n num">15</span><span class="tnw"><span class="en tn" dir="ltr">Communication</span></span><span class="arc"><span class="hid"><b>التواصل</b> <i class="sl">/</i> الاتصال</span></span></div>
+<div class="qa trow"><span class="n num">16</span><span class="tnw"><span class="en tn" dir="ltr">Teamwork</span></span><span class="arc"><span class="hid"><b>العمل الجماعي</b></span></span></div></div>
+</section>
+
+<section id="passages" class="s2">
+  <h2><span class="qn">س2</span>القطعتان وأسئلة صح وخطأ</h2>
+  <p class="cap">اقرئي القطعة ثم احكمي على العبارة. هذه كل أسئلة الكتاب على القطعتين بترتيب الصفحات، والعبارة المتكررة بنصها في صفحتين ذُكرت مرة واحدة.</p>
+  <div class="helps"><p class="hl-t">مساعدات الحفظ (اختيارية)</p><div class="sws"><button class="sw" id="tfw" type="button" role="switch" aria-checked="true"><span class="trk" aria-hidden="true"><span class="kn"></span></span><span class="swl">تلوين كلمة الخطأ<small>الكلمة الحمراء تعني أن العبارة خطأ</small></span></button><button class="sw" id="tfg" type="button" role="switch" aria-checked="true"><span class="trk" aria-hidden="true"><span class="kn"></span></span><span class="swl">جدول كلمات الخطأ<small>يجمع الكلمات الحمراء في مكان واحد</small></span></button></div></div>
+  <div class="gbox qa"><p class="gh">الكلمات الملوّنة في العبارات الخطأ، مجمّعة حسب تشابهها</p><div class="hid"><div class="gg"><h4>فقط</h4><ul><li class="gi"><span class="en gwd" dir="ltr"><mark class="x">only</mark></span><span class="gref">القطعة <span class="num">1</span>: عبارة <span class="num">3</span> (ص6)، عبارة <span class="num">6</span> (ص12)، عبارة <span class="num">9</span> (ص13)</span></li></ul></div><div class="gg"><h4>كلمات سلبية</h4><ul><li class="gi"><span class="en gwd" dir="ltr"><mark class="x">disorganized and irresponsible</mark></span><span class="gref">القطعة <span class="num">1</span>: عبارة <span class="num">1</span> (ص6)، عبارة <span class="num">11</span> (ص13)</span></li><li class="gi"><span class="en gwd" dir="ltr"><mark class="x">avoid</mark></span><span class="gref">القطعة <span class="num">1</span>: عبارة <span class="num">7</span> (ص13)</span></li><li class="gi"><span class="en gwd" dir="ltr"><mark class="x">ignores</mark></span><span class="gref">القطعة <span class="num">1</span>: عبارة <span class="num">9</span> (ص13)</span></li><li class="gi"><span class="en gwd" dir="ltr"><mark class="x">discouraged</mark></span><span class="gref">القطعة <span class="num">2</span>: عبارة <span class="num">11</span> (ص21)</span></li></ul></div><div class="gg"><h4>المدير لم يعد مسؤولًا</h4><ul><li class="gi"><span class="en gwd" dir="ltr"><mark class="x">no longer</mark></span><span class="gref">القطعة <span class="num">2</span>: عبارة <span class="num">4</span> (ص15)</span></li><li class="gi"><span class="en gwd" dir="ltr"><mark class="x">relieves</mark></span><span class="gref">القطعة <span class="num">2</span>: عبارة <span class="num">9</span> (ص21)</span></li></ul></div><div class="gg"><h4>المجلس + الأنشطة اليومية</h4><ul><li class="gi"><span class="en gwd" dir="ltr"><mark class="x">board of directors + daily</mark></span><span class="gref">القطعة <span class="num">2</span>: عبارة <span class="num">2</span> (ص15)، عبارة <span class="num">7</span> (ص21)</span></li></ul></div></div></div>
+
+  <h3>القطعة الأولى — الوحدة 1 <small>— ص6 وص9 · <span class="num">11</span> عبارة</small></h3>
+  <div class="pass"><h4>Reading Passage: Workplace Practice</h4><p>Every organization needs good governance. Governance helps an organization work in an organized, responsible, and honest way. It explains who makes decisions and who is responsible for different tasks. Internal audit examines work, controls, documents, and risks. Its purpose is not only to find mistakes; it also helps the organization improve. Good governance includes responsibility, accountability, transparency, and compliance. In practice, employees should follow approved policies and procedures, keep accurate records, communicate clearly, and ask for guidance when they are uncertain. Managers and auditors should review information fairly, protect confidential documents, and record important decisions. These actions help the organization achieve its objectives and improve its work.</p></div>
+  <div class="tfs"><div class="qa tf"><div class="th"><span class="n num">1</span><p class="en tq" dir="ltr">Governance helps an organization work in a <mark class="x">disorganized and irresponsible</mark> way.</p></div><div class="tb hid"><span class="bd f">FALSE · خطأ</span><span class="src">ص6</span></div></div>
+<div class="qa tf"><div class="th"><span class="n num">2</span><p class="en tq" dir="ltr">Governance explains who makes decisions and who is responsible for different tasks.</p></div><div class="tb hid"><span class="bd t">TRUE · صح</span><span class="src">ص6 وص12</span></div></div>
+<div class="qa tf"><div class="th"><span class="n num">3</span><p class="en tq" dir="ltr">The <mark class="x">only</mark> purpose of an internal audit is to find mistakes in an organization.</p></div><div class="tb hid"><span class="bd f">FALSE · خطأ</span><span class="src">ص6</span></div></div>
+<div class="qa tf"><div class="th"><span class="n num">4</span><p class="en tq" dir="ltr">Good governance includes responsibility, accountability, transparency, and compliance.</p></div><div class="tb hid"><span class="bd t">TRUE · صح</span><span class="src">ص6 وص12</span></div></div>
+<div class="qa tf"><div class="th"><span class="n num">5</span><p class="en tq" dir="ltr">Internal audit examines work, controls, documents, and risks.</p></div><div class="tb hid"><span class="bd t">TRUE · صح</span><span class="src">ص6</span></div></div>
+<div class="qa tf"><div class="th"><span class="n num">6</span><p class="en tq" dir="ltr">The reading passage states that the <mark class="x">only</mark> purpose of an internal audit is to find mistakes.</p></div><div class="tb hid"><span class="bd f">FALSE · خطأ</span><span class="src">ص12</span></div></div>
+<div class="qa tf"><div class="th"><span class="n num">7</span><p class="en tq" dir="ltr">According to the passage, employees should <mark class="x">avoid</mark> asking for guidance when they are uncertain.</p></div><div class="tb hid"><span class="bd f">FALSE · خطأ</span><span class="src">ص13</span></div></div>
+<div class="qa tf"><div class="th"><span class="n num">8</span><p class="en tq" dir="ltr">Managers and auditors should review information fairly and protect confidential documents.</p></div><div class="tb hid"><span class="bd t">TRUE · صح</span><span class="src">ص13</span></div></div>
+<div class="qa tf"><div class="th"><span class="n num">9</span><p class="en tq" dir="ltr">Internal audit <mark class="x">only</mark> examines financial records and <mark class="x">ignores</mark> risks or controls.</p></div><div class="tb hid"><span class="bd f">FALSE · خطأ</span><span class="src">ص13</span></div></div>
+<div class="qa tf"><div class="th"><span class="n num">10</span><p class="en tq" dir="ltr">Following approved policies and procedures helps the organization achieve its objectives.</p></div><div class="tb hid"><span class="bd t">TRUE · صح</span><span class="src">ص13</span></div></div>
+<div class="qa tf"><div class="th"><span class="n num">11</span><p class="en tq" dir="ltr">Good governance helps an organization work in a <mark class="x">disorganized and irresponsible</mark> way.</p></div><div class="tb hid"><span class="bd f">FALSE · خطأ</span><span class="src">ص13</span></div></div></div>
+
+  <h3>القطعة الثانية — الوحدة 2 <small>— ص15 وص17–18 · <span class="num">13</span> عبارة</small></h3>
+  <div class="pass"><h4>Reading Passage: Workplace Practice</h4><p>A clear organizational structure shows departments, positions, reporting lines, and responsibilities. The board provides direction, senior management manages daily activities, and managers plan and control departmental work. Employees should understand their roles, communicate with supervisors, and cooperate with other departments. Delegation gives a task or authority to another person, while the manager remains responsible for checking the work. In practice, employees should follow approved policies and procedures, keep accurate records, communicate clearly, and ask for guidance when they are uncertain. Managers and auditors should review information fairly, protect confidential documents, and record important decisions. These actions help the organization achieve its objectives and improve its work.</p></div>
+  <div class="tfs"><div class="qa tf"><div class="th"><span class="n num">1</span><p class="en tq" dir="ltr">A clear organizational structure shows departments, positions, reporting lines, and responsibilities.</p></div><div class="tb hid"><span class="bd t">TRUE · صح</span><span class="src">ص15</span></div></div>
+<div class="qa tf"><div class="th"><span class="n num">2</span><p class="en tq" dir="ltr">The <mark class="x">board of directors</mark> is responsible for managing the <mark class="x">daily</mark> operational activities of all departments.</p></div><div class="tb hid"><span class="bd f">FALSE · خطأ</span><span class="src">ص15</span></div></div>
+<div class="qa tf"><div class="th"><span class="n num">3</span><p class="en tq" dir="ltr">Employees should understand their roles and communicate effectively with their supervisors.</p></div><div class="tb hid"><span class="bd t">TRUE · صح</span><span class="src">ص15</span></div></div>
+<div class="qa tf"><div class="th"><span class="n num">4</span><p class="en tq" dir="ltr">Delegation means the manager is <mark class="x">no longer</mark> responsible for checking the delegated work.</p></div><div class="tb hid"><span class="bd f">FALSE · خطأ</span><span class="src">ص15</span></div></div>
+<div class="qa tf"><div class="th"><span class="n num">5</span><p class="en tq" dir="ltr">Managers are responsible for planning and controlling departmental work.</p></div><div class="tb hid"><span class="bd t">TRUE · صح</span><span class="src">ص15</span></div></div>
+<div class="qa tf"><div class="th"><span class="n num">6</span><p class="en tq" dir="ltr">A clear organizational structure shows departments, positions, and reporting lines.</p></div><div class="tb hid"><span class="bd t">TRUE · صح</span><span class="src">ص21</span></div></div>
+<div class="qa tf"><div class="th"><span class="n num">7</span><p class="en tq" dir="ltr">The <mark class="x">board of directors</mark> is responsible for managing <mark class="x">daily</mark> activities of departments.</p></div><div class="tb hid"><span class="bd f">FALSE · خطأ</span><span class="src">ص21</span></div></div>
+<div class="qa tf"><div class="th"><span class="n num">8</span><p class="en tq" dir="ltr">Managers plan and control departmental work according to the passage.</p></div><div class="tb hid"><span class="bd t">TRUE · صح</span><span class="src">ص21</span></div></div>
+<div class="qa tf"><div class="th"><span class="n num">9</span><p class="en tq" dir="ltr">According to the passage, delegation of a task <mark class="x">relieves</mark> the manager of ultimate responsibility.</p></div><div class="tb hid"><span class="bd f">FALSE · خطأ</span><span class="src">ص21</span></div></div>
+<div class="qa tf"><div class="th"><span class="n num">10</span><p class="en tq" dir="ltr">Employees should understand their roles and communicate with supervisors.</p></div><div class="tb hid"><span class="bd t">TRUE · صح</span><span class="src">ص21</span></div></div>
+<div class="qa tf"><div class="th"><span class="n num">11</span><p class="en tq" dir="ltr">Cooperating with other departments is <mark class="x">discouraged</mark> in the reading passage.</p></div><div class="tb hid"><span class="bd f">FALSE · خطأ</span><span class="src">ص21</span></div></div>
+<div class="qa tf"><div class="th"><span class="n num">12</span><p class="en tq" dir="ltr">The manager remains responsible for checking the work after delegating a task.</p></div><div class="tb hid"><span class="bd t">TRUE · صح</span><span class="src">ص21</span></div></div>
+<div class="qa tf"><div class="th"><span class="n num">13</span><p class="en tq" dir="ltr">Establishing departments helps in organizing the work of the company.</p></div><div class="tb hid"><span class="bd t">TRUE · صح</span><span class="src">ص21</span></div></div></div>
+</section>
+
+<section id="mcq" class="s3">
+  <h2><span class="qn">س3</span>الاختيار من متعدد</h2>
+  <p class="cap">الإجابة الصحيحة هي التي عليها علامة √ في الكتاب بخط الدكتور.</p>
+  
+  <h3>مفتاح الإجابات السريع</h3>
+  <div class="qa kg"><p class="kl">الوحدة 1 (ص11)</p><div class="keys"><span class="kc"><span class="num">1</span><b class="hid">A</b></span><span class="kc"><span class="num">2</span><b class="hid">B</b></span><span class="kc"><span class="num">3</span><b class="hid">B</b></span><span class="kc"><span class="num">4</span><b class="hid">B</b></span><span class="kc"><span class="num">5</span><b class="hid">C</b></span><span class="kc"><span class="num">6</span><b class="hid">A</b></span><span class="kc"><span class="num">7</span><b class="hid">C</b></span><span class="kc"><span class="num">8</span><b class="hid">B</b></span></div></div>
+  <div class="qa kg"><p class="kl">الوحدة 2 (ص19 وص20)</p><div class="keys"><span class="kc"><span class="num">1</span><b class="hid">B</b></span><span class="kc"><span class="num">2</span><b class="hid">B</b></span><span class="kc"><span class="num">3</span><b class="hid">B</b></span><span class="kc"><span class="num">4</span><b class="hid">B</b></span><span class="kc"><span class="num">5</span><b class="hid">B</b></span><span class="kc"><span class="num">6</span><b class="hid">B</b></span><span class="kc"><span class="num">7</span><b class="hid">C</b></span><span class="kc"><span class="num">8</span><b class="hid">B</b></span></div></div>
+  <h3>الوحدة 1 <small>— ص11</small></h3>
+  <div class="mqs"><article class="qa mq"><div class="th"><span class="n num">1</span><p class="en tq" dir="ltr">What is the main purpose of corporate governance?</p><span class="pg num">ص11</span></div><ul class="opts"><li class="opt right en" dir="ltr"><b>A</b><span>To direct and control an organization responsibly and ethically</span></li><li class="opt en" dir="ltr"><b>B</b><span>To increase regulatory fines and delay business operations</span></li><li class="opt en" dir="ltr"><b>C</b><span>To replace all managers with external consultants</span></li><li class="opt en" dir="ltr"><b>D</b><span>To hide financial records from stakeholders</span></li></ul></article>
+<article class="qa mq"><div class="th"><span class="n num">2</span><p class="en tq" dir="ltr">What is the role of an internal auditor?</p><span class="pg num">ص11</span></div><ul class="opts"><li class="opt en" dir="ltr"><b>A</b><span>To make day-to-day business decisions for the management</span></li><li class="opt right en" dir="ltr"><b>B</b><span>To objectively review operations, internal controls, and risks to recommend improvements</span></li><li class="opt en" dir="ltr"><b>C</b><span>To sell products and services to external customers</span></li><li class="opt en" dir="ltr"><b>D</b><span>To design and implement marketing campaigns</span></li></ul></article>
+<article class="qa mq"><div class="th"><span class="n num">3</span><p class="en tq" dir="ltr">Which of the following defines transparency in an organization?</p><span class="pg num">ص11</span></div><ul class="opts"><li class="opt en" dir="ltr"><b>A</b><span>Restricting access to all financial documents</span></li><li class="opt right en" dir="ltr"><b>B</b><span>Sharing information clearly, honestly, and openly with stakeholders</span></li><li class="opt en" dir="ltr"><b>C</b><span>Delegating tasks without keeping records</span></li><li class="opt en" dir="ltr"><b>D</b><span>Overriding internal controls when convenient</span></li></ul></article>
+<article class="qa mq"><div class="th"><span class="n num">4</span><p class="en tq" dir="ltr">What does accountability ensure?</p><span class="pg num">ص11</span></div><ul class="opts"><li class="opt en" dir="ltr"><b>A</b><span>That employees can avoid responsibility for errors</span></li><li class="opt right en" dir="ltr"><b>B</b><span>That individuals are required to explain and accept responsibility for their actions</span></li><li class="opt en" dir="ltr"><b>C</b><span>That the board of directors manages daily activities</span></li><li class="opt en" dir="ltr"><b>D</b><span>That the organization does not require audits</span></li></ul></article>
+<article class="qa mq"><div class="th"><span class="n num">5</span><p class="en tq" dir="ltr">A high-level statement of principles and rules established by leadership to guide decisions is called a:</p><span class="pg num">ص11</span></div><ul class="opts"><li class="opt en" dir="ltr"><b>A</b><span>Procedure</span></li><li class="opt en" dir="ltr"><b>B</b><span>Control</span></li><li class="opt right en" dir="ltr"><b>C</b><span>Policy</span></li><li class="opt en" dir="ltr"><b>D</b><span>Risk</span></li></ul></article>
+<article class="qa mq"><div class="th"><span class="n num">6</span><p class="en tq" dir="ltr">What are controls designed to do?</p><span class="pg num">ص11</span></div><ul class="opts"><li class="opt right en" dir="ltr"><b>A</b><span>Prevent, detect, or correct errors, fraud, and non-compliance</span></li><li class="opt en" dir="ltr"><b>B</b><span>Restrict all communications between departments</span></li><li class="opt en" dir="ltr"><b>C</b><span>Eliminate the need for any organizational structure</span></li><li class="opt en" dir="ltr"><b>D</b><span>Increase operational costs and staff numbers</span></li></ul></article>
+<article class="qa mq"><div class="th"><span class="n num">7</span><p class="en tq" dir="ltr">The possibility of an event occurring that will adversely affect an organization's objectives is a:</p><span class="pg num">ص11</span></div><ul class="opts"><li class="opt en" dir="ltr"><b>A</b><span>Resource</span></li><li class="opt en" dir="ltr"><b>B</b><span>Policy</span></li><li class="opt right en" dir="ltr"><b>C</b><span>Risk</span></li><li class="opt en" dir="ltr"><b>D</b><span>Control</span></li></ul></article>
+<article class="qa mq"><div class="th"><span class="n num">8</span><p class="en tq" dir="ltr">Who are the stakeholders of an organization?</p><span class="pg num">ص11</span></div><ul class="opts"><li class="opt en" dir="ltr"><b>A</b><span>Only the internal auditors</span></li><li class="opt right en" dir="ltr"><b>B</b><span>Any individual or group that can affect or be affected by the organization's actions</span></li><li class="opt en" dir="ltr"><b>C</b><span>Only the members of the board of directors</span></li><li class="opt en" dir="ltr"><b>D</b><span>Only the government regulators</span></li></ul></article></div>
+  <h3>الوحدة 2 <small>— ص19 وص20</small></h3>
+  <div class="mqs"><article class="qa mq"><div class="th"><span class="n num">1</span><p class="en tq" dir="ltr">What does a clear organizational structure show?</p><span class="pg num">ص19</span></div><ul class="opts"><li class="opt en" dir="ltr"><b>A</b><span>Personal interests of employees</span></li><li class="opt right en" dir="ltr"><b>B</b><span>Departments, positions, reporting lines, and responsibilities</span></li><li class="opt en" dir="ltr"><b>C</b><span>Weather patterns and external market prices</span></li><li class="opt en" dir="ltr"><b>D</b><span>Only the list of company holidays</span></li></ul></article>
+<article class="qa mq"><div class="th"><span class="n num">2</span><p class="en tq" dir="ltr">Who is responsible for managing the daily operational activities of an organization?</p><span class="pg num">ص19</span></div><ul class="opts"><li class="opt en" dir="ltr"><b>A</b><span>The board of directors</span></li><li class="opt right en" dir="ltr"><b>B</b><span>Senior management and department managers</span></li><li class="opt en" dir="ltr"><b>C</b><span>External auditors</span></li><li class="opt en" dir="ltr"><b>D</b><span>Government regulators</span></li></ul></article>
+<article class="qa mq"><div class="th"><span class="n num">3</span><p class="en tq" dir="ltr">What is the process of assigning responsibility or authority to another person to perform a task?</p><span class="pg num">ص19</span></div><ul class="opts"><li class="opt en" dir="ltr"><b>A</b><span>Coordination</span></li><li class="opt right en" dir="ltr"><b>B</b><span>Delegation</span></li><li class="opt en" dir="ltr"><b>C</b><span>Supervision</span></li><li class="opt en" dir="ltr"><b>D</b><span>Leadership</span></li></ul></article>
+<article class="qa mq"><div class="th"><span class="n num">4</span><p class="en tq" dir="ltr">Which of the following is a key purpose of a committee?</p><span class="pg num">ص20</span></div><ul class="opts"><li class="opt en" dir="ltr"><b>A</b><span>To let one person make all company decisions alone</span></li><li class="opt right en" dir="ltr"><b>B</b><span>To bring a group of people together to oversee, review, or make decisions on specific matters</span></li><li class="opt en" dir="ltr"><b>C</b><span>To replace the internal audit department</span></li><li class="opt en" dir="ltr"><b>D</b><span>To eliminate the need for reporting lines</span></li></ul></article>
+<article class="qa mq"><div class="th"><span class="n num">5</span><p class="en tq" dir="ltr">The formal power to make decisions and issue commands is known as:</p><span class="pg num">ص20</span></div><ul class="opts"><li class="opt en" dir="ltr"><b>A</b><span>Delegation</span></li><li class="opt right en" dir="ltr"><b>B</b><span>Authority</span></li><li class="opt en" dir="ltr"><b>C</b><span>Coordination</span></li><li class="opt en" dir="ltr"><b>D</b><span>Teamwork</span></li></ul></article>
+<article class="qa mq"><div class="th"><span class="n num">6</span><p class="en tq" dir="ltr">What is the main role of a supervisor?</p><span class="pg num">ص20</span></div><ul class="opts"><li class="opt en" dir="ltr"><b>A</b><span>To audit the board of directors</span></li><li class="opt right en" dir="ltr"><b>B</b><span>To oversee and direct the work of employees and provide daily guidance</span></li><li class="opt en" dir="ltr"><b>C</b><span>To prepare the organization's annual tax return</span></li><li class="opt en" dir="ltr"><b>D</b><span>To make strategic investment decisions</span></li></ul></article>
+<article class="qa mq"><div class="th"><span class="n num">7</span><p class="en tq" dir="ltr">Coordinating and aligning activities across different departments is called:</p><span class="pg num">ص20</span></div><ul class="opts"><li class="opt en" dir="ltr"><b>A</b><span>Communication</span></li><li class="opt en" dir="ltr"><b>B</b><span>Delegation</span></li><li class="opt right en" dir="ltr"><b>C</b><span>Coordination</span></li><li class="opt en" dir="ltr"><b>D</b><span>Leadership</span></li></ul></article>
+<article class="qa mq"><div class="th"><span class="n num">8</span><p class="en tq" dir="ltr">Why are clear reporting lines important in an organization?</p><span class="pg num">ص20</span></div><ul class="opts"><li class="opt en" dir="ltr"><b>A</b><span>They allow employees to ignore their supervisors</span></li><li class="opt right en" dir="ltr"><b>B</b><span>They show the established path of authority and who reports to whom</span></li><li class="opt en" dir="ltr"><b>C</b><span>They increase administrative errors</span></li><li class="opt en" dir="ltr"><b>D</b><span>They eliminate the need for teamwork</span></li></ul></article></div>
+</section>
+
+</main>
+
+<footer>
+  <span class="by">إعداد: رهام فهد الداود</span>
+  <p>المصدر: كتاب English for Governance and Internal Audit، الوحدتان الأولى والثانية (ص5–ص22).</p>
+</footer>
+</div>
+<div class="dock" role="region" aria-label="أدوات المذاكرة">
+  <div class="dock-in">
+    <button class="sw" id="memo" type="button" role="switch" aria-checked="false"><span class="trk" aria-hidden="true"><span class="kn"></span></span><span class="swl">وضع الحفظ<small>الإجابات ظاهرة</small></span></button>
+    <span class="dh" aria-live="polite">شغّليه لإخفاء الإجابات واختبار نفسك</span>
+    <button class="rh" id="rehide" type="button">إخفاء الكل</button>
+  </div>
+</div>
+
+<script>
+(function(){
+'use strict';
+var body=document.body;
+function $(s){return document.querySelector(s)}
+function all(s){return Array.prototype.slice.call(document.querySelectorAll(s))}
+var memo=$('#memo'),rehide=$('#rehide');
+function syncRehide(){rehide.disabled=!document.querySelector('.qa.on')}
+function setMemo(on){
+  body.classList.toggle('memo',on);memo.setAttribute('aria-checked',String(on));
+  memo.querySelector('small').textContent=on?'الإجابات مخفية':'الإجابات ظاهرة';
+  $('.dh').textContent=on?'اضغطي على السؤال لإظهار إجابته':'شغّليه لإخفاء الإجابات واختبار نفسك';
+  all('.qa').forEach(function(q){
+    if(on){q.setAttribute('tabindex','0');q.setAttribute('role','button')}
+    else{q.removeAttribute('tabindex');q.removeAttribute('role');q.classList.remove('on')}
+  });
+  syncRehide();
+}
+memo.addEventListener('click',function(){setMemo(!body.classList.contains('memo'))});
+rehide.addEventListener('click',function(){all('.qa.on').forEach(function(q){q.classList.remove('on')});syncRehide()});
+var HELP=[['tfw','#passages','off-w'],['tfg','#passages','off-g']];
+var saved={};
+try{saved=JSON.parse(localStorage.getItem('eng-sum-help')||'{}')||{}}catch(err){saved={}}
+function setH(h,on){
+  $('#'+h[0]).setAttribute('aria-checked',String(on));
+  $(h[1]).classList.toggle(h[2],!on);
+  saved[h[0]]=on?1:0;
+  try{localStorage.setItem('eng-sum-help',JSON.stringify(saved))}catch(err){}
+}
+HELP.forEach(function(h){
+  var b=$('#'+h[0]);
+  if(saved[h[0]]===0)setH(h,false);
+  b.addEventListener('click',function(){setH(h,b.getAttribute('aria-checked')!=='true')});
+});
+function flip(q){q.classList.toggle('on');syncRehide()}
+document.addEventListener('click',function(e){
+  if(body.classList.contains('memo')){
+    var q=e.target.closest('.qa');
+    if(q&&!e.target.closest('a')){flip(q);return}
+  }
+  var a=e.target.closest('.nav a, .plan a');
+  if(a){
+    var id=a.getAttribute('href'),t=id&&id.charAt(0)==='#'&&document.getElementById(id.slice(1));
+    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'})}
+  }
+});
+document.addEventListener('keydown',function(e){
+  if((e.key==='Enter'||e.key===' ')&&body.classList.contains('memo')){
+    var q=e.target.closest&&e.target.closest('.qa');
+    if(q&&e.target===q){e.preventDefault();flip(q)}
+  }
+});
+/* تمييز القسم الحالي في شريط التنقل */
+var secs=all('main > section'),links={},cur='',tick=false;
+all('.nav a').forEach(function(a){links[a.getAttribute('href').slice(1)]=a});
+function spy(){
+  tick=false;var y=window.innerHeight*0.3,c=secs[0];
+  secs.forEach(function(s){if(s.getBoundingClientRect().top<=y)c=s});
+  if(c.id===cur)return;cur=c.id;
+  Object.keys(links).forEach(function(k){links[k].setAttribute('aria-current',String(k===cur))});
+  var a=links[cur],nav=$('.nav');
+  if(a&&nav&&nav.scrollWidth>nav.clientWidth+1){
+    var ar=a.getBoundingClientRect(),nr=nav.getBoundingClientRect();
+    nav.scrollBy({left:(ar.left+ar.width/2)-(nr.left+nr.width/2),behavior:'smooth'});
+  }
+}
+window.addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(spy)}},{passive:true});
+spy();
+})();
+</script>
+
+</body>
+</html>
