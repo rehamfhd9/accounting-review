@@ -1,0 +1,600 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta property="og:title" content="اختبار الإنجليزي للحوكمة والتدقيق الداخلي">
+<meta property="og:description" content="اختبار تفاعلي للوحدتين الأولى والثانية: ترجمة مصطلحات، قطعة قراءة صح وخطأ، واختيار من متعدد. إعداد: رهام فهد الداود">
+<title>اختبار الإنجليزي للحوكمة</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Readex+Pro:wght@500;600;700&family=Source+Serif+4:wght@400;600&display=swap">
+<style>
+/* Layout: one exam-paper column. Start sheet, sticky question tabs, score page with review. Soft cheerful palette shared with the summary: each exam question has its own colour (sky, mint, lavender). */
+:root{
+  --bg:#FAF7F2; --surface:#FFFFFF; --ink:#2A2733; --muted:#6C6778; --line:#ECE5DA;
+  --accent:#5565BE; --accent-ink:#FFFFFF; --soft:#EFF0FA; --accent-m:#CDD3F3;
+  --gold:#B0582A; --gold-bg:#FDEEE3;
+  --c1:#2C74B3; --c1-t:#EAF3FC; --c1-m:#C6DEF3; --c2:#1D7D66; --c2-t:#E7F5EF; --c2-m:#BFE4D6; --c3:#7350BE; --c3-t:#F2EDFB; --c3-m:#DCD0F4;
+  --ok:#2C7A4D; --ok-bg:#E5F4EA; --bad:#BE3F37; --bad-bg:#FCEAE7; --mid:#9A6A12; --mid-bg:#FBF1DC;
+  --on-c:#FFFFFF; --shadow:rgba(70,50,30,.08);
+  --scrim:rgba(30,20,40,.45);
+  --f-display:'Readex Pro','IBM Plex Sans Arabic','Segoe UI',Tahoma,system-ui,sans-serif;
+  --f-body:'IBM Plex Sans Arabic','Segoe UI',Tahoma,system-ui,sans-serif;
+  --f-en:'Source Serif 4','Times New Roman',Georgia,serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#17151C; --surface:#211E28; --ink:#EEEAF3; --muted:#ABA5B8; --line:#35303F;
+    --accent:#A3AEF2; --accent-ink:#161829; --soft:#2A2A3C; --accent-m:#3D4470;
+    --gold:#F2B58C; --gold-bg:#36271F;
+    --c1:#8EC5F1; --c1-t:#1B2836; --c1-m:#2D4864; --c2:#80D7BD; --c2-t:#182C27; --c2-m:#2B5247; --c3:#C3ABF4; --c3-t:#272139; --c3-m:#463B68;
+    --ok:#7DD69E; --ok-bg:#1B3226; --bad:#F59C93; --bad-bg:#3C2222; --mid:#EBC27A; --mid-bg:#3A2F17;
+    --on-c:#17151C; --shadow:rgba(0,0,0,.45);
+    --scrim:rgba(0,0,0,.6);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#17151C; --surface:#211E28; --ink:#EEEAF3; --muted:#ABA5B8; --line:#35303F;
+  --accent:#A3AEF2; --accent-ink:#161829; --soft:#2A2A3C; --accent-m:#3D4470;
+  --gold:#F2B58C; --gold-bg:#36271F;
+  --c1:#8EC5F1; --c1-t:#1B2836; --c1-m:#2D4864; --c2:#80D7BD; --c2-t:#182C27; --c2-m:#2B5247; --c3:#C3ABF4; --c3-t:#272139; --c3-m:#463B68;
+  --ok:#7DD69E; --ok-bg:#1B3226; --bad:#F59C93; --bad-bg:#3C2222; --mid:#EBC27A; --mid-bg:#3A2F17;
+  --on-c:#17151C; --shadow:rgba(0,0,0,.45);
+  --scrim:rgba(0,0,0,.6);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{
+  background:var(--bg); color:var(--ink); direction:rtl;
+  font-family:var(--f-body); font-size:15px; line-height:1.7;
+  padding-block:14px 48px;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));
+  padding-right:max(16px, env(safe-area-inset-right, 0px));
+}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:40}
+.wrap{max-width:760px;margin-inline:auto}
+.num{font-variant-numeric:tabular-nums;unicode-bidi:isolate;white-space:nowrap}
+button,select,input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+p{margin:0 0 8px}
+.en{font-family:var(--f-en);direction:ltr;text-align:left;unicode-bidi:isolate}
+
+/* ---------- الرأس ---------- */
+header{position:relative;overflow:hidden;padding:20px 18px 18px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(140deg,var(--gold-bg) 0%,var(--surface) 46%,var(--c3-t) 100%);box-shadow:0 10px 30px -18px var(--shadow)}
+.tri{display:flex;gap:6px;margin-bottom:12px}
+.tri i{display:block;width:34px;height:6px;border-radius:999px}
+.tri i:nth-child(1){background:var(--c1)}.tri i:nth-child(2){background:var(--c2)}.tri i:nth-child(3){background:var(--c3)}
+.eyebrow{margin:0;font-size:12.5px;color:var(--muted)}
+h1{margin:4px 0 2px;font-family:var(--f-display);font-weight:700;font-size:clamp(27px,7.5vw,38px);line-height:1.35;text-wrap:balance}
+.lead{margin:0;color:var(--muted);font-size:13.5px}
+.by{display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:4px 14px;border-radius:999px;background:var(--surface);border:1px solid var(--line);color:var(--gold);font-weight:700;font-size:14px}
+.by::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--gold)}
+h2{margin:18px 0 2px;font-family:var(--f-display);font-weight:700;font-size:clamp(21px,5.8vw,26px);line-height:1.45;text-wrap:balance}
+.cap{margin:0 0 10px;color:var(--muted);font-size:13.5px}
+h3{margin:0 0 6px;font-size:15.5px;font-weight:700;line-height:1.6}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:0 1px 2px var(--shadow)}
+.card + .card{margin-top:10px}
+.btn{background:var(--accent);color:var(--accent-ink);border:1.5px solid var(--accent);border-radius:12px;padding:9px 18px;min-height:44px;font-size:15px;font-weight:600;cursor:pointer}
+.btn.ghost{background:none;color:var(--accent)}
+.btn.sm{min-height:36px;padding:4px 12px;font-size:13.5px}
+.btn:hover{filter:brightness(1.08)}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.row.end{justify-content:space-between}
+.link{background:none;border:0;padding:6px 2px;color:var(--muted);text-decoration:underline;cursor:pointer;font-size:13.5px}
+
+/* ---------- شاشة البداية ---------- */
+.plan{width:100%;border-collapse:collapse;font-size:14.5px}
+.plan th,.plan td{padding:8px 6px;text-align:start;border-bottom:1px solid var(--line);vertical-align:top}
+.plan th{font-size:12.5px;color:var(--muted);font-weight:600}
+.plan td:last-child,.plan th:last-child{text-align:center;white-space:nowrap}
+.plan tfoot td{border-bottom:0;border-top:3px double var(--muted);font-weight:700}
+.lbl{margin:12px 0 5px;font-size:13px;font-weight:700;color:var(--muted)}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.seg button,.chips button{min-height:46px;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);font-weight:600;cursor:pointer;padding:4px 10px;line-height:1.45}
+.seg button[aria-pressed="true"],.chips button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips button{flex:1 1 140px}
+.tips{margin:10px 0 0;padding-inline-start:20px;color:var(--muted);font-size:13.5px}
+.resume{border-color:var(--accent);background:var(--soft)}
+.go{display:flex;gap:10px;align-items:center;justify-content:space-between;margin-top:12px;padding:11px 14px;border:1.5px solid var(--accent);border-radius:12px;background:var(--surface);color:var(--accent);font-weight:700;text-decoration:none}
+.hist{width:100%;border-collapse:collapse;font-size:14px}
+.hist td{padding:6px 4px;border-bottom:1px solid var(--line)}
+.hist tr:last-child td{border-bottom:0}
+.hist td:last-child{text-align:end;font-weight:700}
+
+/* ---------- شريط الاختبار ---------- */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;display:flex;gap:8px;align-items:center;padding:8px 0;background:var(--bg);border-bottom:1px solid var(--line)}
+.pills{display:flex;gap:6px;flex:1;min-width:0;overflow-x:auto;scrollbar-width:none}
+.pills::-webkit-scrollbar{display:none}
+.pill{flex:none;display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:3px 12px;background:var(--surface);border:1.5px solid var(--line);border-radius:999px;font-size:13.5px;font-weight:600;cursor:pointer;white-space:nowrap}
+.pill small{font-size:12px;color:var(--muted);font-weight:500}
+.pill[aria-current="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.pill.q1[aria-current="true"]{background:var(--c1);border-color:var(--c1);color:var(--on-c)}
+.pill.q2[aria-current="true"]{background:var(--c2);border-color:var(--c2);color:var(--on-c)}
+.pill.q3[aria-current="true"]{background:var(--c3);border-color:var(--c3);color:var(--on-c)}
+.pill[aria-current="true"] small{color:var(--on-c)}
+#sec.q1{--qc:var(--c1);--qt:var(--c1-t)}#sec.q2{--qc:var(--c2);--qt:var(--c2-t)}#sec.q3{--qc:var(--c3);--qt:var(--c3-t)}
+.pill[aria-current="true"] small{opacity:.85}
+.pill.full:not([aria-current="true"]){border-color:var(--ok)}
+
+/* ---------- الأسئلة ---------- */
+.qs{display:grid;gap:10px}
+.qc{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:13px}
+.qh{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px}
+.qh.ltr{direction:ltr}
+.no{flex:none;display:grid;place-items:center;min-width:28px;height:28px;padding:0 4px;border:0;background:var(--qt,var(--soft));color:var(--qc,var(--accent));border-radius:50%;font-size:13px;font-weight:700;line-height:1}
+.qt{margin:0;flex:1;min-width:0;font-weight:500;font-size:16.5px;line-height:1.7}
+.qt.term{font-size:21px;font-weight:600}
+.tfb{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ch{min-height:46px;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);font-size:15.5px;font-weight:700;cursor:pointer}
+.ch:hover{border-color:var(--accent);background:var(--soft)}
+.ch[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.mo{display:grid;gap:7px}
+.mo button{display:flex;gap:10px;align-items:center;min-height:46px;padding:7px 10px;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);text-align:start;font-size:15.5px;cursor:pointer}
+.mo.ltr{direction:ltr}
+.mo.ltr button{font-family:var(--f-en);font-size:16px;text-align:left}
+.mo button:hover{border-color:var(--accent);background:var(--soft)}
+.mo b{flex:none;display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--soft);font-size:13px;font-family:var(--f-body)}
+.mo span{min-width:0}
+.mo button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.mo button[aria-pressed="true"] b{background:var(--accent-ink);color:var(--accent)}
+.tin{display:block;width:100%;min-height:48px;padding:8px 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);font-size:18px;direction:rtl}
+.tin:focus{border-color:var(--accent)}
+.hint{margin:6px 0 0;font-size:12.5px;color:var(--muted)}
+.pass{margin:0 0 12px;padding:14px 16px;background:var(--c2-t);border:1px solid var(--c2-m);border-radius:16px}
+.pass h3{color:var(--c2);font-family:var(--f-en);direction:ltr;text-align:left;font-size:16px;margin-bottom:5px}
+.pass p{margin:0;font-family:var(--f-en);direction:ltr;text-align:left;font-size:17px;line-height:1.85}
+.part{margin:16px 0 8px;font-weight:700;color:var(--gold);font-size:15px}
+.pnav{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+
+/* ---------- نافذة التأكيد ---------- */
+.modal{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:16px;background:var(--scrim)}
+.modal .box{width:100%;max-width:420px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px}
+.modal h3{font-size:17px}
+.modal p{color:var(--muted);font-size:14.5px}
+.modal .row{margin-top:12px;justify-content:flex-end}
+
+/* ---------- النتيجة ---------- */
+.score{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.score .big{font-family:var(--f-display);font-weight:700;font-size:clamp(52px,16vw,76px);line-height:1}
+.score .of{font-size:20px;color:var(--muted);font-weight:600}
+.score .pc{margin-inline-start:auto;font-size:20px;font-weight:700;color:var(--accent)}
+.verdict{margin:6px 0 0;font-weight:600}
+.brk{display:grid;gap:10px;margin-top:14px}
+.br{display:grid;grid-template-columns:96px 1fr 54px;gap:10px;align-items:center;font-size:14px}
+.br .t{font-weight:600}
+.meter{height:10px;border-radius:999px;background:var(--soft);overflow:hidden}
+.meter i{display:block;height:100%;background:var(--accent)}
+.br .v{text-align:end;font-weight:700}
+.focus{margin:10px 0 0;padding:8px 12px;border-radius:10px;background:var(--soft);font-size:14px}
+.filters{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 10px}
+.fchip{min-height:38px;padding:3px 12px;border:1.5px solid var(--line);border-radius:999px;background:var(--surface);font-size:13.5px;font-weight:600;cursor:pointer}
+.fchip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.fchip.wrongonly[aria-pressed="true"]{background:var(--bad);border-color:var(--bad);color:var(--surface)}
+.rv{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:13px;border-inline-start:5px solid var(--line)}
+.rv.ok{border-inline-start-color:var(--ok)}
+.rv.bad{border-inline-start-color:var(--bad)}
+.rv.skip{border-inline-start-color:var(--mid)}
+.rv + .rv{margin-top:10px}
+.st{display:inline-flex;align-items:center;gap:5px;margin-bottom:6px;padding:1px 10px;border-radius:999px;font-size:13px;font-weight:700;background:var(--soft)}
+.st.ok{background:var(--ok-bg);color:var(--ok)}
+.st.bad{background:var(--bad-bg);color:var(--bad)}
+.st.skip{background:var(--mid-bg);color:var(--mid)}
+.src{margin-inline-start:6px;font-size:12.5px;color:var(--muted);font-weight:500}
+.rv .qt{font-weight:600;margin-bottom:8px;font-size:16px}
+.ansl{display:grid;gap:6px;margin:0 0 8px;font-size:14.5px}
+.ansl div{display:flex;gap:8px}
+.ansl .k{flex:none;min-width:84px;color:var(--muted);font-weight:600}
+.ansl .v.ok{color:var(--ok);font-weight:700}
+.ansl .v.bad{color:var(--bad);font-weight:700}
+.mrow{display:flex;gap:8px;align-items:center;padding:5px 8px;border-radius:8px;border:1.5px solid transparent;font-size:15px;direction:ltr;font-family:var(--f-en)}
+.mrow b{flex:none;width:22px;font-family:var(--f-body)}
+.mrow.right{background:var(--ok-bg);border-color:var(--ok);font-weight:600}
+.mrow.wrong{background:var(--bad-bg);border-color:var(--bad)}
+.mrow .tag{margin-inline-start:auto;font-size:12.5px;font-weight:700;white-space:nowrap;font-family:var(--f-body)}
+.mrow.right .tag{color:var(--ok)} .mrow.wrong .tag{color:var(--bad)}
+.why{margin:8px 0 0;padding:8px 12px;border-radius:10px;background:var(--soft);font-size:14px;line-height:1.75}
+.why .en{display:block;margin-top:2px;font-size:15px}
+.why b{color:var(--gold)}
+.der{margin:6px 0 0;font-size:12.5px;color:var(--mid)}
+.empty-state{padding:20px 12px;text-align:center;color:var(--muted)}
+@media (max-width:480px){.br{grid-template-columns:92px 1fr 48px}}
+.br.q1 .meter i{background:var(--c1)}.br.q2 .meter i{background:var(--c2)}.br.q3 .meter i{background:var(--c3)}
+.br.q1 .meter{background:var(--c1-t)}.br.q2 .meter{background:var(--c2-t)}.br.q3 .meter{background:var(--c3-t)}
+#sec .mo button[aria-pressed="true"],#sec .ch[aria-pressed="true"]{background:var(--qc,var(--accent));border-color:var(--qc,var(--accent));color:var(--on-c)}
+#sec .mo button[aria-pressed="true"] b{background:var(--on-c);color:var(--qc,var(--accent))}
+#sec .mo button:hover,#sec .ch:hover{border-color:var(--qc,var(--accent));background:var(--qt,var(--soft))}
+#sec .mo button[aria-pressed="true"]:hover,#sec .ch[aria-pressed="true"]:hover{background:var(--qc,var(--accent))}
+@media (prefers-reduced-motion:no-preference){.meter i{transition:width .5s ease}}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+<header>
+  <div class="tri" aria-hidden="true"><i></i><i></i><i></i></div>
+  <p class="eyebrow"><bdi dir="ltr">English for Governance and Internal Audit</bdi><br>الوحدتان الأولى والثانية — الصفحات من <span class="num">5</span> إلى <span class="num">22</span></p>
+  <h1>اختبار منتصف الفصل التفاعلي</h1>
+  <p class="lead">بنفس أسئلة الاختبار: ترجمة مصطلحات، قطعة قراءة بصح وخطأ، واختيار من متعدد. أجيبي أولًا، ثم تظهر النتيجة والإجابات الصحيحة.</p>
+  <span class="by">إعداد: رهام فهد الداود</span>
+</header>
+
+<main id="app">
+  <section id="start" hidden></section>
+  <section id="exam" hidden></section>
+  <section id="result" hidden></section>
+</main>
+</div>
+<div id="modal" hidden></div>
+
+<script>
+(function(){
+'use strict';
+var TERMS=[{"u": 1, "en": "Governance", "ar": ["الحوكمة"], "tp": 5, "dp": 7, "d": "The system of rules, practices, and processes by which an organization is directed and controlled."}, {"u": 1, "en": "Organization", "ar": ["المؤسسة", "المنظمة"], "tp": 5, "dp": 7, "d": "An organized group of people with a particular purpose, such as a business, society, or association."}, {"u": 1, "en": "Internal audit", "ar": ["التدقيق الداخلي"], "tp": 5, "dp": 7, "d": "An independent, objective assurance and consulting activity designed to add value and improve operations."}, {"u": 1, "en": "Internal auditor", "ar": ["المدقق الداخلي"], "tp": 5, "dp": 7, "d": "A professional who performs audits to evaluate risk management, control, and governance processes."}, {"u": 1, "en": "Management", "ar": ["الإدارة"], "tp": 5, "dp": 7, "d": "The group of people who are responsible for running an organization and making daily operational decisions."}, {"u": 1, "en": "Board of directors", "ar": ["مجلس الإدارة"], "tp": 5, "dp": 7, "d": "A group of individuals elected to represent shareholders and oversee the management of an organization."}, {"u": 1, "en": "Responsibility", "ar": ["المسؤولية"], "tp": 5, "dp": 7, "d": "The state or fact of having a duty to deal with something or of having control over someone."}, {"u": 1, "en": "Accountability", "ar": ["المساءلة"], "tp": 5, "dp": 8, "d": "The obligation of an individual or organization to account for its activities and accept responsibility."}, {"u": 1, "en": "Transparency", "ar": ["الشفافية"], "tp": 5, "dp": 8, "d": "The practice of sharing information clearly, honestly, and openly with all stakeholders."}, {"u": 1, "en": "Policy", "ar": ["السياسة"], "tp": 6, "dp": 8, "d": "A formal, high-level statement of principles, rules, and direction established by leadership."}, {"u": 1, "en": "Procedure", "ar": ["الإجراء"], "tp": 6, "dp": 8, "d": "A series of established, specific steps or actions required to complete a particular process or task."}, {"u": 1, "en": "Control", "ar": ["الضابط الرقابي", "الرقابة"], "tp": 6, "dp": 8, "d": "A mechanism or practice designed to prevent, detect, or correct errors, fraud, and non-compliance."}, {"u": 1, "en": "Risk", "ar": ["المخاطرة", "الخطر"], "tp": 6, "dp": 8, "d": "The possibility of an event or action occurring that will adversely affect an organization's objectives."}, {"u": 1, "en": "Compliance", "ar": ["الامتثال"], "tp": 6, "dp": 8, "d": "The act of adhering to relevant laws, regulations, standards, guidelines, and internal policies."}, {"u": 1, "en": "Objective", "ar": ["الهدف"], "tp": 6, "dp": 8, "d": "A specific, measurable goal that an organization aims to achieve within a defined time frame."}, {"u": 1, "en": "Resource", "ar": ["الموارد", "المورد"], "tp": 6, "dp": 8, "d": "An asset, such as finance, personnel, equipment, or information, used by an organization to function."}, {"u": 1, "en": "Report", "ar": ["التقرير"], "tp": 6, "dp": 8, "d": "A formal document that presents structured information, findings, and recommendations to stakeholders."}, {"u": 1, "en": "Evidence", "ar": ["الإثبات", "الدليل"], "tp": 6, "dp": 9, "d": "Information, documents, records, or observations that support an audit's findings and conclusions."}, {"u": 1, "en": "Stakeholder", "ar": ["أصحاب المصلحة", "صاحب مصلحة"], "tp": 6, "dp": 9, "d": "Any individual, group, or organization that can affect or be affected by a business's operations."}, {"u": 1, "en": "Improvement", "ar": ["التطوير", "التحسين"], "tp": 6, "dp": 9, "d": "The process of making something better, more effective, or more efficient."}, {"u": 2, "en": "Organizational structure", "ar": ["الهيكل التنظيمي"], "tp": 14, "dp": 16, "d": "The framework that defines the hierarchy, reporting relationships, and functional areas of an organization."}, {"u": 2, "en": "Department", "ar": ["الإدارة", "القسم"], "tp": 14, "dp": 16, "d": "A specialized division within an organization that is responsible for a specific function or activity."}, {"u": 2, "en": "Role", "ar": ["الدور"], "tp": 14, "dp": 16, "d": "The prescribed behavior, responsibilities, and tasks associated with a specific position in an organization."}, {"u": 2, "en": "Position", "ar": ["الوظيفة", "المنصب"], "tp": 14, "dp": 16, "d": "A formal job title or role within an organization's hierarchy."}, {"u": 2, "en": "Authority", "ar": ["الصلاحية", "السلطة"], "tp": 14, "dp": 16, "d": "The formal or legal power to make decisions, issue commands, and allocate resources."}, {"u": 2, "en": "Decision", "ar": ["القرار"], "tp": 14, "dp": 16, "d": "A choice made from among available alternatives to guide an organization's actions or resolve a problem."}, {"u": 2, "en": "Leadership", "ar": ["القيادة"], "tp": 14, "dp": 16, "d": "The ability to influence, guide, and motivate individuals or teams to achieve organizational goals."}, {"u": 2, "en": "Supervisor", "ar": ["المشرف"], "tp": 14, "dp": 16, "d": "A person who oversees and directs the work, activities, and daily performance of employees."}, {"u": 2, "en": "Manager", "ar": ["المدير"], "tp": 15, "dp": 17, "d": "An individual responsible for planning, organizing, and controlling resources to achieve departmental goals."}, {"u": 2, "en": "Employee", "ar": ["الموظف"], "tp": 15, "dp": 17, "d": "An individual hired by an organization to perform specific services or tasks in exchange for compensation."}, {"u": 2, "en": "Committee", "ar": ["اللجنة"], "tp": 15, "dp": 17, "d": "A formal group of people appointed by a larger body to oversee, review, or make decisions on specific matters."}, {"u": 2, "en": "Reporting line", "ar": ["خط تقديم التقارير", "خط الإبلاغ"], "tp": 15, "dp": 17, "d": "The established path of authority and communication showing who reports to whom in an organization."}, {"u": 2, "en": "Delegation", "ar": ["التفويض"], "tp": 15, "dp": 17, "d": "The assignment of responsibility or authority to another person to carry out specific activities."}, {"u": 2, "en": "Coordination", "ar": ["التنسيق"], "tp": 15, "dp": 17, "d": "The process of organizing and aligning activities across different departments to ensure efficiency."}, {"u": 2, "en": "Communication", "ar": ["التواصل", "الاتصال"], "tp": 15, "dp": 17, "d": "The exchange of information, ideas, or feedback between individuals or departments."}, {"u": 2, "en": "Teamwork", "ar": ["العمل الجماعي"], "tp": 15, "dp": 17, "d": "The collaborative effort of a group of people working together to achieve a common goal."}],
+PAS=[{"title": "Reading Passage: Workplace Practice", "text": "Every organization needs good governance. Governance helps an organization work in an organized, responsible, and honest way. It explains who makes decisions and who is responsible for different tasks. Internal audit examines work, controls, documents, and risks. Its purpose is not only to find mistakes; it also helps the organization improve. Good governance includes responsibility, accountability, transparency, and compliance. In practice, employees should follow approved policies and procedures, keep accurate records, communicate clearly, and ask for guidance when they are uncertain. Managers and auditors should review information fairly, protect confidential documents, and record important decisions. These actions help the organization achieve its objectives and improve its work."}, {"title": "Reading Passage: Workplace Practice", "text": "A clear organizational structure shows departments, positions, reporting lines, and responsibilities. The board provides direction, senior management manages daily activities, and managers plan and control departmental work. Employees should understand their roles, communicate with supervisors, and cooperate with other departments. Delegation gives a task or authority to another person, while the manager remains responsible for checking the work. In practice, employees should follow approved policies and procedures, keep accurate records, communicate clearly, and ask for guidance when they are uncertain. Managers and auditors should review information fairly, protect confidential documents, and record important decisions. These actions help the organization achieve its objectives and improve its work."}],
+Q2=[{"p": 0, "q": "Governance helps an organization work in a disorganized and irresponsible way.", "a": false, "ev": "Governance helps an organization work in an organized, responsible, and honest way.", "src": "ص6"}, {"p": 0, "q": "Governance explains who makes decisions and who is responsible for different tasks.", "a": true, "ev": "It explains who makes decisions and who is responsible for different tasks.", "src": "ص6 وص12"}, {"p": 0, "q": "The only purpose of an internal audit is to find mistakes in an organization.", "a": false, "ev": "Its purpose is not only to find mistakes; it also helps the organization improve.", "src": "ص6"}, {"p": 0, "q": "Good governance includes responsibility, accountability, transparency, and compliance.", "a": true, "ev": "Good governance includes responsibility, accountability, transparency, and compliance.", "src": "ص6 وص12"}, {"p": 0, "q": "Internal audit examines work, controls, documents, and risks.", "a": true, "ev": "Internal audit examines work, controls, documents, and risks.", "src": "ص6"}, {"p": 0, "q": "The reading passage states that the only purpose of an internal audit is to find mistakes.", "a": false, "ev": "Its purpose is not only to find mistakes; it also helps the organization improve.", "src": "ص12"}, {"p": 0, "q": "According to the passage, employees should avoid asking for guidance when they are uncertain.", "a": false, "ev": "...employees should follow approved policies and procedures, keep accurate records, communicate clearly, and ask for guidance when they are uncertain.", "src": "ص13"}, {"p": 0, "q": "Managers and auditors should review information fairly and protect confidential documents.", "a": true, "ev": "Managers and auditors should review information fairly, protect confidential documents, and record important decisions.", "src": "ص13"}, {"p": 0, "q": "Internal audit only examines financial records and ignores risks or controls.", "a": false, "ev": "Internal audit examines work, controls, documents, and risks.", "src": "ص13"}, {"p": 0, "q": "Following approved policies and procedures helps the organization achieve its objectives.", "a": true, "ev": "...employees should follow approved policies and procedures... These actions help the organization achieve its objectives and improve its work.", "src": "ص13"}, {"p": 0, "q": "Good governance helps an organization work in a disorganized and irresponsible way.", "a": false, "ev": "Governance helps an organization work in an organized, responsible, and honest way.", "src": "ص13"}, {"p": 1, "q": "A clear organizational structure shows departments, positions, reporting lines, and responsibilities.", "a": true, "ev": "A clear organizational structure shows departments, positions, reporting lines, and responsibilities.", "src": "ص15"}, {"p": 1, "q": "The board of directors is responsible for managing the daily operational activities of all departments.", "a": false, "ev": "The board provides direction, senior management manages daily activities...", "src": "ص15"}, {"p": 1, "q": "Employees should understand their roles and communicate effectively with their supervisors.", "a": true, "ev": "Employees should understand their roles, communicate with supervisors, and cooperate with other departments.", "src": "ص15"}, {"p": 1, "q": "Delegation means the manager is no longer responsible for checking the delegated work.", "a": false, "ev": "Delegation gives a task or authority to another person, while the manager remains responsible for checking the work.", "src": "ص15"}, {"p": 1, "q": "Managers are responsible for planning and controlling departmental work.", "a": true, "ev": "...managers plan and control departmental work.", "src": "ص15"}, {"p": 1, "q": "A clear organizational structure shows departments, positions, and reporting lines.", "a": true, "ev": "A clear organizational structure shows departments, positions, reporting lines, and responsibilities.", "src": "ص21", "der": 1}, {"p": 1, "q": "The board of directors is responsible for managing daily activities of departments.", "a": false, "ev": "The board provides direction, senior management manages daily activities...", "src": "ص21", "der": 1}, {"p": 1, "q": "Managers plan and control departmental work according to the passage.", "a": true, "ev": "...managers plan and control departmental work.", "src": "ص21", "der": 1}, {"p": 1, "q": "According to the passage, delegation of a task relieves the manager of ultimate responsibility.", "a": false, "ev": "Delegation gives a task or authority to another person, while the manager remains responsible for checking the work.", "src": "ص21", "der": 1}, {"p": 1, "q": "Employees should understand their roles and communicate with supervisors.", "a": true, "ev": "Employees should understand their roles, communicate with supervisors, and cooperate with other departments.", "src": "ص21", "der": 1}, {"p": 1, "q": "Cooperating with other departments is discouraged in the reading passage.", "a": false, "ev": "Employees should understand their roles, communicate with supervisors, and cooperate with other departments.", "src": "ص21", "der": 1}, {"p": 1, "q": "The manager remains responsible for checking the work after delegating a task.", "a": true, "ev": "Delegation gives a task or authority to another person, while the manager remains responsible for checking the work.", "src": "ص21", "der": 1}, {"p": 1, "q": "Establishing departments helps in organizing the work of the company.", "a": true, "ev": "", "src": "ص21", "der": 1}],
+EX=[{"q": "Governance is only necessary for large, publicly traded companies and has no role in smaller organizations.", "a": false, "ev": "Every organization needs good governance. (القطعة ص6)", "src": "ص9"}, {"q": "The primary purpose of an internal audit is to find errors and punish employees.", "a": false, "ev": "Its purpose is not only to find mistakes; it also helps the organization improve. (القطعة ص6)", "src": "ص9"}, {"q": "Accountability means an individual or department is required to explain and accept responsibility for their decisions.", "a": true, "ev": "Accountability: The obligation of an individual or organization to account for its activities and accept responsibility. (ص8)", "src": "ص9"}, {"q": "Transparency refers to sharing information clearly, honestly, and openly with all stakeholders.", "a": true, "ev": "Transparency: The practice of sharing information clearly, honestly, and openly with all stakeholders. (ص8)", "src": "ص9"}, {"q": "A policy is a step-by-step description of how to complete a specific daily task.", "a": false, "ev": "Policy: A formal, high-level statement of principles, rules, and direction established by leadership. | Procedure: A series of established, specific steps or actions required to complete a particular process or task. (ص8)", "src": "ص9"}, {"q": "Management is responsible for establishing the overall direction, while the Board of directors manages daily operations.", "a": false, "ev": "Management: The group of people who are responsible for running an organization and making daily operational decisions. | Board of directors: A group of individuals elected to represent shareholders and oversee the management of an organization. (ص7)", "src": "ص10"}, {"q": "Responsibility and accountability are identical concepts and can be used interchangeably in governance.", "a": false, "ev": "Responsibility: The state or fact of having a duty to deal with something or of having control over someone. (ص7) | Accountability: The obligation of an individual or organization to account for its activities and accept responsibility. (ص8)", "src": "ص10"}, {"q": "An internal auditor must maintain independence and objectivity when performing audits.", "a": true, "ev": "An internal auditor must maintain independence and objectivity. (مثال Internal auditor ص7)", "src": "ص10"}, {"q": "Controls are mechanisms implemented to manage risks and help the organization achieve its objectives.", "a": true, "ev": "Control: A mechanism or practice designed to prevent, detect, or correct errors, fraud, and non-compliance. (ص8)", "src": "ص10"}, {"q": "A stakeholder is any person or group that has an interest in or is affected by an organization's activities.", "a": true, "ev": "Stakeholder: Any individual, group, or organization that can affect or be affected by a business's operations. (ص9)", "src": "ص10"}, {"q": "Organizational structure defines the departments, positions, and reporting lines in a company.", "a": true, "ev": "A clear organizational structure shows departments, positions, reporting lines, and responsibilities. (القطعة ص15)", "src": "ص18"}, {"q": "Delegation means that a manager passes a task and all of their ultimate accountability to another employee.", "a": false, "ev": "Delegation of duties does not relieve the manager of ultimate accountability. (مثال Delegation ص17)", "src": "ص18"}, {"q": "The board of directors is responsible for the daily operations and administrative work of a company.", "a": false, "ev": "The board provides direction, senior management manages daily activities... (القطعة ص15)", "src": "ص18"}, {"q": "A committee is a formal group of people appointed to perform a specific function or make decisions.", "a": true, "ev": "Committee: A formal group of people appointed by a larger body to oversee, review, or make decisions on specific matters. (ص17)", "src": "ص18"}, {"q": "Authority is the legal or official power to make decisions and enforce compliance.", "a": true, "ev": "Authority: The formal or legal power to make decisions, issue commands, and allocate resources. (ص16)", "src": "ص18"}, {"q": "A supervisor is an employee who oversees the work of others and provides guidance.", "a": true, "ev": "Supervisor: A person who oversees and directs the work, activities, and daily performance of employees. (ص16)", "src": "ص18"}, {"q": "Teamwork is only useful in small organizations with no formal departments.", "a": false, "ev": "Teamwork within the audit department helps complete engagements on schedule. (مثال Teamwork ص17)", "src": "ص18"}, {"q": "Coordination involves aligning activities across different departments to ensure smooth operations.", "a": true, "ev": "Coordination: The process of organizing and aligning activities across different departments to ensure efficiency. (ص17)", "src": "ص18"}, {"q": "Clear reporting lines help employees understand who they report to and who oversees their work.", "a": true, "ev": "Reporting line: The established path of authority and communication showing who reports to whom in an organization. (ص17)", "src": "ص18"}, {"q": "Delegation of authority should always be done verbally without any formal documentation.", "a": false, "ev": "Delegation of authority must be documented and approved by senior management. (مثال Authority ص16)", "src": "ص18"}],
+MCQ=[{"src": "ص11", "q": "What is the main purpose of corporate governance?", "o": ["To direct and control an organization responsibly and ethically", "To increase regulatory fines and delay business operations", "To replace all managers with external consultants", "To hide financial records from stakeholders"], "a": 0, "ref": "Governance: The system of rules, practices, and processes by which an organization is directed and controlled. (ص7)"}, {"src": "ص11", "q": "What is the role of an internal auditor?", "o": ["To make day-to-day business decisions for the management", "To objectively review operations, internal controls, and risks to recommend improvements", "To sell products and services to external customers", "To design and implement marketing campaigns"], "a": 1, "ref": "Internal auditor: A professional who performs audits to evaluate risk management, control, and governance processes. (ص7)"}, {"src": "ص11", "q": "Which of the following defines transparency in an organization?", "o": ["Restricting access to all financial documents", "Sharing information clearly, honestly, and openly with stakeholders", "Delegating tasks without keeping records", "Overriding internal controls when convenient"], "a": 1, "ref": "Transparency: The practice of sharing information clearly, honestly, and openly with all stakeholders. (ص8)"}, {"src": "ص11", "q": "What does accountability ensure?", "o": ["That employees can avoid responsibility for errors", "That individuals are required to explain and accept responsibility for their actions", "That the board of directors manages daily activities", "That the organization does not require audits"], "a": 1, "ref": "Accountability: The obligation of an individual or organization to account for its activities and accept responsibility. (ص8)"}, {"src": "ص11", "q": "A high-level statement of principles and rules established by leadership to guide decisions is called a:", "o": ["Procedure", "Control", "Policy", "Risk"], "a": 2, "ref": "Policy: A formal, high-level statement of principles, rules, and direction established by leadership. (ص8)"}, {"src": "ص11", "q": "What are controls designed to do?", "o": ["Prevent, detect, or correct errors, fraud, and non-compliance", "Restrict all communications between departments", "Eliminate the need for any organizational structure", "Increase operational costs and staff numbers"], "a": 0, "ref": "Control: A mechanism or practice designed to prevent, detect, or correct errors, fraud, and non-compliance. (ص8)"}, {"src": "ص11", "q": "The possibility of an event occurring that will adversely affect an organization's objectives is a:", "o": ["Resource", "Policy", "Risk", "Control"], "a": 2, "ref": "Risk: The possibility of an event or action occurring that will adversely affect an organization's objectives. (ص8)"}, {"src": "ص11", "q": "Who are the stakeholders of an organization?", "o": ["Only the internal auditors", "Any individual or group that can affect or be affected by the organization's actions", "Only the members of the board of directors", "Only the government regulators"], "a": 1, "ref": "Stakeholder: Any individual, group, or organization that can affect or be affected by a business's operations. (ص9)"}, {"src": "ص19", "q": "What does a clear organizational structure show?", "o": ["Personal interests of employees", "Departments, positions, reporting lines, and responsibilities", "Weather patterns and external market prices", "Only the list of company holidays"], "a": 1, "ref": "A clear organizational structure shows departments, positions, reporting lines, and responsibilities. (القطعة ص15)"}, {"src": "ص19", "q": "Who is responsible for managing the daily operational activities of an organization?", "o": ["The board of directors", "Senior management and department managers", "External auditors", "Government regulators"], "a": 1, "ref": "The board provides direction, senior management manages daily activities, and managers plan and control departmental work. (القطعة ص15)"}, {"src": "ص19", "q": "What is the process of assigning responsibility or authority to another person to perform a task?", "o": ["Coordination", "Delegation", "Supervision", "Leadership"], "a": 1, "ref": "Delegation: The assignment of responsibility or authority to another person to carry out specific activities. (ص17)"}, {"src": "ص20", "q": "Which of the following is a key purpose of a committee?", "o": ["To let one person make all company decisions alone", "To bring a group of people together to oversee, review, or make decisions on specific matters", "To replace the internal audit department", "To eliminate the need for reporting lines"], "a": 1, "ref": "Committee: A formal group of people appointed by a larger body to oversee, review, or make decisions on specific matters. (ص17)"}, {"src": "ص20", "q": "The formal power to make decisions and issue commands is known as:", "o": ["Delegation", "Authority", "Coordination", "Teamwork"], "a": 1, "ref": "Authority: The formal or legal power to make decisions, issue commands, and allocate resources. (ص16)"}, {"src": "ص20", "q": "What is the main role of a supervisor?", "o": ["To audit the board of directors", "To oversee and direct the work of employees and provide daily guidance", "To prepare the organization's annual tax return", "To make strategic investment decisions"], "a": 1, "ref": "Supervisor: A person who oversees and directs the work, activities, and daily performance of employees. (ص16)"}, {"src": "ص20", "q": "Coordinating and aligning activities across different departments is called:", "o": ["Communication", "Delegation", "Coordination", "Leadership"], "a": 2, "ref": "Coordination: The process of organizing and aligning activities across different departments to ensure efficiency. (ص17)"}, {"src": "ص20", "q": "Why are clear reporting lines important in an organization?", "o": ["They allow employees to ignore their supervisors", "They show the established path of authority and who reports to whom", "They increase administrative errors", "They eliminate the need for teamwork"], "a": 1, "ref": "Reporting line: The established path of authority and communication showing who reports to whom in an organization. (ص17)"}];
+var $=function(s,r){return (r||document).querySelector(s)};
+var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+var AR=['أ','ب','ج','د'], EN=['A','B','C','D'];
+var SEC={q1:{t:'السؤال الأول',p:'الأول'},q2:{t:'السؤال الثاني',p:'الثاني'},q3:{t:'السؤال الثالث',p:'الثالث'}};
+var KEY='eng-exam-v1';
+
+/* ---------- أدوات ---------- */
+function esc(t){return String(t).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function rnd(n){return Math.floor(Math.random()*n)}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=rnd(i+1),t=a[i];a[i]=a[j];a[j]=t}return a}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function load(){try{var s=JSON.parse(localStorage.getItem(KEY));if(s&&s.v===2&&s.cfg)return s}catch(e){}return null}
+function show(id){['start','exam','result'].forEach(function(k){$('#'+k).hidden=(k!==id)});window.scrollTo(0,0)}
+
+/* ---------- تطبيع الكتابة العربية للتصحيح ---------- */
+function nrm(s){
+  s=String(s||'').replace(/[ً-ٰٟـ]/g,'')
+    .replace(/[أإآٱ]/g,'ا').replace(/ى/g,'ي').replace(/ة/g,'ه').replace(/ؤ/g,'و').replace(/ئ/g,'ي')
+    .replace(/[.,،؛:!؟?()"'«»]/g,' ');
+  return s.trim().replace(/\s+/g,' ').split(' ').filter(Boolean).map(function(w){return (w.length>3&&w.indexOf('ال')===0)?w.slice(2):w}).join(' ');
+}
+var ACC=TERMS.map(function(t){return t.ar.concat(t.acc||[]).map(nrm)});
+function disp(i){return TERMS[i].ar.join(' / ')}
+function typedOk(i,txt){
+  var parts=String(txt).split(/[\/،,\n\-–—]+/).map(nrm).filter(Boolean);
+  if(!parts.length)return false;
+  var whole=nrm(txt);
+  if(ACC[i].indexOf(whole)>-1)return true;
+  return parts.every(function(p){return ACC[i].indexOf(p)>-1});
+}
+function distract(i){
+  var mine=ACC[i],pool=[];
+  TERMS.forEach(function(t,j){
+    if(j===i)return;
+    if(!ACC[j].some(function(f){return mine.indexOf(f)>-1}))pool.push(j);
+  });
+  var same=pool.filter(function(j){return TERMS[j].u===TERMS[i].u});
+  var seen={};seen[disp(i)]=1;var out=[];
+  shuffle(same).slice(0,2).concat(shuffle(pool)).forEach(function(j){
+    if(out.length<3&&!seen[disp(j)]){seen[disp(j)]=1;out.push(j)}
+  });
+  return out;
+}
+
+/* ---------- سجل المحاولات ---------- */
+var HK='eng-exam-hist-v1';
+function histGet(){try{var h=JSON.parse(localStorage.getItem(HK));return Array.isArray(h)?h:[]}catch(e){return []}}
+function histAdd(ok,tot){
+  var h=histGet();h.unshift({t:Date.now(),ok:ok,tot:tot});
+  try{localStorage.setItem(HK,JSON.stringify(h.slice(0,8)))}catch(e){}
+}
+function histClear(){try{localStorage.removeItem(HK)}catch(e){}}
+function two(n){return (n<10?'0':'')+n}
+function fmtT(ms){var d=new Date(ms);return d.getDate()+'/'+(d.getMonth()+1)+' · '+two(d.getHours())+':'+two(d.getMinutes())}
+
+/* ---------- بناء ورقة الاختبار ---------- */
+function gen(cfg,only){
+  var P={q1:[],qa:[],qb:[],qx:[],q3:[]};
+  function want(k){return !only||only.indexOf(k)>-1}
+  if(cfg.s[0]){
+    var idx=TERMS.map(function(_,i){return i}),pick;
+    if(only){pick=idx.filter(function(i){return want('a:'+i)})}
+    else if(cfg.n>=TERMS.length){pick=idx}
+    else{
+      var u1=shuffle(idx.filter(function(i){return TERMS[i].u===1}));
+      var u2=shuffle(idx.filter(function(i){return TERMS[i].u===2}));
+      var n2=Math.round(cfg.n*u2.length/TERMS.length);
+      pick=u1.slice(0,cfg.n-n2).concat(u2.slice(0,n2));
+    }
+    P.q1=shuffle(pick).map(function(i){return {i:i,o:cfg.m==='pick'?shuffle([i].concat(distract(i))):null}});
+  }
+  if(cfg.s[1]){
+    shuffle(Q2.map(function(_,j){return j})).forEach(function(j){
+      if(!want('b:'+j))return;
+      (Q2[j].p===0?P.qa:P.qb).push(j);
+    });
+    if(cfg.x||only){
+      shuffle(EX.map(function(_,k){return k})).forEach(function(k){
+        if(want('c:'+k)&&(cfg.x||only))P.qx.push(k);
+      });
+    }
+  }
+  if(cfg.s[2]){
+    shuffle(MCQ.map(function(_,m){return m})).forEach(function(m){
+      if(want('d:'+m))P.q3.push({m:m,o:shuffle([0,1,2,3])});
+    });
+  }
+  return P;
+}
+function fresh(){return {v:2,phase:'start',cfg:{s:[true,true,true],m:'pick',n:20,x:false},paper:null,ans:{},sec:0}}
+var S=load()||fresh();
+var DRAFT=JSON.parse(JSON.stringify(S.cfg));
+
+function secs(){
+  var P=S.paper,o=[];if(!P)return o;
+  if(P.q1.length)o.push('q1');
+  if(P.qa.length||P.qb.length||P.qx.length)o.push('q2');
+  if(P.q3.length)o.push('q3');
+  return o;
+}
+function keysOf(sec){
+  var P=S.paper,k=[];
+  if(sec==='q1')P.q1.forEach(function(q){k.push('a:'+q.i)});
+  if(sec==='q2'){P.qa.forEach(function(j){k.push('b:'+j)});P.qb.forEach(function(j){k.push('b:'+j)});P.qx.forEach(function(j){k.push('c:'+j)})}
+  if(sec==='q3')P.q3.forEach(function(q){k.push('d:'+q.m)});
+  return k;
+}
+function allKeys(){var k=[];secs().forEach(function(s){k=k.concat(keysOf(s))});return k}
+function has(k){var v=S.ans[k];return v!==undefined&&v!==null&&String(v).trim()!==''}
+function judge(k){
+  if(!has(k))return 'skip';
+  var t=k.charAt(0),n=+k.slice(2),v=S.ans[k];
+  if(t==='a')return (S.cfg.m==='pick'?v===n:typedOk(n,v))?'ok':'bad';
+  if(t==='b')return ((v==='T')===Q2[n].a)?'ok':'bad';
+  if(t==='c')return ((v==='T')===EX[n].a)?'ok':'bad';
+  return v===MCQ[n].a?'ok':'bad';
+}
+
+/* ---------- نافذة تأكيد داخل الصفحة ---------- */
+function ask(title,msg,okLabel,cancelLabel,onOk){
+  var m=$('#modal'),prev=document.activeElement;
+  m.innerHTML='<div class="modal" role="presentation"><div class="box" role="dialog" aria-modal="true" aria-labelledby="mt"><h3 id="mt">'+esc(title)+'</h3><p>'+esc(msg)+'</p><div class="row"><button class="btn ghost" data-x="no">'+esc(cancelLabel)+'</button><button class="btn" data-x="ok">'+esc(okLabel)+'</button></div></div></div>';
+  m.hidden=false;
+  function close(){m.hidden=true;m.innerHTML='';document.removeEventListener('keydown',key);if(prev&&prev.focus)prev.focus()}
+  function key(e){if(e.key==='Escape')close()}
+  m.onclick=function(e){var x=e.target.getAttribute&&e.target.getAttribute('data-x');if(x==='ok'){close();onOk()}else if(x==='no'||e.target.classList.contains('modal'))close()};
+  document.addEventListener('keydown',key);
+  $('[data-x="ok"]',m).focus();
+}
+
+/* ---------- شاشة البداية ---------- */
+function planRows(){
+  var c=DRAFT,n1=c.s[0]?(c.n>=TERMS.length?TERMS.length:c.n):0,n2=c.s[1]?(Q2.length+(c.x?EX.length:0)):0,n3=c.s[2]?MCQ.length:0;
+  return [n1,n2,n3];
+}
+function renderStart(){
+  var c=DRAFT,r=planRows(),tot=r[0]+r[1]+r[2],h='';
+  if(S.paper&&(S.phase==='exam'||S.phase==='result')){
+    var done=allKeys().filter(has).length;
+    h+='<div class="card resume"><h3>'+(S.phase==='exam'?'عندك اختبار غير مكتمل':'آخر نتيجة محفوظة')+'</h3><p class="cap" style="margin:0 0 8px">'+(S.phase==='exam'?'أجبتِ عن <span class="num">'+done+'</span> من <span class="num">'+allKeys().length+'</span> سؤالًا.':'يمكنك مراجعة نتيجتك الأخيرة.')+'</p><button class="btn" data-a="resume">'+(S.phase==='exam'?'متابعة الاختبار':'عرض النتيجة')+'</button></div>';
+  }
+  h+='<h2>شكل الاختبار</h2><p class="cap">كل الأسئلة من الوحدتين الأولى والثانية (ص5–ص22) وبنص الكتاب نفسه. لكل سؤال درجة واحدة.</p>';
+  h+='<div class="card"><table class="plan"><thead><tr><th>السؤال</th><th>عدد الأسئلة</th></tr></thead><tbody>';
+  h+='<tr><td><b>الأول:</b> ترجمة مصطلحات من الإنجليزية إلى العربية</td><td class="num">'+r[0]+'</td></tr>';
+  h+='<tr><td><b>الثاني:</b> قطعة قراءة وعليها أسئلة (صواب أم خطأ)</td><td class="num">'+r[1]+'</td></tr>';
+  h+='<tr><td><b>الثالث:</b> أسئلة اختيار من متعدد</td><td class="num">'+r[2]+'</td></tr>';
+  h+='</tbody><tfoot><tr><td>المجموع</td><td class="num">'+tot+'</td></tr></tfoot></table></div>';
+
+  h+='<h2>خيارات هذه المحاولة</h2><div class="card">';
+  h+='<p class="lbl" style="margin-top:0">الأسئلة المطلوبة</p><div class="chips">';
+  ['الأول: المصطلحات','الثاني: القطعة','الثالث: الاختيار'].forEach(function(t,i){h+='<button data-a="sec" data-i="'+i+'" aria-pressed="'+c.s[i]+'">'+t+'</button>'});
+  h+='</div>';
+  h+='<p class="lbl">طريقة السؤال الأول</p><div class="seg"><button data-a="mode" data-v="pick" aria-pressed="'+(c.m==='pick')+'">اختيار الترجمة الصحيحة</button><button data-a="mode" data-v="type" aria-pressed="'+(c.m==='type')+'">كتابة الترجمة بنفسي</button></div>';
+  h+='<p class="lbl">عدد المصطلحات في السؤال الأول</p><div class="seg"><button data-a="n" data-v="20" aria-pressed="'+(c.n<TERMS.length)+'"><span class="num">20</span> مصطلحًا عشوائيًا</button><button data-a="n" data-v="'+TERMS.length+'" aria-pressed="'+(c.n>=TERMS.length)+'">كل المصطلحات (<span class="num">'+TERMS.length+'</span>)</button></div>';
+  h+='<p class="lbl">تدريب إضافي (اختياري)</p><div class="chips"><button data-a="x" aria-pressed="'+c.x+'">إضافة تمارين (A) الصح والخطأ في الكتاب، وهي منفصلة عن أسئلة القطعة (<span class="num">'+EX.length+'</span> سؤالًا)</button></div>';
+  h+='<div class="row end" style="margin-top:16px"><span class="hint" style="margin:0">'+(tot?'<span class="num">'+tot+'</span> سؤالًا في هذه المحاولة':'اختاري سؤالًا واحدًا على الأقل')+'</span><button class="btn" data-a="go"'+(tot?'':' disabled')+'>ابدئي الاختبار</button></div></div>';
+  var hs=histGet();
+  if(hs.length){
+    h+='<h2>محاولاتك السابقة</h2><div class="card"><table class="hist"><tbody>';
+    hs.forEach(function(x){h+='<tr><td class="num">'+fmtT(x.t)+'</td><td class="num">'+x.ok+' / '+x.tot+'</td><td class="num">'+Math.round(100*x.ok/x.tot)+'%</td></tr>'});
+    h+='</tbody></table><button class="link" data-a="clearhist">مسح السجل</button></div>';
+  }
+  h+='<a class="go" href="english-summary.html"><span>راجعي الملخص قبل الاختبار</span><span aria-hidden="true">←</span></a>';
+  h+='<ul class="tips"><li>إجاباتك تُحفظ تلقائيًا في هذا المتصفح، ويمكنك الخروج والرجوع.</li><li>في الكتابة، لا يهم اختلاف الهمزة أو التاء المربوطة أو «ال» التعريف، وتُقبل صيغ الجدول للمصطلح، ويكفي كتابة إحدى الصيغتين حين يذكر الجدول صيغتين.</li><li>تظهر النتيجة والشرح بعد التسليم فقط.</li></ul>';
+  $('#start').innerHTML=h;
+}
+$('#start').addEventListener('click',function(e){
+  var b=e.target.closest('button[data-a]');if(!b)return;
+  var a=b.getAttribute('data-a'),c=DRAFT;
+  if(a==='resume'){show(S.phase==='exam'?'exam':'result');S.phase==='exam'?renderExam():renderResult();return}
+  if(a==='clearhist'){ask('مسح سجل المحاولات؟','سيُحذف سجل نتائجك السابقة من هذا المتصفح.','امسحي','رجوع',function(){histClear();renderStart()});return}
+  if(a==='sec'){var i=+b.getAttribute('data-i');c.s[i]=!c.s[i]}
+  else if(a==='mode')c.m=b.getAttribute('data-v');
+  else if(a==='n')c.n=+b.getAttribute('data-v');
+  else if(a==='x')c.x=!c.x;
+  else if(a==='go'){
+    var go=function(){S={v:2,phase:'exam',cfg:JSON.parse(JSON.stringify(c)),paper:gen(c),ans:{},sec:0};save();show('exam');renderExam()};
+    if(S.paper&&S.phase==='exam'&&allKeys().some(has))ask('بدء اختبار جديد؟','سيُستبدل الاختبار غير المكتمل بآخر جديد.','ابدئي الجديد','رجوع',go);else go();
+    return;
+  }
+  renderStart();
+});
+
+/* ---------- شاشة الاختبار ---------- */
+function counts(sec){var k=keysOf(sec);return {a:k.filter(has).length,t:k.length}}
+function barHtml(){
+  var list=secs(),h='<div class="bar"><div class="pills" role="tablist">';
+  list.forEach(function(s,i){
+    var c=counts(s);
+    h+='<button class="pill '+s+(c.a===c.t?' full':'')+'" role="tab" data-a="tab" data-i="'+i+'" aria-label="'+SEC[s].t+'" aria-current="'+(i===S.sec)+'">'+SEC[s].p+' <small class="num">'+c.a+'/'+c.t+'</small></button>';
+  });
+  return h+'</div></div>';
+}
+function tfCard(k,n,text,v){
+  return '<div class="qc" data-card="'+k+'"><div class="qh ltr"><span class="no num">'+n+'</span><p class="qt en">'+esc(text)+'</p></div><div class="tfb">'+
+    '<button class="ch" data-k="'+k+'" data-v="T" aria-pressed="'+(v==='T')+'">True · صح</button>'+
+    '<button class="ch" data-k="'+k+'" data-v="F" aria-pressed="'+(v==='F')+'">False · خطأ</button></div></div>';
+}
+function secHtml(sec){
+  var P=S.paper,h='',n=0;
+  if(sec==='q1'){
+    h+='<h2>السؤال الأول: ترجمة المصطلحات</h2><p class="cap">'+(S.cfg.m==='pick'?'اختاري الترجمة العربية الصحيحة لكل مصطلح إنجليزي.':'اكتبي المقابل العربي لكل مصطلح إنجليزي.')+'</p><div class="qs">';
+    P.q1.forEach(function(q){
+      n++;var k='a:'+q.i,v=S.ans[k];
+      h+='<div class="qc" data-card="'+k+'"><div class="qh ltr"><span class="no num">'+n+'</span><p class="qt term en">'+esc(TERMS[q.i].en)+'</p></div>';
+      if(S.cfg.m==='pick'){
+        h+='<div class="mo">';
+        q.o.forEach(function(j,x){h+='<button data-k="'+k+'" data-v="'+j+'" aria-pressed="'+(v===j)+'"><b>'+AR[x]+'</b><span>'+esc(disp(j))+'</span></button>'});
+        h+='</div>';
+      }else{
+        h+='<input class="tin" type="text" lang="ar" dir="rtl" autocomplete="off" autocapitalize="none" spellcheck="false" enterkeyhint="next" data-t="'+k+'" placeholder="اكتبي الترجمة العربية" value="'+esc(v||'')+'">';
+      }
+      h+='</div>';
+    });
+    h+='</div>';
+  }
+  if(sec==='q2'){
+    h+='<h2>السؤال الثاني: قطعة القراءة</h2><p class="cap">اقرئي القطعة ثم اختاري صح (True) أو خطأ (False) لكل عبارة.</p>';
+    [[P.qa,0,'القطعة الأولى — الوحدة الأولى'],[P.qb,1,'القطعة الثانية — الوحدة الثانية']].forEach(function(g){
+      if(!g[0].length)return;
+      h+='<p class="part">'+g[2]+'</p><div class="pass"><h3>'+esc(PAS[g[1]].title)+'</h3><p>'+esc(PAS[g[1]].text)+'</p></div><div class="qs">';
+      g[0].forEach(function(j){n++;h+=tfCard('b:'+j,n,Q2[j].q,S.ans['b:'+j])});
+      h+='</div>';
+    });
+    if(P.qx.length){
+      h+='<p class="part">تمارين (A) الصح والخطأ من الكتاب (تدريب إضافي)</p><div class="qs">';
+      P.qx.forEach(function(k){n++;h+=tfCard('c:'+k,n,EX[k].q,S.ans['c:'+k])});
+      h+='</div>';
+    }
+  }
+  if(sec==='q3'){
+    h+='<h2>السؤال الثالث: اختيار من متعدد</h2><p class="cap">اختاري الإجابة الصحيحة. ترتيب الخيارات يتغير في كل محاولة.</p><div class="qs">';
+    P.q3.forEach(function(q){
+      n++;var k='d:'+q.m,v=S.ans[k];
+      h+='<div class="qc" data-card="'+k+'"><div class="qh ltr"><span class="no num">'+n+'</span><p class="qt en">'+esc(MCQ[q.m].q)+'</p></div><div class="mo ltr">';
+      q.o.forEach(function(oi,x){h+='<button data-k="'+k+'" data-v="'+oi+'" aria-pressed="'+(v===oi)+'"><b>'+EN[x]+'</b><span>'+esc(MCQ[q.m].o[oi])+'</span></button>'});
+      h+='</div></div>';
+    });
+    h+='</div>';
+  }
+  return h;
+}
+function renderExam(){
+  var list=secs();if(S.sec>=list.length)S.sec=0;
+  var sec=list[S.sec],last=S.sec===list.length-1,h=barHtml();
+  h+='<div id="sec" class="'+sec+'">'+secHtml(sec)+'</div><div class="pnav">';
+  h+=S.sec>0?'<button class="btn ghost" data-a="prev">السابق</button>':'<button class="btn ghost" data-a="home">الخروج</button>';
+  h+=last?'<button class="btn" data-a="submit">تسليم الاختبار</button>':'<button class="btn" data-a="next">التالي</button>';
+  h+='</div>';
+  $('#exam').innerHTML=h;
+}
+function refreshBar(){
+  var b=$('.bar');if(!b)return;
+  var t=document.createElement('div');t.innerHTML=barHtml();b.replaceWith(t.firstChild);
+}
+$('#exam').addEventListener('click',function(e){
+  var o=e.target.closest('button[data-k]');
+  if(o){
+    var k=o.getAttribute('data-k'),v=o.getAttribute('data-v');
+    var val=(k.charAt(0)==='a'||k.charAt(0)==='d')?+v:v;
+    S.ans[k]=val;save();
+    $$('button[data-k="'+k+'"]').forEach(function(x){x.setAttribute('aria-pressed',String(x===o))});
+    refreshBar();return;
+  }
+  var b=e.target.closest('button[data-a]');if(!b)return;
+  var a=b.getAttribute('data-a');
+  if(a==='tab'){S.sec=+b.getAttribute('data-i');save();renderExam();window.scrollTo(0,0)}
+  else if(a==='next'){S.sec++;save();renderExam();window.scrollTo(0,0)}
+  else if(a==='prev'){S.sec--;save();renderExam();window.scrollTo(0,0)}
+  else if(a==='home'){show('start');renderStart()}
+  else if(a==='submit'){
+    var left=allKeys().filter(function(k){return !has(k)}).length;
+    var done=function(){S.phase='result';S.filter='all';var ks=allKeys();histAdd(ks.filter(function(k){return judge(k)==='ok'}).length,ks.length);save();show('result');renderResult()};
+    if(left)ask('تسليم الاختبار؟','باقي '+left+' سؤالًا بلا إجابة، وستُحسب خطأ. هل تسلّمين الآن؟','سلّمي','رجوع للاختبار',done);else done();
+  }
+});
+$('#exam').addEventListener('input',function(e){
+  var k=e.target.getAttribute&&e.target.getAttribute('data-t');if(!k)return;
+  S.ans[k]=e.target.value;save();refreshBar();
+});
+
+/* ---------- النتيجة ---------- */
+function reviewCard(k){
+  var t=k.charAt(0),n=+k.slice(2),st=judge(k),h='',lab={ok:'صحيحة',bad:'خاطئة',skip:'بلا إجابة'}[st],ic={ok:'✓',bad:'✗',skip:'—'}[st];
+  var head='<div class="rv '+st+'" data-st="'+st+'"><span class="st '+st+'">'+ic+' '+lab+'</span>';
+  if(t==='a'){
+    var T=TERMS[n],v=S.ans[k];
+    var mine=!has(k)?'—':(S.cfg.m==='pick'?disp(v):String(v));
+    h=head+'<span class="src">الوحدة '+T.u+' · ص'+T.tp+'</span><p class="qt en">'+esc(T.en)+'</p><div class="ansl">'+
+      '<div><span class="k">إجابتك</span><span class="v '+(st==='ok'?'ok':st==='bad'?'bad':'')+'">'+esc(mine)+'</span></div>'+
+      '<div><span class="k">في الكتاب</span><span class="v ok">'+esc(disp(n))+'</span></div></div>'+
+      (T.note?'<p class="hint" style="margin:0 0 6px">'+esc(T.note)+'</p>':'')+
+      '<div class="why"><b>التعريف في الكتاب (ص'+T.dp+'):</b><span class="en">'+esc(T.d)+'</span></div></div>';
+  }else if(t==='b'||t==='c'){
+    var Q=t==='b'?Q2[n]:EX[n],v2=S.ans[k];
+    var ans=function(x){return x?'True · صح':'False · خطأ'};
+    h=head+'<span class="src">'+esc(Q.src)+'</span><p class="qt en">'+esc(Q.q)+'</p><div class="ansl">'+
+      '<div><span class="k">إجابتك</span><span class="v '+(st==='ok'?'ok':st==='bad'?'bad':'')+'">'+(has(k)?ans(v2==='T'):'—')+'</span></div>'+
+      '<div><span class="k">الصحيح</span><span class="v ok">'+ans(Q.a)+'</span></div></div>'+
+      (Q.ev?'<div class="why"><b>'+(t==='b'?'من القطعة:':'من الكتاب:')+'</b><span class="en">'+esc(Q.ev)+'</span></div>':'')+'</div>';
+  }else{
+    var M=MCQ[n],pk=S.ans[k],P=S.paper.q3.filter(function(q){return q.m===n})[0];
+    h=head+'<span class="src">ص'+M.src.replace('ص','')+'</span><p class="qt en">'+esc(M.q)+'</p><div style="display:grid;gap:5px;margin-bottom:8px">';
+    P.o.forEach(function(oi,x){
+      var cls=oi===M.a?'right':(oi===pk?'wrong':'');
+      h+='<div class="mrow '+cls+'"><b>'+EN[x]+'</b><span>'+esc(M.o[oi])+'</span>'+(oi===M.a?'<span class="tag">الصحيحة</span>':(oi===pk?'<span class="tag">اختيارك</span>':''))+'</div>';
+    });
+    h+='</div><div class="why"><b>من الكتاب:</b><span class="en">'+esc(M.ref)+'</span></div>'+'</div>';
+  }
+  return h;
+}
+function renderResult(){
+  var list=secs(),tot=0,ok=0,h='',rows='',wrongKeys=[];
+  list.forEach(function(s){
+    var k=keysOf(s),g=k.filter(function(x){return judge(x)==='ok'}).length;
+    tot+=k.length;ok+=g;
+    k.forEach(function(x){if(judge(x)!=='ok')wrongKeys.push(x)});
+    rows+='<div class="br '+s+'"><span class="t">'+SEC[s].t+'</span><div class="meter"><i style="width:'+Math.round(100*g/k.length)+'%"></i></div><span class="v num">'+g+'/'+k.length+'</span></div>';
+  });
+  var pc=tot?Math.round(100*ok/tot):0;
+  var verdict=pc>=90?'ممتاز، أنتِ جاهزة.':pc>=75?'جيد جدًا، راجعي الأخطاء وستكتمل.':pc>=60?'جيد. راجعي الأخطاء ثم أعيدي المحاولة.':'راجعي الملخص ثم أعيدي المحاولة.';
+  h+='<h2>النتيجة</h2><div class="card"><div class="score"><span class="big num">'+ok+'</span><span class="of num">من '+tot+'</span><span class="pc num">'+pc+'%</span></div><p class="verdict">'+verdict+'</p><div class="brk">'+rows+'</div>';
+  if(wrongKeys.length)h+='<p class="focus">عندك <span class="num">'+wrongKeys.length+'</span> سؤالًا للمراجعة (خاطئ أو بلا إجابة).</p>';
+  h+='<div class="row" style="margin-top:12px">'+(wrongKeys.length?'<button class="btn" data-a="retry">أعيدي الأخطاء فقط</button>':'')+'<button class="btn ghost" data-a="again">اختبار جديد</button></div></div>';
+  h+='<h2>مراجعة الإجابات</h2><div class="filters"><button class="fchip" data-f="all" aria-pressed="'+(S.filter!=='bad')+'">الكل</button><button class="fchip wrongonly" data-f="bad" aria-pressed="'+(S.filter==='bad')+'">الأخطاء فقط</button></div><div id="rvl">';
+  list.forEach(function(s){
+    h+='<p class="part">'+SEC[s].t+': '+({q1:'المصطلحات',q2:'القطعة وصح/خطأ',q3:'الاختيار من متعدد'}[s])+'</p>';
+    keysOf(s).forEach(function(k){h+=reviewCard(k)});
+  });
+  h+='</div><p class="empty-state" id="none" hidden>لا توجد أخطاء. أحسنتِ!</p><p class="hint" style="text-align:center;margin-top:18px">إعداد: رهام فهد الداود</p>';
+  $('#result').innerHTML=h;
+  applyFilter();
+  S.wrong=wrongKeys;
+}
+function applyFilter(){
+  var bad=S.filter==='bad',any=false;
+  $$('#rvl .rv').forEach(function(r){var hide=bad&&r.getAttribute('data-st')==='ok';r.hidden=hide;if(!hide)any=true});
+  $$('#rvl .part').forEach(function(p){var n=p.nextElementSibling,vis=false;while(n&&!n.classList.contains('part')){if(!n.hidden)vis=true;n=n.nextElementSibling}p.hidden=!vis});
+  $('#none').hidden=any;
+}
+$('#result').addEventListener('click',function(e){
+  var f=e.target.closest('button[data-f]');
+  if(f){S.filter=f.getAttribute('data-f');save();$$('.fchip').forEach(function(x){x.setAttribute('aria-pressed',String(x===f))});applyFilter();return}
+  var b=e.target.closest('button[data-a]');if(!b)return;
+  var a=b.getAttribute('data-a');
+  if(a==='again'){S.phase='start';save();DRAFT=JSON.parse(JSON.stringify(S.cfg));show('start');renderStart()}
+  else if(a==='retry'){
+    var only=S.wrong.slice(),cfg=JSON.parse(JSON.stringify(S.cfg));
+    S={v:2,phase:'exam',cfg:cfg,paper:gen(cfg,only),ans:{},sec:0};save();show('exam');renderExam();
+  }
+});
+
+/* ---------- التشغيل ---------- */
+if(S.phase==='start'||!S.paper){S.phase='start';show('start');renderStart()}
+else{show('start');renderStart()}
+})();
+</script>
+
+</body>
+</html>
